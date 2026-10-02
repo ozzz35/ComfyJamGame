@@ -1,0 +1,13 @@
+[gd_scene format=3]
+
+[node name="Main" type="Node2D"]
+
+[node name="World" type="Node2D" parent="."]
+
+[node name="Leaves" type="Node2D" parent="."]
+
+[node name="Actors" type="Node2D" parent="."]
+
+[node name="Uncoverables" type="Node2D" parent="."]
+
+[node name="UI" type="CanvasLayer" parent="."]
