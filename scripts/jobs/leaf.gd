@@ -1,6 +1,6 @@
 extends Node2D
-var velocity = Vector2.ZERO
-var slowdown = 60
+var velocity : Vector2 = Vector2.ZERO
+var slowdown : int = 60
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

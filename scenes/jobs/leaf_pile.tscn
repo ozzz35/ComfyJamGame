@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://b2bqm6rwpcek4"]
+
+[ext_resource type="Script" uid="uid://bp5fvufo87p3l" path="res://scripts/jobs/leaf_pile.gd" id="1_w5crr"]
+
+[node name="LeafPile" type="Node2D" unique_id=507080395]
+script = ExtResource("1_w5crr")
+spawn_polygon = PackedVector2Array(0, 0, 1280, 0, 1280, 720, 0, 720)
+leaf_count = 3200
+pile_count = 30
+pile_radius = 75
+
+[node name="SpawnArea" type="Polygon2D" parent="." unique_id=789380196]
+polygon = PackedVector2Array(0, 0, 1280, 0, 1280, 720, 0, 720)
