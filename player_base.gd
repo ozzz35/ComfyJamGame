@@ -1,1 +1,0 @@
-class_name PlayerBase extends CharacterBody2D

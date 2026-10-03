@@ -21,3 +21,6 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeafArea" unique_id=290321102]
 position = Vector2(3, 4)
 shape = SubResource("RectangleShape2D_ur6hh")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="." unique_id=1401834840]
+rect = Rect2(0, 0, 6, 8)

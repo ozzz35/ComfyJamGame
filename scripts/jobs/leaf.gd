@@ -1,18 +1,16 @@
-extends Node2D
-var velocity : Vector2 = Vector2.ZERO
-var slowdown : int = 60
+class_name Leaf extends Node2D
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass
+var velocity := Vector2.ZERO
+var drag := 4.0
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	position += velocity * delta
-	velocity = velocity.move_toward(Vector2.ZERO, slowdown * delta)
+	velocity *= exp(-drag * delta)
+	if velocity.length() < 5.0:
+		velocity = Vector2.ZERO
 
 func receive_gust(origin: Vector2, direction: Vector2, strength: float):
 	if direction == Vector2.ZERO:
 		return
-	velocity += direction.normalized() * strength
+	var target := direction.normalized() * strength
+	velocity = velocity.lerp(target, 0.3)

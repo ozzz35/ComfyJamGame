@@ -1,9 +1,13 @@
 [gd_scene format=3 uid="uid://bmcckye3a6atr"]
 
-[ext_resource type="Script" uid="uid://bholsq75rp0gi" path="res://player_base.gd" id="1_gmlin"]
+[ext_resource type="Script" uid="uid://bholsq75rp0gi" path="res://scripts/player/player_base.gd" id="1_lvxji"]
 [ext_resource type="Script" uid="uid://f62m4akkc3je" path="res://scripts/player/movement_comp.gd" id="2_lvxji"]
 [ext_resource type="Script" uid="uid://cetddbnpyos1x" path="res://scripts/player/camera.gd" id="3_lvxji"]
 [ext_resource type="Texture2D" uid="uid://5ub2ele40oik" path="res://icon.svg" id="3_p47bc"]
+[ext_resource type="Script" uid="uid://y46kb38xmwpq" path="res://scripts/player/rake.gd" id="4_p47bc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p47bc"]
+size = Vector2(373.26526, 318.3673)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_75vfm"]
 size = Vector2(112, 114)
@@ -12,10 +16,25 @@ size = Vector2(112, 114)
 size = Vector2(128, 128)
 
 [node name="Player" type="CharacterBody2D" unique_id=1726532600]
-script = ExtResource("1_gmlin")
+script = ExtResource("1_lvxji")
 
 [node name="MovementComp" type="Node2D" parent="." unique_id=777377658]
 script = ExtResource("2_lvxji")
+
+[node name="Rake" type="Sprite2D" parent="." unique_id=327417097]
+position = Vector2(144, 0)
+scale = Vector2(0.245, 0.245)
+texture = ExtResource("3_p47bc")
+script = ExtResource("4_p47bc")
+
+[node name="ReachArea" type="Area2D" parent="Rake" unique_id=1685371138]
+position = Vector2(-77.55102, 0)
+collision_layer = 15
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rake/ReachArea" unique_id=1502066586]
+position = Vector2(176.6319, 4.8656852e-06)
+shape = SubResource("RectangleShape2D_p47bc")
 
 [node name="Camera" type="Camera2D" parent="." unique_id=1346915392]
 script = ExtResource("3_lvxji")
