@@ -1,13 +1,17 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://7okdvg4lsw0f"]
 
-[node name="Main" type="Node2D"]
+[ext_resource type="PackedScene" uid="uid://bssrfsbb1ixwi" path="res://scenes/jobs/leaves.tscn" id="1_hyk8p"]
 
-[node name="World" type="Node2D" parent="."]
+[node name="Main" type="Node2D" unique_id=318748357]
 
-[node name="Leaves" type="Node2D" parent="."]
+[node name="World" type="Node2D" parent="." unique_id=86667166]
 
-[node name="Actors" type="Node2D" parent="."]
+[node name="Leaves" type="Node2D" parent="." unique_id=724778414]
 
-[node name="Uncoverables" type="Node2D" parent="."]
+[node name="LeafPile" parent="Leaves" unique_id=1559555329 instance=ExtResource("1_hyk8p")]
 
-[node name="UI" type="CanvasLayer" parent="."]
+[node name="Actors" type="Node2D" parent="." unique_id=428057445]
+
+[node name="Uncoverables" type="Node2D" parent="." unique_id=1373644660]
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=716590470]
