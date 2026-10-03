@@ -44,16 +44,17 @@ func _random_point_in_polygon() -> Vector2:
 			return pos
 	return Vector2(INF, INF)
 
-func _point_around_center(center: Vector2, radius: float) -> Vector2:
+func _point_around_center(center: Vector2, radius: float, squash: float, spin: float) -> Vector2:
 	var attempts := 0
-	var angle : float = 0.0
-	var distance : float = 0.0
-	var pos : Vector2 
+	var pos : Vector2
 	while attempts < 15:
-		attempts += 1	
-		angle = randf() * TAU
-		distance = randf_range(0.0, radius)
-		pos = center + Vector2.from_angle(angle) * distance
+		attempts += 1
+		var offset := Vector2.from_angle(randf() * TAU) * (radius * sqrt(randf()))
+		offset = offset.rotated(-spin)
+		offset.x *= squash
+		offset *= randf_range(0.8, 1.15)
+		offset = offset.rotated(spin)
+		pos = center + offset
 		if Geometry2D.is_point_in_polygon(pos, spawn_polygon):
 			return pos
 	return Vector2(INF, INF)
@@ -72,11 +73,19 @@ func _plan_piles() -> Array:
 	var centers_weight: Array = []
 	var weight_sum: float = 0.0
 	var radii: Array = []
+	var squashes: Array = []
+	var spins: Array = []
 	for _i in centers.size():
-		var weight := randf_range(0.4, 1.6)
+		var radius := randf_range(pile_radius * 0.45, float(pile_radius))
+		var squash := randf_range(0.4, 1.0)
+		radii.append(radius)
+		squashes.append(squash)
+		spins.append(randf() * TAU)
+		var weight := radius * radius * squash
 		centers_weight.append(weight)
 		weight_sum += weight
-		radii.append(randf_range(pile_radius * 0.45, float(pile_radius)))
+	if weight_sum == 0.0:
+		weight_sum = float(centers.size())
 	var counts: Array = []
 	for weight in centers_weight:
 		counts.append(int(leaf_count * weight / weight_sum))
@@ -91,7 +100,9 @@ func _plan_piles() -> Array:
 		plan.append({
 			"center": centers[i],
 			"count": counts[i],
-			"radius": radii[i]
+			"radius": radii[i],
+			"squash": squashes[i],
+			"spin": spins[i]
 		})
 	return plan
 
@@ -103,8 +114,10 @@ func _spawn_leaves() -> void:
 		var center := pile["center"] as Vector2
 		var count := pile["count"] as int
 		var radius := pile["radius"] as float
+		var squash := pile["squash"] as float
+		var spin := pile["spin"] as float
 		for i in count:
-			var leaf_pos : Vector2 = _point_around_center(center, radius)
+			var leaf_pos : Vector2 = _point_around_center(center, radius, squash, spin)
 			if not leaf_pos.is_finite():
 				continue
 			var leaf = leaves.instantiate()
