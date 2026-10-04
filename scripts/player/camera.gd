@@ -17,8 +17,8 @@ var _shake_target: Vector2 = Vector2.ZERO
 var _shake_damping: float = 8.0
 var _shake_jitter_speed: float = 25.0
 
-@export var min_scale: float = 0.7
-@export var max_scale: float = 1.5
+@export var min_scale: float = 4
+@export var max_scale: float = 8
 @export var zoom_step: float = 1.12
 @export var smooth_speed: float = 8.0
 

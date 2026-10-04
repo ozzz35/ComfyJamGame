@@ -88,8 +88,11 @@ tile_set = SubResource("TileSet_6q06x")
 
 [node name="LeafPile2" parent="Leaves" unique_id=507080395 instance=ExtResource("2_k2fmo")]
 position = Vector2(111, 135)
-pile_radius = 50
-density = 0.04
+pile_radius = 65
+density = 0.135
+squish = 1.0
+spin = 2.1354164176480124
+edge_wobble = 0.33
 
 [node name="Actors" type="Node2D" parent="." unique_id=428057445]
 
