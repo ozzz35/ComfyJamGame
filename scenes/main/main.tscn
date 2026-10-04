@@ -1,8 +1,8 @@
 [gd_scene format=4 uid="uid://7okdvg4lsw0f"]
 
-[ext_resource type="PackedScene" uid="uid://bssrfsbb1ixwi" path="res://scenes/jobs/leaves.tscn" id="1_hyk8p"]
 [ext_resource type="Texture2D" uid="uid://5ub2ele40oik" path="res://icon.svg" id="1_k2fmo"]
 [ext_resource type="PackedScene" uid="uid://bmcckye3a6atr" path="res://scenes/player/player.tscn" id="2_iuonh"]
+[ext_resource type="PackedScene" uid="uid://b2bqm6rwpcek4" path="res://scenes/jobs/leaf_pile.tscn" id="2_k2fmo"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l3cfh"]
 texture = ExtResource("1_k2fmo")
@@ -86,7 +86,10 @@ tile_set = SubResource("TileSet_6q06x")
 
 [node name="Leaves" type="Node2D" parent="." unique_id=724778414]
 
-[node name="LeafPile" parent="Leaves" unique_id=1559555329 instance=ExtResource("1_hyk8p")]
+[node name="LeafPile2" parent="Leaves" unique_id=507080395 instance=ExtResource("2_k2fmo")]
+position = Vector2(111, 135)
+pile_radius = 50
+density = 0.04
 
 [node name="Actors" type="Node2D" parent="." unique_id=428057445]
 
