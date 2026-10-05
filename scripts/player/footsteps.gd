@@ -52,9 +52,8 @@ func terrain_check():
 	##
 	if _near_leaf_pile():
 		play_step() # Play leaf/grass step when we'll have it
-	else:
-		return
-		play_step() # Play normal step array when we'll have it
+	# else:
+	#	play_step() # Play normal step array when we'll have it
 
 
 

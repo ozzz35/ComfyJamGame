@@ -36,9 +36,9 @@ const WOBBLE_MAX := 0.35
 		_spawn_leaves()
 
 ## Rolls radius, density, squish, spin, and edge wobble inside the slider ranges, then turns itself off.
-@export var randomize: bool = false:
+@export var randomize_pile: bool = false:
 	set(value):
-		randomize = false
+		randomize_pile = false
 		if not value or not Engine.is_editor_hint():
 			return
 		pile_radius = randi_range(RADIUS_MIN, RADIUS_MAX)
