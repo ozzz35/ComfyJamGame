@@ -195,7 +195,11 @@ animation = &"idle_bottom"
 [node name="Area" type="Area2D" parent="." unique_id=2079997563]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area" unique_id=228877526]
+position = Vector2(0, 2.305)
+scale = Vector2(0.12, 0.21)
 shape = SubResource("RectangleShape2D_75vfm")
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=423508525]
+position = Vector2(0, 2.305)
+scale = Vector2(0.12, 0.21)
 shape = SubResource("RectangleShape2D_0owmy")
