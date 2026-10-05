@@ -52,7 +52,7 @@ const leaves = preload("res://scenes/jobs/leaves.tscn")
 
 func _ready() -> void:
 	_spawn_leaves()
-
+	
 func _point_around_center(radius: float) -> Vector2:
 	var offset := Vector2.from_angle(randf() * TAU) * (radius * sqrt(randf()))
 	offset = offset.rotated(-spin)

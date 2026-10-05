@@ -3,7 +3,7 @@ extends Node2D
 @onready var base : PlayerBase = get_parent()
 @onready var sprite = $"../Sprite"
 
-var speed : int = 430
+var speed : int = 215
 var acceleration := 3000.0
 var friction := 2600.0
 var input_vector = Vector2.ZERO
