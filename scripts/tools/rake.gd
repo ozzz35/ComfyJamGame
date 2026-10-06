@@ -20,28 +20,30 @@ func _physics_process(delta: float) -> void:
 
 
 func _follow_mouse(delta: float) -> void:
+	var hold := _hold_position()
+	position = position.lerp(hold, clampf(delta * 10.0, 0.0, 1.0))
+
+
+func _hold_position() -> Vector2:
 	var to_mouse := get_global_mouse_position() - player.global_position
 	if to_mouse == Vector2.ZERO:
-		return
+		return position if position.length_squared() > 0.001 else Vector2.RIGHT * 22.0
 	var reach := clampf(to_mouse.length() / 280.0, 0.0, 1.0)
-	var distance := lerpf(22.0, 50.0, reach)
-	var target_position := to_mouse.normalized() * distance
-	position = position.lerp(target_position, clampf(delta * 10.0, 0.0, 1.0))
+	return to_mouse.normalized() * lerpf(22.0, 50.0, reach)
 
 
 func sweep() -> void:
 	if sweeping:
 		return
 	sweeping = true
-	var offset := position
-	if offset.length_squared() < 0.001:
-		offset = Vector2.RIGHT * 22.0
-	var facing := offset.normalized()
-	var distance := clampf(offset.length(), 22.0, 50.0)
+	var hold := _hold_position()
+	var facing := hold.normalized()
+	var distance := hold.length()
 	var tween := create_tween()
 	tween.tween_property(self, "position", facing.rotated(-0.35) * distance, 0.07)
 	tween.tween_property(self, "position", facing.rotated(0.55) * distance, 0.12).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 	tween.tween_callback(_rake_leaves)
+	tween.tween_property(self, "position", hold, 0.08)
 	tween.finished.connect(_end_sweep)
 
 
