@@ -1,4 +1,4 @@
-extends Node2D
+class_name Leaf extends Node2D
 var velocity : Vector2 = Vector2.ZERO
 var slowdown : int = 60
 var gone : bool = false
