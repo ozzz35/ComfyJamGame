@@ -1,19 +1,10 @@
-[gd_scene format=3 uid="uid://7okdvg4lsw0f"]
+[gd_scene format=4 uid="uid://7okdvg4lsw0f"]
 
-[ext_resource type="PackedScene" uid="uid://b2bqm6rwpcek4" path="res://scenes/jobs/leaf_pile.tscn" id="1_hyk8p"]
-[ext_resource type="PackedScene" uid="uid://bmcckye3a6atr" path="res://scenes/player/player.tscn" id="2_iuonh"]
+[ext_resource type="PackedScene" uid="uid://duy522bit7the" path="res://scenes/jobs/job.tscn" id="1_job"]
 
 [node name="Main" type="Node2D" unique_id=318748357]
 
-[node name="World" type="Node2D" parent="." unique_id=86667166]
-
-[node name="Leaves" type="Node2D" parent="." unique_id=724778414]
-
-[node name="LeafPile" parent="Leaves" unique_id=507080395 instance=ExtResource("1_hyk8p")]
-
-[node name="Actors" type="Node2D" parent="." unique_id=428057445]
-
-[node name="Player" parent="Actors" unique_id=1726532600 instance=ExtResource("2_iuonh")]
+[node name="Job" parent="." unique_id=146262496 instance=ExtResource("1_job")]
 
 [node name="Uncoverables" type="Node2D" parent="." unique_id=1373644660]
 

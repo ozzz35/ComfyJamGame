@@ -18,7 +18,7 @@ func rake() -> void:
 			continue
 		var leaf: Leaf = area.get_parent()
 		var push_direction: Vector2 = global_position - player.global_position
-		leaf.receive_gust(push_direction, rake_strength)
+		leaf.receive_gust(global_position, push_direction, rake_strength)
 
 func _update_position() -> void:
 	const minimum_distance := 80.0
