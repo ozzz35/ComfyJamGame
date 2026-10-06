@@ -29,11 +29,11 @@ script = ExtResource("4_p47bc")
 
 [node name="ReachArea" type="Area2D" parent="Rake" unique_id=1685371138]
 position = Vector2(-77.55102, 0)
-collision_layer = 15
-collision_mask = 15
+collision_layer = 0
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rake/ReachArea" unique_id=1502066586]
-position = Vector2(176.6319, 4.8656852e-06)
+position = Vector2(176.6319, 0)
 shape = SubResource("RectangleShape2D_p47bc")
 
 [node name="Camera" type="Camera2D" parent="." unique_id=1346915392]

@@ -1,33 +1,35 @@
 extends Sprite2D
 
-@onready var base: PlayerBase = $".."
-var rake_strength: int = 500
+@onready var player: PlayerBase = $".."
 @onready var reach_area: Area2D = $ReachArea
 
+var rake_strength: int = 500
+
 func _input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("mouse_left"):
+	if event.is_action_pressed("mouse_left"):
 		rake()
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	_update_position()
 
-func rake():
-	for node in reach_area.get_overlapping_areas():
-		if node.name == "LeafArea":
-			var leaf: Leaf = node.get_parent()
-			var dir: Vector2 = global_position - base.global_position
-			leaf.receive_gust(global_position, dir, rake_strength)
+func rake() -> void:
+	for area in reach_area.get_overlapping_areas():
+		if area.name != "LeafArea":
+			continue
+		var leaf: Leaf = area.get_parent()
+		var push_direction: Vector2 = global_position - player.global_position
+		leaf.receive_gust(push_direction, rake_strength)
 
-func _update_position():
-	const MIN_DIST := 80.0
-	const MAX_DIST := 230.0
-	const FULL_RANGE := 400.0
-	
-	var to_mouse := get_global_mouse_position() - base.global_position
-	
-	var t := clampf(to_mouse.length() / FULL_RANGE, 0.0, 1.0)
-	
-	var eased := smoothstep(0.0, 1.0, t)
-	
-	var distance := lerpf(MIN_DIST, MAX_DIST, eased)
-	global_position = base.global_position + to_mouse.normalized() * distance
+func _update_position() -> void:
+	const minimum_distance := 80.0
+	const maximum_distance := 230.0
+	const full_mouse_range := 400.0
+
+	var to_mouse := get_global_mouse_position() - player.global_position
+	if to_mouse == Vector2.ZERO:
+		return
+
+	var mouse_range := clampf(to_mouse.length() / full_mouse_range, 0.0, 1.0)
+	var eased_range := smoothstep(0.0, 1.0, mouse_range)
+	var distance_from_player := lerpf(minimum_distance, maximum_distance, eased_range)
+	global_position = player.global_position + to_mouse.normalized() * distance_from_player
