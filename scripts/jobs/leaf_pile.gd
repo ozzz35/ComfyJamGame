@@ -2,7 +2,7 @@
 extends Node2D
 
 const RADIUS_MIN := 10
-const RADIUS_MAX := 100
+const RADIUS_MAX := 40
 const DENSITY_MIN := 0.005
 const DENSITY_MAX := 0.2
 const DENSITY_STEP := 0.005
@@ -10,7 +10,7 @@ const SQUISH_MIN := 0.4
 const SQUISH_MAX := 1.0
 const WOBBLE_MAX := 0.35
 
-@export_range(10, 100, 1, "or_greater") var pile_radius: int = 75:
+@export_range(10, 40, 1, "or_greater") var pile_radius: int = 75:
 	set(value):
 		pile_radius = value
 		_spawn_leaves()
@@ -36,9 +36,9 @@ const WOBBLE_MAX := 0.35
 		_spawn_leaves()
 
 ## Rolls radius, density, squish, spin, and edge wobble inside the slider ranges, then turns itself off.
-@export var randomize: bool = false:
+@export var randomize_pile: bool = false:
 	set(value):
-		randomize = false
+		randomize_pile = false
 		if not value or not Engine.is_editor_hint():
 			return
 		pile_radius = randi_range(RADIUS_MIN, RADIUS_MAX)

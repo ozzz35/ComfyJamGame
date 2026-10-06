@@ -1,0 +1,242 @@
+[gd_scene format=4 uid="uid://duy522bit7the"]
+
+[ext_resource type="PackedScene" uid="uid://b2bqm6rwpcek4" path="res://scenes/jobs/leaf_pile.tscn" id="1_4nao2"]
+[ext_resource type="Script" uid="uid://bheohr5w4fyua" path="res://scenes/jobs/job.gd" id="1_gqvfu"]
+[ext_resource type="Texture2D" uid="uid://dphlg4rsm8wim" path="res://assets/art/tiles/Dirt_tiles.png" id="3_yhiig"]
+[ext_resource type="Texture2D" uid="uid://cxnryrdmagts7" path="res://assets/art/tiles/Grass_tiles.png" id="4_odegx"]
+[ext_resource type="Texture2D" uid="uid://cmofq22yx3rqj" path="res://assets/art/tiles/Road__sidewalk.png" id="5_377pv"]
+[ext_resource type="PackedScene" uid="uid://bmcckye3a6atr" path="res://scenes/player/player.tscn" id="8_377pv"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0bn0k"]
+texture = ExtResource("3_yhiig")
+0:0/size_in_atlas = Vector2i(2, 2)
+0:0/0 = 0
+0:2/size_in_atlas = Vector2i(2, 2)
+0:2/0 = 0
+0:4/size_in_atlas = Vector2i(2, 2)
+0:4/0 = 0
+0:6/size_in_atlas = Vector2i(2, 2)
+0:6/0 = 0
+2:0/size_in_atlas = Vector2i(2, 2)
+2:0/0 = 0
+4:0/size_in_atlas = Vector2i(2, 2)
+4:0/0 = 0
+6:0/size_in_atlas = Vector2i(2, 2)
+6:0/0 = 0
+2:2/size_in_atlas = Vector2i(2, 2)
+2:2/0 = 0
+4:2/size_in_atlas = Vector2i(2, 2)
+4:2/0 = 0
+6:2/size_in_atlas = Vector2i(2, 2)
+6:2/0 = 0
+2:4/size_in_atlas = Vector2i(2, 2)
+2:4/0 = 0
+2:6/size_in_atlas = Vector2i(2, 2)
+2:6/0 = 0
+4:4/size_in_atlas = Vector2i(2, 2)
+4:4/0 = 0
+6:4/size_in_atlas = Vector2i(2, 2)
+6:4/0 = 0
+4:6/size_in_atlas = Vector2i(2, 2)
+4:6/0 = 0
+6:6/size_in_atlas = Vector2i(2, 2)
+6:6/0 = 0
+8:4/size_in_atlas = Vector2i(2, 2)
+8:4/0 = 0
+10:4/size_in_atlas = Vector2i(2, 2)
+10:4/0 = 0
+10:6/size_in_atlas = Vector2i(2, 2)
+10:6/0 = 0
+8:6/size_in_atlas = Vector2i(2, 2)
+8:6/0 = 0
+8:0/size_in_atlas = Vector2i(2, 2)
+8:0/0 = 0
+10:0/size_in_atlas = Vector2i(2, 2)
+10:0/0 = 0
+10:2/size_in_atlas = Vector2i(2, 2)
+10:2/0 = 0
+8:2/size_in_atlas = Vector2i(2, 2)
+8:2/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_of2jq"]
+texture = ExtResource("4_odegx")
+0:0/size_in_atlas = Vector2i(2, 2)
+0:0/0 = 0
+2:0/size_in_atlas = Vector2i(2, 2)
+2:0/0 = 0
+4:0/size_in_atlas = Vector2i(2, 2)
+4:0/0 = 0
+6:0/size_in_atlas = Vector2i(2, 2)
+6:0/0 = 0
+6:2/size_in_atlas = Vector2i(2, 2)
+6:2/0 = 0
+4:2/size_in_atlas = Vector2i(2, 2)
+4:2/0 = 0
+2:2/size_in_atlas = Vector2i(2, 2)
+2:2/0 = 0
+8:0/size_in_atlas = Vector2i(2, 2)
+8:0/0 = 0
+10:0/size_in_atlas = Vector2i(2, 2)
+10:0/0 = 0
+10:2/size_in_atlas = Vector2i(2, 2)
+10:2/0 = 0
+8:2/size_in_atlas = Vector2i(2, 2)
+8:2/0 = 0
+8:4/size_in_atlas = Vector2i(2, 2)
+8:4/0 = 0
+10:4/size_in_atlas = Vector2i(2, 2)
+10:4/0 = 0
+10:6/size_in_atlas = Vector2i(2, 2)
+10:6/0 = 0
+8:6/size_in_atlas = Vector2i(2, 2)
+8:6/0 = 0
+6:4/size_in_atlas = Vector2i(2, 2)
+6:4/0 = 0
+4:4/size_in_atlas = Vector2i(2, 2)
+4:4/0 = 0
+2:4/size_in_atlas = Vector2i(2, 2)
+2:4/0 = 0
+2:6/size_in_atlas = Vector2i(2, 2)
+2:6/0 = 0
+4:6/size_in_atlas = Vector2i(2, 2)
+4:6/0 = 0
+6:6/size_in_atlas = Vector2i(2, 2)
+6:6/0 = 0
+0:2/size_in_atlas = Vector2i(2, 2)
+0:2/0 = 0
+0:4/size_in_atlas = Vector2i(2, 2)
+0:4/0 = 0
+0:6/size_in_atlas = Vector2i(2, 2)
+0:6/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ocrtu"]
+texture = ExtResource("5_377pv")
+0:0/size_in_atlas = Vector2i(2, 2)
+0:0/0 = 0
+0:2/size_in_atlas = Vector2i(2, 2)
+0:2/0 = 0
+2:0/size_in_atlas = Vector2i(2, 2)
+2:0/0 = 0
+4:0/size_in_atlas = Vector2i(2, 2)
+4:0/0 = 0
+6:0/size_in_atlas = Vector2i(2, 2)
+6:0/0 = 0
+6:2/size_in_atlas = Vector2i(2, 2)
+6:2/0 = 0
+4:2/size_in_atlas = Vector2i(2, 2)
+4:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_ik4td"]
+tile_size = Vector2i(32, 32)
+sources/1 = SubResource("TileSetAtlasSource_of2jq")
+sources/2 = SubResource("TileSetAtlasSource_ocrtu")
+sources/0 = SubResource("TileSetAtlasSource_0bn0k")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fkjkc"]
+texture = ExtResource("5_377pv")
+2:2/0 = 0
+3:2/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_q7bc8"]
+sources/2 = SubResource("TileSetAtlasSource_fkjkc")
+
+[node name="JobRoot" type="Node2D" unique_id=718308018]
+script = ExtResource("1_gqvfu")
+
+[node name="World" type="Node2D" parent="." unique_id=1955614188]
+
+[node name="Garden" type="Node2D" parent="World" unique_id=146262496]
+
+[node name="MainMapLayer" type="TileMapLayer" parent="World/Garden" unique_id=1325637812]
+z_index = -1
+tile_map_data = PackedByteArray("AAD+////AQAEAAAAAAD+/wAAAQAAAAAAAAD+/wEAAQAAAAAAAAD9////AQAEAAAAAAD9/wAAAQAAAAIAAAD9/wEAAQAAAAQAAAD+/wIAAQAAAAQAAAD+/wMAAQAEAAAAACD9/wMAAQAEAAAAACD9/wIAAQAAAAIAAAD8/wIAAQAAAAQAAAD8/wEAAQAAAAAAAAD8/wAAAQAAAAAAAAD8////AQAEAAAAAAD7////AQAEAAAAAAD7/wAAAQAAAAQAAAD7/wEAAQAAAAIAAAD7/wIAAQAAAAIAAAD8/wMAAQAEAAAAACD7/wMAAQAEAAAAACD6/wMAAQAAAAIAAAD6/wIAAQAAAAQAAAD6/wEAAQAAAAIAAAD6/wAAAQAAAAQAAAD6////AQAEAAAAAAD6/wQAAQAKAAYAAAD5/wQAAQAIAAYAAAD5/wMAAQAEAAIAAFD5/wIAAQAEAAIAAFD5/wEAAQAEAAIAAFD5/wAAAQAEAAIAAFD5////AQACAAAAAAA=")
+tile_set = SubResource("TileSet_ik4td")
+
+[node name="SubMapLayer" type="TileMapLayer" parent="World/Garden" unique_id=567339107]
+z_index = -2
+tile_map_data = PackedByteArray("AAD5/wQAAAAAAAQAAAD6/wUAAAAEAAIAAAD5/wUAAAAEAAIAAAD4/wUAAAACAAIAAAD4/wQAAAAEAAIAAFD4/wMAAAAEAAIAAFD4/wIAAAAEAAIAAFD4/wEAAAAEAAIAAFD4/wAAAAAEAAIAAFD4////AAACAAAAAAD8/wQAAAAAAAAAAAD7/wUAAAAEAAIAAAD8/wUAAAAEAAIAAAD9/wUAAAAEAAIAAAD+/wUAAAAEAAIAAAD6/wQAAAAAAAAAAAD7/wQAAAAAAAAAAAD8/wMAAAAAAAAAAAD9/wMAAAAAAAAAAAD+/wMAAAAAAAAAAAD+/wQAAAAAAAAAAAD9/wQAAAAAAAAAAAD7/wMAAAAAAAAAAAD6/wMAAAAAAAAAAAD5/wMAAAAAAAAAAAD5/wIAAAAAAAAAAAD5/wEAAAAAAAAAAAD5/wAAAAAAAAAAAAD5////AAAEAAAAAAA=")
+tile_set = SubResource("TileSet_ik4td")
+
+[node name="CornersMapLayer" type="TileMapLayer" parent="World/Garden" unique_id=51630728]
+tile_map_data = PackedByteArray("AAAAAP7/AgACAAIAAFAAAA0AAgACAAIAAAABAA0AAgACAAIAABA=")
+tile_set = SubResource("TileSet_q7bc8")
+
+[node name="Leaves" type="Node2D" parent="." unique_id=355254947]
+
+[node name="LeafPile" parent="Leaves" unique_id=507080395 instance=ExtResource("1_4nao2")]
+light_mask = 2
+visibility_layer = 2
+position = Vector2(-107, 85)
+pile_radius = 32
+density = 0.14
+squish = 0.98
+spin = 4.2988025181970135
+edge_wobble = 0.08
+
+[node name="LeafPile2" parent="Leaves" unique_id=639842607 instance=ExtResource("1_4nao2")]
+light_mask = 2
+visibility_layer = 2
+position = Vector2(-189, 120)
+pile_radius = 31
+density = 0.09
+squish = 0.71
+spin = 0.3771237557124503
+edge_wobble = 0.28
+
+[node name="LeafPile3" parent="Leaves" unique_id=1632703247 instance=ExtResource("1_4nao2")]
+light_mask = 2
+visibility_layer = 2
+position = Vector2(-139, 42)
+pile_radius = 39
+density = 0.03
+squish = 0.44
+spin = 0.7136916771973321
+
+[node name="LeafPile4" parent="Leaves" unique_id=1347728618 instance=ExtResource("1_4nao2")]
+light_mask = 2
+visibility_layer = 2
+position = Vector2(-76, 23)
+pile_radius = 39
+density = 0.03
+squish = 0.44
+spin = 0.7136916771973321
+
+[node name="LeafPile5" parent="Leaves" unique_id=161002502 instance=ExtResource("1_4nao2")]
+light_mask = 2
+visibility_layer = 2
+position = Vector2(-157, 71)
+pile_radius = 16
+density = 0.075
+squish = 0.92
+spin = 3.329035293785277
+edge_wobble = 0.04
+
+[node name="LeafPile6" parent="Leaves" unique_id=2035604845 instance=ExtResource("1_4nao2")]
+light_mask = 2
+visibility_layer = 2
+position = Vector2(-178, 10)
+pile_radius = 35
+density = 0.115
+squish = 0.99
+spin = 5.136200607965833
+edge_wobble = 0.14
+
+[node name="LeafPile7" parent="Leaves" unique_id=2013766399 instance=ExtResource("1_4nao2")]
+light_mask = 2
+visibility_layer = 2
+position = Vector2(-56, 84)
+pile_radius = 28
+density = 0.12
+squish = 0.45
+spin = 0.3141592653589793
+edge_wobble = 0.32
+
+[node name="GardenArea" type="Polygon2D" parent="." unique_id=1877079582]
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(-32, -26, -221, -27, -221, 140, -212, 153, -196, 161, -177, 155, -163, 142, -162, 126, -32, 124)
+
+[node name="Actors" type="Node2D" parent="." unique_id=216789642]
+
+[node name="Player" parent="Actors" unique_id=1726532600 instance=ExtResource("8_377pv")]
