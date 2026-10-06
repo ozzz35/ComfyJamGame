@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ckucdrrt5axco"
-path="res://.godot/imported/leaf_1.png-3656e4da7c90ca163b20ed9b45a4e449.ctex"
+uid="uid://cmofq22yx3rqj"
+path="res://.godot/imported/Road__sidewalk.png-e5cd9bfb917d575fa76ecd049215f89e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/environment/leaves/leaf_1.png"
-dest_files=["res://.godot/imported/leaf_1.png-3656e4da7c90ca163b20ed9b45a4e449.ctex"]
+source_file="res://assets/art/tiles/Road__sidewalk.png"
+dest_files=["res://.godot/imported/Road__sidewalk.png-e5cd9bfb917d575fa76ecd049215f89e.ctex"]
 
 [params]
 
