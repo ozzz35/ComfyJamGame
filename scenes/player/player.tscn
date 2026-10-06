@@ -12,6 +12,8 @@
 [ext_resource type="AudioStream" uid="uid://b21ov5ethstev" path="res://assets/audio/sfx/steps/GrassStep5_1.wav" id="10_myrg7"]
 [ext_resource type="AudioStream" uid="uid://c73ervkj63kvm" path="res://assets/audio/sfx/steps/GrassStep6_1.wav" id="11_kvlxm"]
 [ext_resource type="AudioStream" uid="uid://bmr46u2dnmi03" path="res://assets/audio/sfx/steps/GrassStep7_1.wav" id="12_uf5tr"]
+[ext_resource type="Texture2D" uid="uid://5ub2ele40oik" path="res://icon.svg" id="13_rake_tex"]
+[ext_resource type="Script" uid="uid://y46kb38xmwpq" path="res://scripts/player/rake.gd" id="14_rake"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p47bc"]
 atlas = ExtResource("4_lvxji")
@@ -190,11 +192,29 @@ size = Vector2(128, 128)
 [sub_resource type="CircleShape2D" id="CircleShape2D_ur6hh"]
 radius = 5.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rake"]
+size = Vector2(373.26526, 318.3673)
+
 [node name="Player" type="CharacterBody2D" unique_id=1726532600]
 script = ExtResource("1_gmlin")
 
 [node name="MovementComp" type="Node2D" parent="." unique_id=777377658]
 script = ExtResource("2_lvxji")
+
+[node name="Rake" type="Sprite2D" parent="." unique_id=327417097]
+position = Vector2(144, 0)
+scale = Vector2(0.245, 0.245)
+texture = ExtResource("13_rake_tex")
+script = ExtResource("14_rake")
+
+[node name="ReachArea" type="Area2D" parent="Rake" unique_id=1685371138]
+position = Vector2(-77.55102, 0)
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rake/ReachArea" unique_id=1502066586]
+position = Vector2(176.6319, 0)
+shape = SubResource("RectangleShape2D_rake")
 
 [node name="Camera" type="Camera2D" parent="." unique_id=1346915392]
 script = ExtResource("3_lvxji")
