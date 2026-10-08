@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bmcckye3a6atr" path="res://scenes/player/player.tscn" id="2_iuonh"]
 [ext_resource type="Texture2D" uid="uid://dphlg4rsm8wim" path="res://assets/art/tiles/Dirt_tiles.png" id="2_ow5a4"]
 [ext_resource type="Texture2D" uid="uid://cxnryrdmagts7" path="res://assets/art/tiles/Grass_tiles.png" id="3_hujxm"]
-[ext_resource type="Texture2D" uid="uid://cmofq22yx3rqj" path="res://assets/art/tiles/Road__sidewalk.png" id="4_yyfjg"]
+[ext_resource type="Texture2D" uid="uid://dxsq8b2v75x6i" path="res://assets/art/tiles/Road__sidewalk.png" id="4_yyfjg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l3cfh"]
 texture = ExtResource("1_k2fmo")
@@ -76,56 +76,6 @@ texture = ExtResource("1_k2fmo")
 [sub_resource type="TileSet" id="TileSet_6q06x"]
 sources/0 = SubResource("TileSetAtlasSource_l3cfh")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b1x3f"]
-texture = ExtResource("2_ow5a4")
-0:0/size_in_atlas = Vector2i(2, 2)
-0:0/0 = 0
-0:2/size_in_atlas = Vector2i(2, 2)
-0:2/0 = 0
-0:4/size_in_atlas = Vector2i(2, 2)
-0:4/0 = 0
-0:6/size_in_atlas = Vector2i(2, 2)
-0:6/0 = 0
-2:0/size_in_atlas = Vector2i(2, 2)
-2:0/0 = 0
-4:0/size_in_atlas = Vector2i(2, 2)
-4:0/0 = 0
-6:0/size_in_atlas = Vector2i(2, 2)
-6:0/0 = 0
-2:2/size_in_atlas = Vector2i(2, 2)
-2:2/0 = 0
-4:2/size_in_atlas = Vector2i(2, 2)
-4:2/0 = 0
-6:2/size_in_atlas = Vector2i(2, 2)
-6:2/0 = 0
-2:4/size_in_atlas = Vector2i(2, 2)
-2:4/0 = 0
-2:6/size_in_atlas = Vector2i(2, 2)
-2:6/0 = 0
-4:4/size_in_atlas = Vector2i(2, 2)
-4:4/0 = 0
-6:4/size_in_atlas = Vector2i(2, 2)
-6:4/0 = 0
-4:6/size_in_atlas = Vector2i(2, 2)
-4:6/0 = 0
-6:6/size_in_atlas = Vector2i(2, 2)
-6:6/0 = 0
-8:4/size_in_atlas = Vector2i(2, 2)
-8:4/0 = 0
-10:4/size_in_atlas = Vector2i(2, 2)
-10:4/0 = 0
-10:6/size_in_atlas = Vector2i(2, 2)
-10:6/0 = 0
-8:6/size_in_atlas = Vector2i(2, 2)
-8:6/0 = 0
-8:0/size_in_atlas = Vector2i(2, 2)
-8:0/0 = 0
-10:0/size_in_atlas = Vector2i(2, 2)
-10:0/0 = 0
-10:2/size_in_atlas = Vector2i(2, 2)
-10:2/0 = 0
-8:2/size_in_atlas = Vector2i(2, 2)
-8:2/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a8run"]
 texture = ExtResource("3_hujxm")
@@ -178,38 +128,91 @@ texture = ExtResource("3_hujxm")
 0:6/size_in_atlas = Vector2i(2, 2)
 0:6/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ouso4"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6q06x"]
 texture = ExtResource("4_yyfjg")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_ur6hh"]
+tile_size = Vector2i(32, 32)
+sources/1 = SubResource("TileSetAtlasSource_a8run")
+sources/3 = SubResource("TileSetAtlasSource_6q06x")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hujxm"]
+texture = ExtResource("2_ow5a4")
 0:0/size_in_atlas = Vector2i(2, 2)
 0:0/0 = 0
 0:2/size_in_atlas = Vector2i(2, 2)
 0:2/0 = 0
+0:4/size_in_atlas = Vector2i(2, 2)
+0:4/0 = 0
+0:6/size_in_atlas = Vector2i(2, 2)
+0:6/0 = 0
 2:0/size_in_atlas = Vector2i(2, 2)
 2:0/0 = 0
 4:0/size_in_atlas = Vector2i(2, 2)
 4:0/0 = 0
 6:0/size_in_atlas = Vector2i(2, 2)
 6:0/0 = 0
-6:2/size_in_atlas = Vector2i(2, 2)
-6:2/0 = 0
+2:2/size_in_atlas = Vector2i(2, 2)
+2:2/0 = 0
 4:2/size_in_atlas = Vector2i(2, 2)
 4:2/0 = 0
-2:2/0 = 0
-3:2/0 = 0
+6:2/size_in_atlas = Vector2i(2, 2)
+6:2/0 = 0
+2:4/size_in_atlas = Vector2i(2, 2)
+2:4/0 = 0
+2:6/size_in_atlas = Vector2i(2, 2)
+2:6/0 = 0
+4:4/size_in_atlas = Vector2i(2, 2)
+4:4/0 = 0
+6:4/size_in_atlas = Vector2i(2, 2)
+6:4/0 = 0
+4:6/size_in_atlas = Vector2i(2, 2)
+4:6/0 = 0
+6:6/size_in_atlas = Vector2i(2, 2)
+6:6/0 = 0
+8:4/size_in_atlas = Vector2i(2, 2)
+8:4/0 = 0
+10:4/size_in_atlas = Vector2i(2, 2)
+10:4/0 = 0
+10:6/size_in_atlas = Vector2i(2, 2)
+10:6/0 = 0
+8:6/size_in_atlas = Vector2i(2, 2)
+8:6/0 = 0
+8:0/size_in_atlas = Vector2i(2, 2)
+8:0/0 = 0
+10:0/size_in_atlas = Vector2i(2, 2)
+10:0/0 = 0
+10:2/size_in_atlas = Vector2i(2, 2)
+10:2/0 = 0
+8:2/size_in_atlas = Vector2i(2, 2)
+8:2/0 = 0
 
-[sub_resource type="TileSet" id="TileSet_ur6hh"]
+[sub_resource type="TileSet" id="TileSet_yyfjg"]
 tile_size = Vector2i(32, 32)
-sources/1 = SubResource("TileSetAtlasSource_a8run")
-sources/2 = SubResource("TileSetAtlasSource_ouso4")
-sources/0 = SubResource("TileSetAtlasSource_b1x3f")
+sources/0 = SubResource("TileSetAtlasSource_hujxm")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7smn1"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ow5a4"]
 texture = ExtResource("4_yyfjg")
 2:2/0 = 0
 3:2/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+6:2/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+7:2/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_raeie"]
-sources/2 = SubResource("TileSetAtlasSource_7smn1")
+sources/0 = SubResource("TileSetAtlasSource_ow5a4")
 
 [node name="Main" type="Node2D" unique_id=318748357]
 
@@ -223,16 +226,16 @@ tile_map_data = PackedByteArray("AAABAAAAAAABAAIAAAABAAEAAAABAAIAAAABAAIAAAABAAI
 tile_set = SubResource("TileSet_6q06x")
 
 [node name="MainMapLayer" type="TileMapLayer" parent="World/TestMap" unique_id=1425088537]
-tile_map_data = PackedByteArray("AAAAAAAAAgAAAAAAAAAAAAEAAgAEAAIAADAAAAIAAgAAAAAAAAAAAAMAAgAAAAAAAAD//wAAAgAAAAIAAAD//wEAAgAAAAIAAAD//wIAAgAAAAIAAAD//wMAAgAAAAIAAAABAAAAAgAAAAIAAAABAAEAAgAAAAIAAAABAAIAAgAAAAIAAAABAAMAAgAAAAIAAAAAAP//AgAEAAAAAFD/////AgAAAAIAAAAAAP7/AgAAAAIAAFD+////AQAEAAAAAAD+/wAAAQAAAAAAAAD+/wEAAQAAAAAAAAD9////AQAEAAAAAAD9/wAAAQAAAAIAAAD9/wEAAQAAAAQAAAD+/wIAAQAAAAQAAAD+/wMAAQAEAAAAACD9/wMAAQAEAAAAACD9/wIAAQAAAAIAAAD8/wIAAQAAAAQAAAD8/wEAAQAAAAAAAAD8/wAAAQAAAAAAAAD8////AQAEAAAAAAD7////AQAEAAAAAAD7/wAAAQAAAAQAAAD7/wEAAQAAAAIAAAD7/wIAAQAAAAIAAAD8/wMAAQAEAAAAACD7/wMAAQAEAAAAACD6/wMAAQAAAAIAAAD6/wIAAQAAAAQAAAD6/wEAAQAAAAIAAAD6/wAAAQAAAAQAAAD6////AQAEAAAAAAD6/wQAAQAKAAYAAAD5/wQAAQAIAAYAAAD5/wMAAQAEAAIAAFD5/wIAAQAEAAIAAFD5/wEAAQAEAAIAAFD5/wAAAQAEAAIAAFD5////AQACAAAAAAD//wQAAgAAAAIAAAD//wUAAgAAAAIAAAAAAAQAAgAAAAAAAAAAAAUAAgAAAAAAAAAAAAYAAgACAAAAAAD//wYAAgAAAAIAAAABAAQAAgAAAAIAAAABAAUAAgAAAAIAAAABAAYAAgAAAAIAAAA=")
+tile_map_data = PackedByteArray("AAAAAAAAAwAAAAAAAAAAAAEAAwACAAEAAAAAAAIAAwAAAAAAAAAAAAMAAwAAAAAAAAD//wAAAwAAAAEAAAD//wEAAwAAAAEAAAD//wIAAwAAAAEAAAD//wMAAwAAAAEAAAABAAAAAwAAAAEAAAABAAEAAwAAAAEAAAABAAIAAwAAAAEAAAABAAMAAwAAAAEAAAAAAP//AwACAAAAAFD/////AwAAAAEAAAAAAP7/AwAAAAEAAFD+////AQAEAAAAAAD+/wAAAQAAAAAAAAD+/wEAAQAAAAAAAAD9////AQAEAAAAAAD9/wAAAQAAAAIAAAD9/wEAAQAAAAQAAAD+/wIAAQAAAAQAAAD+/wMAAQAEAAAAACD9/wMAAQAEAAAAACD9/wIAAQAAAAIAAAD8/wIAAQAAAAQAAAD8/wEAAQAAAAAAAAD8/wAAAQAAAAAAAAD8////AQAEAAAAAAD7////AQAEAAAAAAD7/wAAAQAAAAQAAAD7/wEAAQAAAAIAAAD7/wIAAQAAAAIAAAD8/wMAAQAEAAAAACD7/wMAAQAEAAAAACD6/wMAAQAAAAIAAAD6/wIAAQAAAAQAAAD6/wEAAQAAAAIAAAD6/wAAAQAAAAQAAAD6////AQAEAAAAAAD6/wQAAQAKAAYAAAD5/wQAAQAIAAYAAAD5/wMAAQAEAAIAAFD5/wIAAQAEAAIAAFD5/wEAAQAEAAIAAFD5/wAAAQAEAAIAAFD5////AQACAAAAAAD//wQAAwAAAAEAAAD//wUAAwAAAAEAAAAAAAQAAwAAAAAAAAAAAAUAAwAAAAAAAAAAAAYAAwABAAAAAAD//wYAAwAAAAEAAAABAAQAAwAAAAEAAAABAAUAAwAAAAEAAAABAAYAAwAAAAEAAAD///7/AwAAAAEAAFABAP7/AwAAAAEAAFABAP//AwAAAAAAAFA=")
 tile_set = SubResource("TileSet_ur6hh")
 
 [node name="SubMapLayer" type="TileMapLayer" parent="World/TestMap" unique_id=1290827328]
 z_index = -1
-tile_map_data = PackedByteArray("AAAAAAAAAgAAAAAAAAAAAAEAAgAEAAIAADAAAAIAAgAAAAAAAAAAAAMAAgAAAAAAAAD//wAAAgAAAAIAAAD//wEAAgAAAAIAAAD//wIAAgAAAAIAAAD//wMAAgAAAAIAAAABAAAAAgAAAAIAAAABAAEAAgAAAAIAAAABAAIAAgAAAAIAAAABAAMAAgAAAAIAAAAAAP//AgAEAAAAAFD/////AgAAAAIAAAAAAP7/AgAAAAIAAFD5/wQAAAAAAAQAAAD6/wUAAAAEAAIAAAD5/wUAAAAEAAIAAAD4/wUAAAACAAIAAAD4/wQAAAAEAAIAAFD4/wMAAAAEAAIAAFD4/wIAAAAEAAIAAFD4/wEAAAAEAAIAAFD4/wAAAAAEAAIAAFD4////AAACAAAAAAD8/wQAAAAAAAAAAAD7/wUAAAAEAAIAAAD8/wUAAAAEAAIAAAD9/wUAAAAEAAIAAAD+/wUAAAAEAAIAAAD6/wQAAAAAAAAAAAD7/wQAAAAAAAAAAAD8/wMAAAAAAAAAAAD9/wMAAAAAAAAAAAD+/wMAAAAAAAAAAAD+/wQAAAAAAAAAAAD9/wQAAAAAAAAAAAD7/wMAAAAAAAAAAAD6/wMAAAAAAAAAAAD5/wMAAAAAAAAAAAD5/wIAAAAAAAAAAAD5/wEAAAAAAAAAAAD5/wAAAAAAAAAAAAD5////AAAEAAAAAAA=")
-tile_set = SubResource("TileSet_ur6hh")
+tile_map_data = PackedByteArray("AAD5/wQAAAAAAAQAAAD6/wUAAAAEAAIAAAD5/wUAAAAEAAIAAAD4/wUAAAACAAIAAAD4/wQAAAAEAAIAAFD4/wMAAAAEAAIAAFD4/wIAAAAEAAIAAFD4/wEAAAAEAAIAAFD4/wAAAAAEAAIAAFD4////AAACAAAAAAD8/wQAAAAAAAAAAAD7/wUAAAAEAAIAAAD8/wUAAAAEAAIAAAD9/wUAAAAEAAIAAAD+/wUAAAAEAAIAAAD6/wQAAAAAAAAAAAD7/wQAAAAAAAAAAAD8/wMAAAAAAAAAAAD9/wMAAAAAAAAAAAD+/wQAAAAAAAAAAAD9/wQAAAAAAAAAAAD7/wMAAAAAAAAAAAD6/wMAAAAAAAAAAAD5/wMAAAAAAAAAAAD5/wIAAAAAAAAAAAD5/wEAAAAAAAAAAAD5/wAAAAAAAAAAAAD5////AAAEAAAAAAD+/wMAAAAAAAAAAAA=")
+tile_set = SubResource("TileSet_yyfjg")
 
 [node name="CornersMapLayer" type="TileMapLayer" parent="World/TestMap" unique_id=462579675]
-tile_map_data = PackedByteArray("AAAAAP7/AgACAAIAAFAAAA0AAgACAAIAAAABAA0AAgACAAIAABA=")
+tile_map_data = PackedByteArray("AAAAAP7/AAACAAIAAAAAAA0AAAACAAMAAAABAA0AAAADAAMAAAAEAP7/AAAGAAIAAFAEAP//AAAHAAIAAFA=")
 tile_set = SubResource("TileSet_raeie")
 
 [node name="Actors" type="Node2D" parent="." unique_id=428057445]

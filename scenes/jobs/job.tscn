@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bheohr5w4fyua" path="res://scripts/jobs/job.gd" id="1_gqvfu"]
 [ext_resource type="Texture2D" uid="uid://dphlg4rsm8wim" path="res://assets/art/tiles/Dirt_tiles.png" id="3_yhiig"]
 [ext_resource type="Texture2D" uid="uid://cxnryrdmagts7" path="res://assets/art/tiles/Grass_tiles.png" id="4_odegx"]
-[ext_resource type="Texture2D" uid="uid://cmofq22yx3rqj" path="res://assets/art/tiles/Road__sidewalk.png" id="5_377pv"]
+[ext_resource type="Texture2D" uid="uid://dxsq8b2v75x6i" path="res://assets/art/tiles/Road__sidewalk.png" id="5_377pv"]
 [ext_resource type="PackedScene" uid="uid://bmcckye3a6atr" path="res://scenes/player/player.tscn" id="8_377pv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0bn0k"]
@@ -109,38 +109,33 @@ texture = ExtResource("4_odegx")
 0:6/size_in_atlas = Vector2i(2, 2)
 0:6/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ocrtu"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yhiig"]
 texture = ExtResource("5_377pv")
-0:0/size_in_atlas = Vector2i(2, 2)
+texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
-0:2/size_in_atlas = Vector2i(2, 2)
-0:2/0 = 0
-2:0/size_in_atlas = Vector2i(2, 2)
+1:0/0 = 0
 2:0/0 = 0
-4:0/size_in_atlas = Vector2i(2, 2)
-4:0/0 = 0
-6:0/size_in_atlas = Vector2i(2, 2)
-6:0/0 = 0
-6:2/size_in_atlas = Vector2i(2, 2)
-6:2/0 = 0
-4:2/size_in_atlas = Vector2i(2, 2)
-4:2/0 = 0
-2:2/0 = 0
-3:2/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_ik4td"]
 tile_size = Vector2i(32, 32)
 sources/1 = SubResource("TileSetAtlasSource_of2jq")
-sources/2 = SubResource("TileSetAtlasSource_ocrtu")
 sources/0 = SubResource("TileSetAtlasSource_0bn0k")
+sources/4 = SubResource("TileSetAtlasSource_yhiig")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fkjkc"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_odegx"]
 texture = ExtResource("5_377pv")
 2:2/0 = 0
 3:2/0 = 0
+2:3/0 = 0
+3:3/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_q7bc8"]
-sources/2 = SubResource("TileSetAtlasSource_fkjkc")
+sources/0 = SubResource("TileSetAtlasSource_odegx")
 
 [node name="JobRoot" type="Node2D" unique_id=718308018]
 script = ExtResource("1_gqvfu")
