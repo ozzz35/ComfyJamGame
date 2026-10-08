@@ -1,6 +1,7 @@
 extends AudioStreamPlayer2D
 
 @export var grass_steps : Array[AudioStream] 
+@export var dirt_steps : Array[AudioStream]
 
 var last_index : int = -1
 var stride : float = 60 # How quickly the step sound repeats
@@ -11,6 +12,7 @@ var was_moving := false
 var was_in_leaves := false
 var near_padding : float = 18
 
+@onready var audiomap : TileMapLayer = $"../../../World/TestMap/AudioMapLayer"
 @onready var leaf_check_area : Area2D = $"../LeafCheckArea"
 @onready var feets : Marker2D = $"../Feets"
 @onready var moving : bool = $"../MovementComp".input_vector != Vector2.ZERO
@@ -37,6 +39,11 @@ func _physics_process(delta: float) -> void:
 		was_in_leaves = true
 		terrain_check()
 		return
+	if was_in_leaves and not in_leaves:
+		distance = 0.0
+		was_in_leaves = false
+		terrain_check()
+		return
 	was_in_leaves = in_leaves
 	distance += player.velocity.length() * delta
 	if distance < stride:
@@ -46,15 +53,22 @@ func _physics_process(delta: float) -> void:
 
 
 func terrain_check():
-	## WIP for later
-	# If terrain = grass:
-	# Play grass walking sound aswell
-	##
 	if _near_leaf_pile():
-		play_step() # Play leaf/grass step when we'll have it
-	# else:
-	#	play_step() # Play normal step array when we'll have it
-
+		play_step(grass_steps)
+	else:
+		if audiomap == null:
+			return
+		var feet_pos = audiomap.to_local(feets.global_position)
+		var cell_pos = audiomap.local_to_map(feet_pos)
+		var ground_type = audiomap.get_cell_tile_data(cell_pos)
+		if ground_type == null:
+			return
+		var dirt_query = ground_type.get_custom_data("dirt")
+		var grass_query = ground_type.get_custom_data("grass")
+		if dirt_query:
+			play_step(dirt_steps)
+		if grass_query:
+			play_step(grass_steps)
 
 
 func _near_leaf_pile() -> bool:
@@ -62,13 +76,13 @@ func _near_leaf_pile() -> bool:
 	return not hits.is_empty()
 
 
-func play_step() -> void:
-	if grass_steps.is_empty():
+func play_step(ground_type) -> void:
+	if ground_type.is_empty():
 		return
-	var index := randi_range(0, grass_steps.size() - 1)
-	while grass_steps.size() > 1 and index == last_index:
-		index = randi_range(0, grass_steps.size() - 1)
-	stream = grass_steps[index]
+	var index := randi_range(0, ground_type.size() - 1)
+	while ground_type.size() > 1 and index == last_index:
+		index = randi_range(0, ground_type.size() - 1)
+	stream = ground_type[index]
 	pitch_scale = randf_range(0.94, 1.06)
 	play()
 	last_index = index
