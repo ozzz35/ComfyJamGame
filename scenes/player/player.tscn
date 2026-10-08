@@ -13,11 +13,11 @@
 [ext_resource type="AudioStream" uid="uid://b21ov5ethstev" path="res://assets/audio/sfx/steps/GrassStep5_1.wav" id="10_myrg7"]
 [ext_resource type="AudioStream" uid="uid://c73ervkj63kvm" path="res://assets/audio/sfx/steps/GrassStep6_1.wav" id="11_kvlxm"]
 [ext_resource type="AudioStream" uid="uid://bmr46u2dnmi03" path="res://assets/audio/sfx/steps/GrassStep7_1.wav" id="12_uf5tr"]
-[ext_resource type="Texture2D" uid="uid://5ub2ele40oik" path="res://icon.svg" id="13_rake_tex"]
+[ext_resource type="Texture2D" uid="uid://b2mbbxce6mil5" path="res://assets/art/props/1791399333591.png" id="13_rake_tex"]
 [ext_resource type="Script" uid="uid://y46kb38xmwpq" path="res://scripts/tools/rake.gd" id="14_rake"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rake"]
-size = Vector2(120, 72)
+size = Vector2(16, 15.875)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p47bc"]
 atlas = ExtResource("4_lvxji")
@@ -369,8 +369,6 @@ script = ExtResource("2_lvxji")
 
 [node name="Rake" type="Sprite2D" parent="." unique_id=327417097]
 position = Vector2(28, 0)
-scale = Vector2(0.16, 0.16)
-offset = Vector2(18, 0)
 texture = ExtResource("13_rake_tex")
 script = ExtResource("14_rake")
 
@@ -379,7 +377,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rake/ReachArea" unique_id=1502066586]
-position = Vector2(52, 0)
+position = Vector2(0, 10)
 shape = SubResource("RectangleShape2D_rake")
 
 [node name="Camera" type="Camera2D" parent="." unique_id=1346915392]
