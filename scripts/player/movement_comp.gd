@@ -3,7 +3,7 @@ extends Node2D
 @onready var base : PlayerBase = get_parent()
 @onready var sprite = $"../Sprite"
 
-var speed : int = 215
+var speed : int = 150
 var acceleration := 3000.0
 var friction := 2600.0
 var input_vector = Vector2.ZERO
@@ -18,11 +18,11 @@ var can_recieve_input : bool = true
 ## Components
 #@onready var movement_component: Node2D = $"../movement_component"
 #@onready var combat_component: Node2D = $"../combat_component"
-#@onready var animation_component: Node2D = $"../animation_component"
 #@onready var state_machine: StateMachine = $"../state_machine"
 
 func _physics_process(delta: float) -> void:
 	input_handling(delta)
+	update_walk_animation()
 	update_idle_animation()
 	base.velocity += knockback_velocity
 	
@@ -47,8 +47,24 @@ func input_handling(delta: float) -> void:
 	else:
 		base.velocity = base.velocity.move_toward(Vector2.ZERO, delta * friction)
 
+func update_walk_animation() -> void:
+	if facing_direction == Vector2.ZERO:
+		return
+	if base.velocity.length() == 0:
+		return
+	var anim := "walk_side"
+	if facing_direction.y > 0:
+		anim = "walk_bottom_diag" if facing_direction.x != 0 else "walk_bottom"
+	elif facing_direction.y < 0:
+		anim ="walk_top_diag" if facing_direction.x != 0 else "walk_top"
+	sprite.flip_h = facing_direction.x < 0
+	if sprite.animation != anim:
+		sprite.play(anim)
+
 func update_idle_animation() -> void:
 	if facing_direction == Vector2.ZERO:
+		return
+	if base.velocity.length() > 0:
 		return
 	var anim := "idle_side"
 	if facing_direction.y > 0:
@@ -58,6 +74,7 @@ func update_idle_animation() -> void:
 	sprite.flip_h = facing_direction.x < 0
 	if sprite.animation != anim:
 		sprite.play(anim)
+
 func apply_knockback(from_position: Vector2):
 	var dir = (global_position - from_position).normalized()
 	knockback_velocity = dir * knockback_strength

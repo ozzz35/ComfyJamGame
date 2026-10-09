@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dxsq8b2v75x6i"
-path="res://.godot/imported/Road__sidewalk.png-e5cd9bfb917d575fa76ecd049215f89e.ctex"
+uid="uid://csyv7jrplbtcf"
+path="res://.godot/imported/16x32 Walk.png-2863b79776111f1e2c7949213994bc8a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/tiles/Road__sidewalk.png"
-dest_files=["res://.godot/imported/Road__sidewalk.png-e5cd9bfb917d575fa76ecd049215f89e.ctex"]
+source_file="res://assets/art/characters/16x32 Walk.png"
+dest_files=["res://.godot/imported/16x32 Walk.png-2863b79776111f1e2c7949213994bc8a.ctex"]
 
 [params]
 

@@ -1,11 +1,13 @@
 [gd_scene format=4 uid="uid://duy522bit7the"]
 
 [ext_resource type="PackedScene" uid="uid://b2bqm6rwpcek4" path="res://scenes/jobs/leaf_pile.tscn" id="1_4nao2"]
-[ext_resource type="Script" uid="uid://bheohr5w4fyua" path="res://scenes/jobs/job.gd" id="1_gqvfu"]
+[ext_resource type="Script" uid="uid://bheohr5w4fyua" path="res://scripts/jobs/job.gd" id="1_gqvfu"]
 [ext_resource type="Texture2D" uid="uid://dphlg4rsm8wim" path="res://assets/art/tiles/Dirt_tiles.png" id="3_yhiig"]
 [ext_resource type="Texture2D" uid="uid://cxnryrdmagts7" path="res://assets/art/tiles/Grass_tiles.png" id="4_odegx"]
-[ext_resource type="Texture2D" uid="uid://cmofq22yx3rqj" path="res://assets/art/tiles/Road__sidewalk.png" id="5_377pv"]
+[ext_resource type="Texture2D" uid="uid://dxsq8b2v75x6i" path="res://assets/art/tiles/Road__sidewalk.png" id="5_377pv"]
+[ext_resource type="Texture2D" uid="uid://dmnqmyj20bvsf" path="res://assets/art/environment/trees/tree_bg_64x64.png" id="7_377pv"]
 [ext_resource type="PackedScene" uid="uid://bmcckye3a6atr" path="res://scenes/player/player.tscn" id="8_377pv"]
+[ext_resource type="Texture2D" uid="uid://dq06wtw8kvb0f" path="res://assets/art/environment/trees/tree_64x64.png" id="8_be33d"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0bn0k"]
 texture = ExtResource("3_yhiig")
@@ -109,38 +111,55 @@ texture = ExtResource("4_odegx")
 0:6/size_in_atlas = Vector2i(2, 2)
 0:6/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ocrtu"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yhiig"]
 texture = ExtResource("5_377pv")
-0:0/size_in_atlas = Vector2i(2, 2)
+texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
-0:2/size_in_atlas = Vector2i(2, 2)
-0:2/0 = 0
-2:0/size_in_atlas = Vector2i(2, 2)
+1:0/0 = 0
 2:0/0 = 0
-4:0/size_in_atlas = Vector2i(2, 2)
-4:0/0 = 0
-6:0/size_in_atlas = Vector2i(2, 2)
-6:0/0 = 0
-6:2/size_in_atlas = Vector2i(2, 2)
-6:2/0 = 0
-4:2/size_in_atlas = Vector2i(2, 2)
-4:2/0 = 0
-2:2/0 = 0
-3:2/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_ik4td"]
 tile_size = Vector2i(32, 32)
 sources/1 = SubResource("TileSetAtlasSource_of2jq")
-sources/2 = SubResource("TileSetAtlasSource_ocrtu")
 sources/0 = SubResource("TileSetAtlasSource_0bn0k")
+sources/4 = SubResource("TileSetAtlasSource_yhiig")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fkjkc"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_odegx"]
 texture = ExtResource("5_377pv")
 2:2/0 = 0
 3:2/0 = 0
+2:3/0 = 0
+3:3/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_q7bc8"]
-sources/2 = SubResource("TileSetAtlasSource_fkjkc")
+sources/0 = SubResource("TileSetAtlasSource_odegx")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_48aas"]
+texture = ExtResource("7_377pv")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_1xsmc"]
+tile_size = Vector2i(32, 32)
+sources/0 = SubResource("TileSetAtlasSource_48aas")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ocrtu"]
+texture = ExtResource("8_be33d")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(6, 16)
+
+[sub_resource type="TileSet" id="TileSet_f1nwj"]
+tile_size = Vector2i(32, 32)
+sources/0 = SubResource("TileSetAtlasSource_ocrtu")
 
 [node name="JobRoot" type="Node2D" unique_id=718308018]
 script = ExtResource("1_gqvfu")
@@ -151,12 +170,12 @@ script = ExtResource("1_gqvfu")
 
 [node name="MainMapLayer" type="TileMapLayer" parent="World/Garden" unique_id=1325637812]
 z_index = -1
-tile_map_data = PackedByteArray("AAD+////AQAEAAAAAAD+/wAAAQAAAAAAAAD+/wEAAQAAAAAAAAD9////AQAEAAAAAAD9/wAAAQAAAAIAAAD9/wEAAQAAAAQAAAD+/wIAAQAAAAQAAAD+/wMAAQAEAAAAACD9/wMAAQAEAAAAACD9/wIAAQAAAAIAAAD8/wIAAQAAAAQAAAD8/wEAAQAAAAAAAAD8/wAAAQAAAAAAAAD8////AQAEAAAAAAD7////AQAEAAAAAAD7/wAAAQAAAAQAAAD7/wEAAQAAAAIAAAD7/wIAAQAAAAIAAAD8/wMAAQAEAAAAACD7/wMAAQAEAAAAACD6/wMAAQAAAAIAAAD6/wIAAQAAAAQAAAD6/wEAAQAAAAIAAAD6/wAAAQAAAAQAAAD6////AQAEAAAAAAD6/wQAAQAKAAYAAAD5/wQAAQAIAAYAAAD5/wMAAQAEAAIAAFD5/wIAAQAEAAIAAFD5/wEAAQAEAAIAAFD5/wAAAQAEAAIAAFD5////AQACAAAAAAA=")
+tile_map_data = PackedByteArray("AAD+////AQAAAAAAAAD+/wAAAQAAAAAAAAD+/wEAAQAAAAAAAAD9////AQAAAAAAAAD9/wAAAQAAAAIAAAD9/wEAAQAAAAQAAAD+/wIAAQAAAAQAAAD+/wMAAQAAAAAAAAD9/wMAAQAAAAAAAAD9/wIAAQAAAAIAAAD8/wIAAQAAAAQAAAD8/wEAAQAAAAAAAAD8/wAAAQAAAAAAAAD8////AQAAAAAAAAD7////AQAAAAAAAAD7/wAAAQAAAAQAAAD7/wEAAQAAAAIAAAD7/wIAAQAAAAIAAAD8/wMAAQAAAAAAAAD7/wMAAQAAAAAAAAD6/wMAAQAAAAAAAAD6/wIAAQAAAAQAAAD6/wEAAQAAAAIAAAD6/wAAAQAAAAQAAAD6////AQAAAAAAAAD6/wQAAQAAAAAAAAD5/wMAAQAAAAAAAAD5/wIAAQAAAAAAAAD5/wEAAQAAAAAAAAD5/wAAAQAAAAAAAAD5////AQAAAAAAAAD5/wQAAQAAAAAAAAD4////AQAAAAAAAAD4/wAAAQAAAAAAAAD/////AQAAAAAAAAD//wAAAQAAAAAAAAD//wEAAQAAAAAAAAD//wIAAQAAAAAAAAD//wMAAQAAAAAAAAD//wQAAQAAAAAAAAD+/wQAAQAAAAAAAAD9/wQAAQAAAAAAAAD8/wQAAQAAAAAAAAD7/wQAAQAAAAAAAAD4/wMAAQAAAAAAAAD4/wQAAQAAAAAAAAD4/wIAAQAAAAAAAAD4/wEAAQAAAAAAAAA=")
 tile_set = SubResource("TileSet_ik4td")
 
 [node name="SubMapLayer" type="TileMapLayer" parent="World/Garden" unique_id=567339107]
 z_index = -2
-tile_map_data = PackedByteArray("AAD5/wQAAAAAAAQAAAD6/wUAAAAEAAIAAAD5/wUAAAAEAAIAAAD4/wUAAAACAAIAAAD4/wQAAAAEAAIAAFD4/wMAAAAEAAIAAFD4/wIAAAAEAAIAAFD4/wEAAAAEAAIAAFD4/wAAAAAEAAIAAFD4////AAACAAAAAAD8/wQAAAAAAAAAAAD7/wUAAAAEAAIAAAD8/wUAAAAEAAIAAAD9/wUAAAAEAAIAAAD+/wUAAAAEAAIAAAD6/wQAAAAAAAAAAAD7/wQAAAAAAAAAAAD8/wMAAAAAAAAAAAD9/wMAAAAAAAAAAAD+/wMAAAAAAAAAAAD+/wQAAAAAAAAAAAD9/wQAAAAAAAAAAAD7/wMAAAAAAAAAAAD6/wMAAAAAAAAAAAD5/wMAAAAAAAAAAAD5/wIAAAAAAAAAAAD5/wEAAAAAAAAAAAD5/wAAAAAAAAAAAAD5////AAAEAAAAAAA=")
+tile_map_data = PackedByteArray("AAD5/wQAAAAAAAQAAAD6/wUAAAAEAAIAAAD5/wUAAAAEAAIAAAD4/wUAAAAEAAIAAAD4/wQAAAAAAAAAAAD4/wMAAAAAAAAAAAD4/wIAAAAAAAAAAAD4/wEAAAAAAAAAAAD4/wAAAAAAAAAAAAD4////AAAAAAAAAAD8/wQAAAAAAAAAAAD7/wUAAAAEAAIAAAD8/wUAAAAEAAIAAAD9/wUAAAAEAAIAAAD+/wUAAAAEAAIAAAD6/wQAAAAAAAAAAAD7/wQAAAAAAAAAAAD8/wMAAAAAAAAAAAD9/wMAAAAAAAAAAAD+/wMAAAAAAAAAAAD+/wQAAAAAAAAAAAD9/wQAAAAAAAAAAAD7/wMAAAAAAAAAAAD6/wMAAAAAAAAAAAD5/wMAAAAAAAAAAAD5/wIAAAAAAAAAAAD5/wEAAAAAAAAAAAD5/wAAAAAAAAAAAAD5////AAAAAAAAAAD2////AAAAAAAAAAD2/wAAAAAAAAAAAAD2/wEAAAAAAAAAAAD2/wIAAAAAAAAAAAD2/wMAAAAAAAAAAAD2/wQAAAAAAAAAAAD2/wUAAAACAAIAAAD3////AAAAAAAAAAD3/wAAAAAAAAAAAAD3/wEAAAAAAAAAAAD3/wIAAAAAAAAAAAD3/wMAAAAAAAAAAAD3/wQAAAAAAAAAAAD3/wUAAAAEAAIAAAD/////AAAAAAAAAAD//wAAAAAAAAAAAAD//wEAAAAAAAAAAAD//wIAAAAAAAAAAAD//wMAAAAAAAAAAAD//wQAAAAAAAAAAAD//wUAAAAEAAIAAAAAAP//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAUAAAAEAAIAAAABAP//AAAAAAAAAAABAAAAAAAAAAAAAAABAAEAAAAAAAAAAAABAAIAAAAAAAAAAAABAAMAAAAAAAAAAAABAAQAAAAAAAAAAAABAAUAAAAGAAIAAAD2//7/AAAAAAAAAAD3//7/AAAAAAAAAAD4//7/AAAAAAAAAAD5//7/AAAAAAAAAAD6//7/AAAAAAAAAAD7//7/AAAAAAAAAAD8//7/AAAAAAAAAAD9//7/AAAAAAAAAAD9//3/AAAAAAAAAAD+//3/AAAAAAAAAAD///3/AAAAAAAAAAD///7/AAAAAAAAAAAAAP7/AAAAAAAAAAABAP7/AAAAAAAAAAABAP3/AAAAAAAAAAAAAP3/AAAAAAAAAAD+//7/AAAAAAAAAAD5//3/AAAAAAAAAAD4//3/AAAAAAAAAAD3//3/AAAAAAAAAAD6//3/AAAAAAAAAAD7//3/AAAAAAAAAAD8//3/AAAAAAAAAAD2//3/AAAAAAAAAAD1//3/AAAAAAAAAAD6////AAAAAAAAAAD7////AAAAAAAAAAD8////AAAAAAAAAAD9////AAAAAAAAAAD+////AAAAAAAAAAA=")
 tile_set = SubResource("TileSet_ik4td")
 
 [node name="CornersMapLayer" type="TileMapLayer" parent="World/Garden" unique_id=51630728]
@@ -240,3 +259,11 @@ polygon = PackedVector2Array(-32, -26, -221, -27, -221, 140, -212, 153, -196, 16
 [node name="Actors" type="Node2D" parent="." unique_id=216789642]
 
 [node name="Player" parent="Actors" unique_id=1726532600 instance=ExtResource("8_377pv")]
+
+[node name="TileMapLayer2" type="TileMapLayer" parent="." unique_id=943943578]
+tile_map_data = PackedByteArray("AAD4//3/AAAAAAAAAAD4//7/AAAAAAEAAAD5//3/AAABAAAAAAD5//7/AAABAAEAAAD6//3/AAAAAAAAAAD6//7/AAAAAAEAAAD7//3/AAABAAAAAAD7//7/AAABAAEAAAD8//3/AAAAAAAAAAD8//7/AAAAAAEAAAD9//3/AAABAAAAAAD9//7/AAABAAEAAAD+//3/AAAAAAAAAAD+//7/AAAAAAEAAAD///3/AAABAAAAAAD///7/AAABAAEAAAA=")
+tile_set = SubResource("TileSet_1xsmc")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1246432571]
+tile_map_data = PackedByteArray("AAD///7/AAAAAAAAAAD+//7/AAAAAAAAAAD9//7/AAAAAAAAAAD8//7/AAAAAAAAAAD7//7/AAAAAAAAAAD6//7/AAAAAAAAAAD5//7/AAAAAAAAAAD4//7/AAAAAAAAAAD3//7/AAAAAAAAAAD2//7/AAAAAAAAAAD3////AAAAAAAAAAD2////AAAAAAAAAAD2/wAAAAAAAAAAAAD3/wAAAAAAAAAAAAD3/wEAAAAAAAAAAAD2/wEAAAAAAAAAAAD2/wIAAAAAAAAAAAD2/wMAAAAAAAAAAAD3/wMAAAAAAAAAAAD3/wIAAAAAAAAAAAD3/wQAAAAAAAAAAAD2/wQAAAAAAAAAAAD2/wUAAAAAAAAAAAD3/wUAAAAAAAAAAAD4/wUAAAAAAAAAAAD5/wUAAAAAAAAAAAD6/wUAAAAAAAAAAAD7/wUAAAAAAAAAAAD8/wUAAAAAAAAAAAD9/wUAAAAAAAAAAAD+/wUAAAAAAAAAAAD//wUAAAAAAAAAAAAAAAUAAAAAAAAAAAABAAUAAAAAAAAAAAABAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAIAAAAAAAAAAAABAAIAAAAAAAAAAAABAAEAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//AAAAAAAAAAABAP//AAAAAAAAAAABAP7/AAAAAAAAAAAAAP7/AAAAAAAAAAA=")
+tile_set = SubResource("TileSet_f1nwj")
