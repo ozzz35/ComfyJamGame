@@ -1,12 +1,13 @@
 extends Sprite2D
 
-@onready var player: PlayerBase = $".."
+@onready var player: PlayerBase = $"../.."
 @onready var reach_area: Area2D = $ReachArea
-@onready var _reach_shape: CollisionShape2D = $ReachArea/CollisionShape2D
+@onready var _reach_shape: CollisionShape2D = $ReachArea/ReachAreaCollider
 
-var rake_strength: float = 50.0
+@export var tool_strength: float = 50.0
 var sweeping := false
 var _tip := Vector2.RIGHT * 22.0
+var _aim_angle := 0.0
 
 
 func _input(event: InputEvent) -> void:
@@ -41,6 +42,7 @@ func sweep() -> void:
 		return
 	sweeping = true
 	var hold := _aim_point()
+	_aim_angle = hold.angle()
 	var facing := hold.normalized()
 	var distance := hold.length()
 	var tween := create_tween()
@@ -57,12 +59,12 @@ func _rake_leaves() -> void:
 	var toward_player := player.global_position - tip_global
 	if toward_player == Vector2.ZERO:
 		return
-	var push := (Vector2.from_angle(_tip.angle() + PI / 2.0) + toward_player.normalized() * 0.5).normalized()
+	var push := (Vector2.from_angle(_aim_angle + PI / 2.0) + toward_player.normalized() * 0.5).normalized()
 	for area in reach_area.get_overlapping_areas():
 		if area.name != "LeafArea":
 			continue
 		var leaf: Leaf = area.get_parent()
-		leaf.receive_gust(tip_global, push, rake_strength)
+		leaf.receive_gust(tip_global, push, tool_strength)
 
 
 func _end_sweep() -> void:

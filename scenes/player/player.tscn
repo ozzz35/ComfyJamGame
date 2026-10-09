@@ -4,29 +4,11 @@
 [ext_resource type="Script" uid="uid://f62m4akkc3je" path="res://scripts/player/movement_comp.gd" id="2_lvxji"]
 [ext_resource type="Script" uid="uid://cetddbnpyos1x" path="res://scripts/player/camera.gd" id="3_lvxji"]
 [ext_resource type="Texture2D" uid="uid://dcie7v708oq2b" path="res://assets/art/characters/16x32_Idle.png" id="4_lvxji"]
-[ext_resource type="AudioStream" uid="uid://bll2rudc4jk83" path="res://assets/audio/sfx/steps/grass_and_leaves/GrassStep1_1.wav" id="5_fm80t"]
-[ext_resource type="Script" uid="uid://l6cgg1jrla1i" path="res://scripts/player/footsteps.gd" id="5_p47bc"]
+[ext_resource type="Script" uid="uid://dhqtrg4860xqb" path="res://scripts/tools/active_tool.gd" id="6_5gtgg"]
 [ext_resource type="Texture2D" uid="uid://csyv7jrplbtcf" path="res://assets/art/characters/16x32 Walk.png" id="6_ugbui"]
-[ext_resource type="AudioStream" uid="uid://cyefr2sxju16v" path="res://assets/audio/sfx/steps/grass_and_leaves/GrassStep2_1.wav" id="7_gx1jg"]
-[ext_resource type="AudioStream" uid="uid://bk3b3ah48j4p5" path="res://assets/audio/sfx/steps/grass_and_leaves/GrassStep3_1.wav" id="8_ugbui"]
-[ext_resource type="AudioStream" uid="uid://dmv41glel4pp2" path="res://assets/audio/sfx/steps/grass_and_leaves/GrassStep4_1.wav" id="9_fcs02"]
-[ext_resource type="AudioStream" uid="uid://b21ov5ethstev" path="res://assets/audio/sfx/steps/grass_and_leaves/GrassStep5_1.wav" id="10_myrg7"]
-[ext_resource type="AudioStream" uid="uid://c73ervkj63kvm" path="res://assets/audio/sfx/steps/grass_and_leaves/GrassStep6_1.wav" id="11_kvlxm"]
-[ext_resource type="AudioStream" uid="uid://bmr46u2dnmi03" path="res://assets/audio/sfx/steps/grass_and_leaves/GrassStep7_1.wav" id="12_uf5tr"]
-[ext_resource type="Texture2D" uid="uid://b2mbbxce6mil5" path="res://assets/art/props/1791399333591.png" id="13_rake_tex"]
-[ext_resource type="Script" uid="uid://y46kb38xmwpq" path="res://scripts/tools/rake.gd" id="14_rake"]
-[ext_resource type="AudioStream" uid="uid://c8p5b1vy5w3yh" path="res://assets/audio/sfx/steps/dirt/Dirt1.wav" id="15_ioxgp"]
-[ext_resource type="AudioStream" uid="uid://dnv45l2eqc283" path="res://assets/audio/sfx/steps/dirt/Dirt2.wav" id="16_cnsyf"]
-[ext_resource type="AudioStream" uid="uid://cexy0tv13botu" path="res://assets/audio/sfx/steps/dirt/Dirt3.wav" id="17_007i1"]
-[ext_resource type="AudioStream" uid="uid://dw0fqd10vrivv" path="res://assets/audio/sfx/steps/dirt/Dirt4.wav" id="18_6cv16"]
-[ext_resource type="AudioStream" uid="uid://b7c1aqtvc6bnn" path="res://assets/audio/sfx/steps/dirt/Dirt5.wav" id="19_j4nxn"]
-[ext_resource type="AudioStream" uid="uid://bdviypf7ku7hp" path="res://assets/audio/sfx/steps/dirt/Dirt6.wav" id="20_28m0y"]
-[ext_resource type="AudioStream" uid="uid://be2kjv3ugxerl" path="res://assets/audio/sfx/steps/dirt/Dirt7.wav" id="21_uniwh"]
-[ext_resource type="AudioStream" uid="uid://o5btb8wybw0" path="res://assets/audio/sfx/steps/dirt/Dirt8.wav" id="22_iqsei"]
-[ext_resource type="AudioStream" uid="uid://xmppiua6casc" path="res://assets/audio/sfx/steps/dirt/Dirt9.wav" id="23_tffgl"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rake"]
-size = Vector2(16, 15.875)
+[ext_resource type="Texture2D" uid="uid://bfeb75xnbwpac" path="res://assets/art/props/broom.png" id="8_qek5x"]
+[ext_resource type="Texture2D" uid="uid://b2mbbxce6mil5" path="res://assets/art/props/rake.png" id="13_rake_tex"]
+[ext_resource type="Script" uid="uid://y46kb38xmwpq" path="res://scripts/tools/sweeping_tools.gd" id="14_rake"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p47bc"]
 atlas = ExtResource("4_lvxji")
@@ -370,24 +352,17 @@ size = Vector2(128, 128)
 [sub_resource type="CircleShape2D" id="CircleShape2D_ur6hh"]
 radius = 5.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rake"]
+size = Vector2(16, 15.875)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5gtgg"]
+size = Vector2(12, 11)
+
 [node name="Player" type="CharacterBody2D" unique_id=1726532600]
 script = ExtResource("1_gmlin")
 
 [node name="MovementComp" type="Node2D" parent="." unique_id=777377658]
 script = ExtResource("2_lvxji")
-
-[node name="Rake" type="Sprite2D" parent="." unique_id=327417097]
-position = Vector2(28, 0)
-texture = ExtResource("13_rake_tex")
-script = ExtResource("14_rake")
-
-[node name="ReachArea" type="Area2D" parent="Rake" unique_id=1685371138]
-collision_layer = 0
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Rake/ReachArea" unique_id=1502066586]
-position = Vector2(0, 10)
-shape = SubResource("RectangleShape2D_rake")
 
 [node name="Camera" type="Camera2D" parent="." unique_id=1346915392]
 script = ExtResource("3_lvxji")
@@ -395,13 +370,6 @@ script = ExtResource("3_lvxji")
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=2079890872]
 sprite_frames = SubResource("SpriteFrames_ur6hh")
 animation = &"walk_bottom"
-
-[node name="Footsteps" type="AudioStreamPlayer2D" parent="." unique_id=1976028907]
-stream = ExtResource("5_fm80t")
-volume_db = 2.0
-script = ExtResource("5_p47bc")
-grass_steps = Array[AudioStream]([ExtResource("5_fm80t"), ExtResource("7_gx1jg"), ExtResource("8_ugbui"), ExtResource("9_fcs02"), ExtResource("10_myrg7"), ExtResource("11_kvlxm"), ExtResource("12_uf5tr")])
-dirt_steps = Array[AudioStream]([ExtResource("15_ioxgp"), ExtResource("16_cnsyf"), ExtResource("17_007i1"), ExtResource("18_6cv16"), ExtResource("19_j4nxn"), ExtResource("20_28m0y"), ExtResource("21_uniwh"), ExtResource("22_iqsei"), ExtResource("23_tffgl")])
 
 [node name="BodyArea" type="Area2D" parent="." unique_id=2079997563]
 
@@ -425,3 +393,33 @@ collision_mask = 4
 [node name="LeafCheckAreaCollider" type="CollisionShape2D" parent="LeafCheckArea" unique_id=762106370]
 position = Vector2(0, 15)
 shape = SubResource("CircleShape2D_ur6hh")
+
+[node name="Node2D" type="Node2D" parent="." unique_id=700380]
+script = ExtResource("6_5gtgg")
+
+[node name="Rake" type="Sprite2D" parent="Node2D" unique_id=327417097]
+position = Vector2(28, 0)
+texture = ExtResource("13_rake_tex")
+script = ExtResource("14_rake")
+
+[node name="ReachArea" type="Area2D" parent="Node2D/Rake" unique_id=1685371138]
+collision_layer = 0
+collision_mask = 4
+
+[node name="ReachAreaCollider" type="CollisionShape2D" parent="Node2D/Rake/ReachArea" unique_id=1502066586]
+position = Vector2(0, 10)
+shape = SubResource("RectangleShape2D_rake")
+
+[node name="Broom" type="Sprite2D" parent="Node2D" unique_id=778699521]
+position = Vector2(54.715, 0)
+texture = ExtResource("8_qek5x")
+script = ExtResource("14_rake")
+tool_strength = 25.0
+
+[node name="ReachArea" type="Area2D" parent="Node2D/Broom" unique_id=1148355761]
+collision_layer = 0
+collision_mask = 4
+
+[node name="ReachAreaCollider" type="CollisionShape2D" parent="Node2D/Broom/ReachArea" unique_id=1839254958]
+position = Vector2(3.2849998, 7.5)
+shape = SubResource("RectangleShape2D_5gtgg")
