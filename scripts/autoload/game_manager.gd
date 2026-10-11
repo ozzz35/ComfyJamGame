@@ -13,10 +13,13 @@ func start_job(job):
 	get_tree().change_scene_to_packed(job.yard_scene)
 	
 func leave_job() -> void:
-	if current_job == null or current_job.street_scene == "": # later can start a dialogue before leaving or more
-		return
-	var destination := String(current_job.street_scene)
-	var marker_name := String(current_job.return_marker)
+	var destination := "res://scenes/main/main.tscn"
+	var marker_name := "job1"
+	if current_job != null:
+		if String(current_job.street_scene) != "":
+			destination = String(current_job.street_scene)
+		if String(current_job.return_marker) != "":
+			marker_name = String(current_job.return_marker)
 	get_tree().change_scene_to_file(destination)
 	for _attempt in 5:
 		await get_tree().process_frame

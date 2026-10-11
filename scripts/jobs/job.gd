@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var garden_area: Polygon2D = $GardenArea
 @onready var ui = $Ui/UiRoot
+@onready var exit : Area2D = $Exit
 
 var percent_oc : float = 0.0
 var starting_leaves : int = 0
@@ -10,11 +11,12 @@ var leaves_cleared : int = 0
 
 @export var job_goal : float = 0.98
 
-signal job_finished
+
+var _leaving := false
 
 func _ready():
 	starting_leaves = _count_leaves()
-
+	exit.monitoring = false
 	
 func _count_leaves() -> int:
 	var total : int = 0
@@ -36,7 +38,19 @@ func leaf_removed():
 	ui.job_progress(percent_oc * 100)
 	if percent_oc >= job_goal:
 		job_status = true
-		job_finished.emit()
+		job_finished()
 		GameManager.edit_money(100)
-		GameManager.leave_job()
 		print("Finished!")
+		
+func job_finished() -> void:
+	exit.monitoring = true
+
+
+func _on_exit_body_entered(body: Node2D) -> void:
+	_leave_through_exit(body)
+
+func _leave_through_exit(body: Node) -> void:
+	if _leaving or not job_status or not body is PlayerBase:
+		return
+	_leaving = true
+	GameManager.leave_job.call_deferred()

@@ -17,6 +17,7 @@ var _shake_target: Vector2 = Vector2.ZERO
 var _shake_damping: float = 8.0
 var _shake_jitter_speed: float = 25.0
 
+
 @export var min_scale: float = 4
 @export var max_scale: float = 8
 @export var zoom_step: float = 1.12
@@ -65,8 +66,13 @@ func update_camera_offset(delta: float) -> void:
 		diff = diff.normalized() * max_offset_distance
 
 	var base_target := original_offset + diff
+	var max_offset_y := _max_downward_offset()
+	if base_target.y > max_offset_y:
+		base_target.y = max_offset_y
 	var weight: float = clampf(delta * smoothness, 0.0, 1.0)
 	_smoothed_offset = _smoothed_offset.lerp(base_target, weight)
+	if _smoothed_offset.y > max_offset_y:
+		_smoothed_offset.y = max_offset_y
 
 	if _shake_time > 0:
 		_shake_time -= delta
@@ -79,6 +85,14 @@ func update_camera_offset(delta: float) -> void:
 		_shake_time = 0.0
 
 	offset = _smoothed_offset + _shake_offset
+	if offset.y > max_offset_y:
+		offset.y = max_offset_y
+
+
+func _max_downward_offset() -> float:
+	var half_height := get_viewport_rect().size.y * 0.5 / zoom.y
+	var view_bottom: float = min(global_position.y + half_height, float(limit_bottom))
+	return float(limit_bottom) - view_bottom
 
 
 func shake(strength: float, duration) -> void:

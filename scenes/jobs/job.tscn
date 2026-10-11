@@ -163,6 +163,9 @@ texture_region_size = Vector2i(64, 64)
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_ocrtu")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ur6hh"]
+size = Vector2(78, 11)
+
 [node name="JobRoot" type="Node2D" unique_id=718308018]
 script = ExtResource("1_gqvfu")
 
@@ -270,15 +273,38 @@ tile_set = SubResource("TileSet_f1nwj")
 
 [node name="FadingTreeTilemap" type="TileMapLayer" parent="." unique_id=1582736401]
 z_index = 1
-tile_map_data = PackedByteArray("AAD2/wUAAAAAAAAAAAD3/wUAAAAAAAAAAAD4/wUAAAAAAAAAAAD5/wUAAAAAAAAAAAD6/wUAAAAAAAAAAAD7/wUAAAAAAAAAAAD8/wUAAAAAAAAAAAD9/wUAAAAAAAAAAAD+/wUAAAAAAAAAAAD//wUAAAAAAAAAAAAAAAUAAAAAAAAAAAABAAUAAAAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAD2/wUAAAAAAAAAAAD3/wUAAAAAAAAAAAD4/wUAAAAAAAAAAAD5/wUAAAAAAAAAAAD6/wUAAAAAAAAAAAD9/wUAAAAAAAAAAAD+/wUAAAAAAAAAAAD//wUAAAAAAAAAAAAAAAUAAAAAAAAAAAABAAUAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_f1nwj")
 script = ExtResource("9_treef")
 
 [node name="Actors" type="Node2D" parent="." unique_id=216789642]
 
 [node name="Player" parent="Actors" unique_id=1726532600 instance=ExtResource("8_377pv")]
+position = Vector2(-130, 145)
+collision_layer = 2
+
+[node name="Camera" parent="Actors/Player" index="1" unique_id=1346915392]
+limit_bottom = 180
 
 [node name="Ui" type="CanvasLayer" parent="." unique_id=370571950]
 
 [node name="UiRoot" parent="Ui" unique_id=1645349456 instance=ExtResource("10_48aas")]
 show_job_progress = true
+
+[node name="Exit" type="Area2D" parent="." unique_id=1298413839]
+collision_layer = 0
+collision_mask = 2
+monitoring = false
+
+[node name="ExitCollider" type="CollisionShape2D" parent="Exit" unique_id=1179874414]
+position = Vector2(-129, 188.5)
+shape = SubResource("RectangleShape2D_ur6hh")
+
+[node name="Borders" type="StaticBody2D" parent="." unique_id=1058133823]
+
+[node name="BordersCollider" type="CollisionPolygon2D" parent="Borders" unique_id=160003433]
+polygon = PackedVector2Array(-167, 162, -258, 162, -258, -56, 1, -53, 0, 161, -91, 161, -90, 192, -90, 233, 59, 192, 64, -90, -330, -96, -319, 192, -167, 233, -90, 233, -90, 192, -168, 194)
+
+[connection signal="body_entered" from="Exit" to="." method="_on_exit_body_entered"]
+
+[editable path="Actors/Player"]
