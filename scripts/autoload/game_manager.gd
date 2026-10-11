@@ -2,17 +2,20 @@ extends Node
 
 var money : int = 0
 var current_job : Resource
+var in_job : bool = false
 
 func edit_money(amount):
 	money += amount
 
 func start_job(job):
+	in_job = true
 	if job == null:
 		return
 	current_job = job
 	get_tree().change_scene_to_packed(job.yard_scene)
 	
 func leave_job() -> void:
+	in_job = false
 	var destination := "res://scenes/main/main.tscn"
 	var marker_name := "job1"
 	if current_job != null:

@@ -26,6 +26,8 @@ func init():
 	blower.process_mode = Node.PROCESS_MODE_DISABLED
 
 func _input(event):
+	if GameManager.in_job == false:
+		return
 	if event.is_action_pressed("tool_1"):
 		equip(broom)
 	if event.is_action_pressed("tool_2"):
