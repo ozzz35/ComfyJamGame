@@ -41,6 +41,15 @@ func receive_gust(_origin: Vector2, direction: Vector2, strength: float):
 	velocity = spread_direction.normalized() * varied_strength
 	angular_velocity += randf_range(-7.5, 7.5)
 
+
+func pull_toward(point: Vector2, strength: float) -> void:
+	var to_point := point - global_position
+	if to_point.length_squared() <= 4.0:
+		velocity = Vector2.ZERO
+		return
+	velocity = to_point.normalized() * strength
+	angular_velocity += randf_range(-3.0, 3.0)
+
 func status_check():
 	if velocity == Vector2.ZERO:
 		return

@@ -2,6 +2,8 @@ extends Node
 
 @onready var rake := $Rake
 @onready var broom := $Broom
+@onready var vacuum := $LeafVacuum
+@onready var blower := $LeafBlower
 var last_tool : Sprite2D
 
 # Called when the node enters the scene tree for the first time.
@@ -16,15 +18,23 @@ func _process(delta):
 func init():
 	rake.visible = false
 	broom.visible = false
+	vacuum.visible = false
+	blower.visible = false
 	rake.process_mode = Node.PROCESS_MODE_DISABLED
 	broom.process_mode = Node.PROCESS_MODE_DISABLED
+	vacuum.process_mode = Node.PROCESS_MODE_DISABLED
+	blower.process_mode = Node.PROCESS_MODE_DISABLED
 
 func _input(event):
 	if event.is_action_pressed("tool_1"):
 		equip(broom)
 	if event.is_action_pressed("tool_2"):
 		equip(rake)
-		
+	if event.is_action_pressed("tool_3"):
+		equip(vacuum)
+	if event.is_action_pressed("tool_4"):
+		equip(blower)
+	
 func equip(tool : Sprite2D):
 	if last_tool != null:
 		last_tool.visible = false

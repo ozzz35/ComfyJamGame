@@ -7,8 +7,11 @@
 [ext_resource type="Script" uid="uid://dhqtrg4860xqb" path="res://scripts/tools/active_tool.gd" id="6_5gtgg"]
 [ext_resource type="Texture2D" uid="uid://csyv7jrplbtcf" path="res://assets/art/characters/16x32 Walk.png" id="6_ugbui"]
 [ext_resource type="Texture2D" uid="uid://bfeb75xnbwpac" path="res://assets/art/props/broom.png" id="8_qek5x"]
+[ext_resource type="Texture2D" uid="uid://5ub2ele40oik" path="res://icon.svg" id="10_h17s1"]
+[ext_resource type="Script" uid="uid://dfae52fp8rhnp" path="res://scripts/tools/leaf_blower.gd" id="11_je7p5"]
 [ext_resource type="Texture2D" uid="uid://b2mbbxce6mil5" path="res://assets/art/props/rake.png" id="13_rake_tex"]
 [ext_resource type="Script" uid="uid://y46kb38xmwpq" path="res://scripts/tools/sweeping_tools.gd" id="14_rake"]
+[ext_resource type="Script" uid="uid://uobej1y5a2rg" path="res://scripts/tools/leaf_vacuum.gd" id="15_vac"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p47bc"]
 atlas = ExtResource("4_lvxji")
@@ -358,6 +361,15 @@ size = Vector2(16, 15.875)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5gtgg"]
 size = Vector2(12, 11)
 
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_fm80t"]
+points = PackedVector2Array(11.700001, 36, -12.299999, 36, 0, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f1nwj"]
+radius = 5.700001
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_ur6hh"]
+points = PackedVector2Array(116, 167, -116, 167, 0, 0)
+
 [node name="Player" type="CharacterBody2D" unique_id=1726532600]
 script = ExtResource("1_gmlin")
 
@@ -394,32 +406,66 @@ collision_mask = 4
 position = Vector2(0, 15)
 shape = SubResource("CircleShape2D_ur6hh")
 
-[node name="Node2D" type="Node2D" parent="." unique_id=700380]
+[node name="Tools" type="Node2D" parent="." unique_id=700380]
 script = ExtResource("6_5gtgg")
 
-[node name="Rake" type="Sprite2D" parent="Node2D" unique_id=327417097]
+[node name="Rake" type="Sprite2D" parent="Tools" unique_id=327417097]
 position = Vector2(28, 0)
 texture = ExtResource("13_rake_tex")
 script = ExtResource("14_rake")
 
-[node name="ReachArea" type="Area2D" parent="Node2D/Rake" unique_id=1685371138]
+[node name="ReachArea" type="Area2D" parent="Tools/Rake" unique_id=1685371138]
 collision_layer = 0
 collision_mask = 4
 
-[node name="ReachAreaCollider" type="CollisionShape2D" parent="Node2D/Rake/ReachArea" unique_id=1502066586]
+[node name="ReachAreaCollider" type="CollisionShape2D" parent="Tools/Rake/ReachArea" unique_id=1502066586]
 position = Vector2(0, 10)
 shape = SubResource("RectangleShape2D_rake")
 
-[node name="Broom" type="Sprite2D" parent="Node2D" unique_id=778699521]
+[node name="Broom" type="Sprite2D" parent="Tools" unique_id=778699521]
 position = Vector2(54.715, 0)
 texture = ExtResource("8_qek5x")
 script = ExtResource("14_rake")
 tool_strength = 25.0
 
-[node name="ReachArea" type="Area2D" parent="Node2D/Broom" unique_id=1148355761]
+[node name="ReachArea" type="Area2D" parent="Tools/Broom" unique_id=1148355761]
 collision_layer = 0
 collision_mask = 4
 
-[node name="ReachAreaCollider" type="CollisionShape2D" parent="Node2D/Broom/ReachArea" unique_id=1839254958]
+[node name="ReachAreaCollider" type="CollisionShape2D" parent="Tools/Broom/ReachArea" unique_id=1839254958]
 position = Vector2(3.2849998, 7.5)
 shape = SubResource("RectangleShape2D_5gtgg")
+
+[node name="LeafVacuum" type="Sprite2D" parent="Tools" unique_id=1427302801]
+modulate = Color(0.4509804, 0, 1, 1)
+position = Vector2(-27.7, 0)
+texture = ExtResource("8_qek5x")
+script = ExtResource("15_vac")
+
+[node name="ReachArea" type="Area2D" parent="Tools/LeafVacuum" unique_id=1427302802]
+collision_layer = 0
+collision_mask = 4
+
+[node name="ReachAreaCollider" type="CollisionShape2D" parent="Tools/LeafVacuum/ReachArea" unique_id=255377703]
+position = Vector2(4.700001, 0)
+shape = SubResource("ConvexPolygonShape2D_fm80t")
+
+[node name="IntakeArea" type="Area2D" parent="Tools/LeafVacuum" unique_id=1516283268]
+monitoring = false
+
+[node name="IntakeAreaCollider" type="CollisionShape2D" parent="Tools/LeafVacuum/IntakeArea" unique_id=668198629]
+position = Vector2(3.7000008, 7)
+shape = SubResource("CircleShape2D_f1nwj")
+
+[node name="LeafBlower" type="Sprite2D" parent="Tools" unique_id=1427302733]
+position = Vector2(-58, 2)
+scale = Vector2(0.12890616, 0.203125)
+texture = ExtResource("10_h17s1")
+script = ExtResource("11_je7p5")
+
+[node name="ReachArea" type="Area2D" parent="Tools/LeafBlower" unique_id=850261234]
+collision_layer = 0
+collision_mask = 4
+
+[node name="ReachAreaCollider" type="CollisionShape2D" parent="Tools/LeafBlower/ReachArea" unique_id=608910905]
+shape = SubResource("ConvexPolygonShape2D_ur6hh")
