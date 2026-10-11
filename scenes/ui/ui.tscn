@@ -67,3 +67,15 @@ offset_bottom = 208.0
 theme_override_fonts/font = ExtResource("2_f5cxw")
 theme_override_font_sizes/font_size = 20
 text = "Press E to start the job"
+
+[node name="JobFinishedPrompt" type="Label" parent="." unique_id=1910750355]
+visible = false
+layout_mode = 0
+offset_left = 148.0
+offset_right = 1278.0
+offset_bottom = 165.0
+theme_override_fonts/font = ExtResource("2_f5cxw")
+theme_override_font_sizes/font_size = 40
+text = "You finished the Job!
+Leave from the bottom to get back to town."
+horizontal_alignment = 2

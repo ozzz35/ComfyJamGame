@@ -9,7 +9,6 @@ var original_offset: Vector2 = Vector2.ZERO
 var _smoothed_offset: Vector2 = Vector2.ZERO
 
 var _shake_time: float = 0.0
-var _shake_strength: float = 0.0
 var _shake_current_strength: float = 0.0
 var _shake_offset: Vector2 = Vector2.ZERO
 var _shake_target: Vector2 = Vector2.ZERO
@@ -59,21 +58,31 @@ func _process(delta: float) -> void:
 
 
 func update_camera_offset(delta: float) -> void:
+	var max_offset_y := _max_downward_offset()
+	var base_target := _clamp_downward(_mouse_look_target(), max_offset_y)
+	var weight: float = clampf(delta * smoothness, 0.0, 1.0)
+	_smoothed_offset = _smoothed_offset.lerp(base_target, weight)
+	_smoothed_offset = _clamp_downward(_smoothed_offset, max_offset_y)
+	_advance_shake(delta)
+	offset = _clamp_downward(_smoothed_offset + _shake_offset, max_offset_y)
+
+
+func _mouse_look_target() -> Vector2:
 	var screen_center := get_viewport_rect().size * 0.5
 	var screen_delta := get_viewport().get_mouse_position() - screen_center
 	var diff := screen_delta / zoom
 	if diff.length() > max_offset_distance:
 		diff = diff.normalized() * max_offset_distance
+	return original_offset + diff
 
-	var base_target := original_offset + diff
-	var max_offset_y := _max_downward_offset()
-	if base_target.y > max_offset_y:
-		base_target.y = max_offset_y
-	var weight: float = clampf(delta * smoothness, 0.0, 1.0)
-	_smoothed_offset = _smoothed_offset.lerp(base_target, weight)
-	if _smoothed_offset.y > max_offset_y:
-		_smoothed_offset.y = max_offset_y
 
+func _clamp_downward(point: Vector2, max_offset_y: float) -> Vector2:
+	if point.y > max_offset_y:
+		point.y = max_offset_y
+	return point
+
+
+func _advance_shake(delta: float) -> void:
 	if _shake_time > 0:
 		_shake_time -= delta
 		_shake_current_strength = lerp(_shake_current_strength, 0.0, delta * _shake_damping)
@@ -84,10 +93,6 @@ func update_camera_offset(delta: float) -> void:
 		_shake_current_strength = 0.0
 		_shake_time = 0.0
 
-	offset = _smoothed_offset + _shake_offset
-	if offset.y > max_offset_y:
-		offset.y = max_offset_y
-
 
 func _max_downward_offset() -> float:
 	var half_height := get_viewport_rect().size.y * 0.5 / zoom.y
@@ -96,7 +101,6 @@ func _max_downward_offset() -> float:
 
 
 func shake(strength: float, duration) -> void:
-	_shake_strength = strength
 	_shake_current_strength = strength
 	_shake_time = duration
 	_shake_jitter_speed = clamp(12.0 + strength * 4.0, 12.0, 80.0)

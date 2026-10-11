@@ -40,9 +40,11 @@ func leaf_removed():
 		job_status = true
 		job_finished()
 		GameManager.edit_money(100)
+		ui.update_ui()
 		print("Finished!")
 		
 func job_finished() -> void:
+	ui.job_finishedprompt.visible = true
 	exit.monitoring = true
 
 
@@ -53,4 +55,5 @@ func _leave_through_exit(body: Node) -> void:
 	if _leaving or not job_status or not body is PlayerBase:
 		return
 	_leaving = true
+	ui.job_finishedprompt.visible = false
 	GameManager.leave_job.call_deferred()

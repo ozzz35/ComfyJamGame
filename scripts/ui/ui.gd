@@ -4,6 +4,7 @@ extends Control
 @onready var job_pgbar : TextureProgressBar = $JobProgress
 @onready var job_pglabel : Label = $JobProgressLabel
 @onready var job_startprompt : Label = $JobStartPrompt
+@onready var job_finishedprompt : Label = $JobFinishedPrompt
 
 @export var show_job_progress: bool = false
 
@@ -20,6 +21,9 @@ func _process(delta):
 	
 func job_progress(progress):
 	job_pgbar.value = progress
+
+func update_ui():
+	money_label.text = "Money: " + str(GameManager.money)
 
 func jobstart_prompt(visibility : bool, pos : Vector2):
 	job_startprompt.visible = visibility
