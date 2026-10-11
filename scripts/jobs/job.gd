@@ -36,4 +36,5 @@ func leaf_removed():
 		job_status = true
 		job_finished.emit()
 		GameManager.edit_money(100)
+		GameManager.leave_job()
 		print("Finished!")
