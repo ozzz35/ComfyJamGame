@@ -3,6 +3,7 @@ extends Control
 @onready var money_label : Label = $MoneyLabel
 @onready var job_pgbar : TextureProgressBar = $JobProgress
 @onready var job_pglabel : Label = $JobProgressLabel
+@onready var job_startprompt : Label = $JobStartPrompt
 
 @export var show_job_progress: bool = false
 
@@ -19,3 +20,9 @@ func _process(delta):
 	
 func job_progress(progress):
 	job_pgbar.value = progress
+
+func jobstart_prompt(visibility : bool, pos : Vector2):
+	job_startprompt.visible = visibility
+	var half = job_startprompt.size / 2
+	job_startprompt.position = pos - Vector2(job_startprompt.size.x * 0.5, job_startprompt.size.y)
+	

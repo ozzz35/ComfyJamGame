@@ -9,9 +9,11 @@ extends Node2D
 
 @onready var area: Area2D = $JobArea2D
 @onready var shape_node: CollisionShape2D = $JobArea2D/CollisionShape2D
+@onready var ui := $"../../../UI/UiRoot"
 
+var above_player : Vector2 
 var player_here := false
-
+var player : PlayerBase
 
 func _ready() -> void:
 	_apply_range()
@@ -21,6 +23,10 @@ func _ready() -> void:
 		area.body_entered.connect(_on_body_entered)
 		area.body_exited.connect(_on_body_exited)
 
+func _process(delta):
+	if player_here == false:
+		return
+	ui.jobstart_prompt(true, get_viewport().get_canvas_transform() * (player.global_position + Vector2(0, -16)))
 
 func _unhandled_input(event: InputEvent) -> void:
 	if Engine.is_editor_hint() or not player_here:
@@ -44,9 +50,13 @@ func _apply_range() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is PlayerBase:
+		player = body
+		above_player = get_viewport().get_canvas_transform() * (player.global_position + Vector2(0, -16))
 		player_here = true
-
-
+		ui.jobstart_prompt(true, above_player)
+	
 func _on_body_exited(body: Node2D) -> void:
 	if body is PlayerBase:
 		player_here = false
+		ui.jobstart_prompt(false, above_player)
+		

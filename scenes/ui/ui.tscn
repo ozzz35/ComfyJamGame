@@ -56,3 +56,14 @@ offset_bottom = 634.0
 theme_override_fonts/font = ExtResource("2_f5cxw")
 theme_override_font_sizes/font_size = 80
 text = "Progress:"
+
+[node name="JobStartPrompt" type="Label" parent="." unique_id=1249052444]
+visible = false
+layout_mode = 0
+offset_left = 297.0
+offset_top = 187.0
+offset_right = 470.0
+offset_bottom = 208.0
+theme_override_fonts/font = ExtResource("2_f5cxw")
+theme_override_font_sizes/font_size = 20
+text = "Press E to start the job"
