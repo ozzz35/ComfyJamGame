@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://v82vebanplu1"]
+
+[ext_resource type="Script" uid="uid://bys5jjb7ct178" path="res://scripts/ui/ui.gd" id="1_aac20"]
+[ext_resource type="Texture2D" uid="uid://cud338v6x4me2" path="res://assets/art/ui/text_box.png" id="1_u7n8c"]
+[ext_resource type="FontFile" uid="uid://b61bw5j4tx1ig" path="res://assets/fonts/m6x11plus.ttf" id="2_f5cxw"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_aac20"]
+load_path = "res://.godot/imported/progress bar medium rounded under.png-e32b876cfdf30d618702fc9f4d180234.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_g5kmx"]
+load_path = "res://.godot/imported/progress bar medium rounded over.png-3923c35d28d41ebe6ba72829b6871125.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0dwhk"]
+load_path = "res://.godot/imported/progress bar medium rounded progress orange.png-84bfb8c9cc3257d0df1550afdd9fd788.ctex"
+
+[node name="UiRoot" type="Control" unique_id=1645349456]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_aac20")
+
+[node name="TextBox" type="Sprite2D" parent="." unique_id=892160840]
+visible = false
+position = Vector2(653, 590)
+texture = ExtResource("1_u7n8c")
+
+[node name="MoneyLabel" type="Label" parent="." unique_id=1098739009]
+layout_mode = 0
+offset_left = 7.0
+offset_right = 238.0
+offset_bottom = 81.0
+theme_override_fonts/font = ExtResource("2_f5cxw")
+theme_override_font_sizes/font_size = 80
+text = "Money: 0"
+
+[node name="JobProgress" type="TextureProgressBar" parent="." unique_id=707230875]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 638.0
+offset_right = 289.0
+offset_bottom = 707.0
+nine_patch_stretch = true
+texture_under = SubResource("CompressedTexture2D_aac20")
+texture_over = SubResource("CompressedTexture2D_g5kmx")
+texture_progress = SubResource("CompressedTexture2D_0dwhk")
+
+[node name="JobProgressLabel" type="Label" parent="." unique_id=1820553220]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 553.0
+offset_right = 283.0
+offset_bottom = 634.0
+theme_override_fonts/font = ExtResource("2_f5cxw")
+theme_override_font_sizes/font_size = 80
+text = "Progress:"
+
+[node name="JobStartPrompt" type="Label" parent="." unique_id=1249052444]
+visible = false
+layout_mode = 0
+offset_left = 297.0
+offset_top = 187.0
+offset_right = 470.0
+offset_bottom = 208.0
+theme_override_fonts/font = ExtResource("2_f5cxw")
+theme_override_font_sizes/font_size = 20
+text = "Press E to start the job"
