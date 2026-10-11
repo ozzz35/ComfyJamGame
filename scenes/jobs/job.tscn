@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bmcckye3a6atr" path="res://scenes/player/player.tscn" id="8_377pv"]
 [ext_resource type="Texture2D" uid="uid://dq06wtw8kvb0f" path="res://assets/art/environment/trees/tree_64x64.png" id="8_be33d"]
 [ext_resource type="Script" uid="uid://dk4n8wtree0fa" path="res://scripts/jobs/fading_tree_tilemap.gd" id="9_treef"]
+[ext_resource type="PackedScene" uid="uid://v82vebanplu1" path="res://scenes/ui/ui.tscn" id="10_48aas"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0bn0k"]
 texture = ExtResource("3_yhiig")
@@ -259,11 +260,11 @@ scale = Vector2(1.3492063, 1.0265956)
 color = Color(1, 1, 1, 0)
 polygon = PackedVector2Array(-32, -26, -221, -27, -220.99998, 161.00003, -30.517633, 161.00003)
 
-[node name="TileMapLayer2" type="TileMapLayer" parent="." unique_id=943943578]
+[node name="TreeBackground" type="TileMapLayer" parent="." unique_id=943943578]
 tile_map_data = PackedByteArray("AAD4//3/AAAAAAAAAAD4//7/AAAAAAEAAAD5//3/AAABAAAAAAD5//7/AAABAAEAAAD6//3/AAAAAAAAAAD6//7/AAAAAAEAAAD7//3/AAABAAAAAAD7//7/AAABAAEAAAD8//3/AAAAAAAAAAD8//7/AAAAAAEAAAD9//3/AAABAAAAAAD9//7/AAABAAEAAAD+//3/AAAAAAAAAAD+//7/AAAAAAEAAAD///3/AAABAAAAAAD///7/AAABAAEAAAA=")
 tile_set = SubResource("TileSet_1xsmc")
 
-[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1246432571]
+[node name="TreeTilemap" type="TileMapLayer" parent="." unique_id=1246432571]
 tile_map_data = PackedByteArray("AAD///7/AAAAAAAAAAD+//7/AAAAAAAAAAD9//7/AAAAAAAAAAD8//7/AAAAAAAAAAD7//7/AAAAAAAAAAD6//7/AAAAAAAAAAD5//7/AAAAAAAAAAD4//7/AAAAAAAAAAD3//7/AAAAAAAAAAD2//7/AAAAAAAAAAD3////AAAAAAAAAAD2////AAAAAAAAAAD2/wAAAAAAAAAAAAD3/wAAAAAAAAAAAAD3/wEAAAAAAAAAAAD2/wEAAAAAAAAAAAD2/wIAAAAAAAAAAAD2/wMAAAAAAAAAAAD3/wMAAAAAAAAAAAD3/wIAAAAAAAAAAAD3/wQAAAAAAAAAAAD2/wQAAAAAAAAAAAABAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAIAAAAAAAAAAAABAAIAAAAAAAAAAAABAAEAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//AAAAAAAAAAABAP//AAAAAAAAAAABAP7/AAAAAAAAAAAAAP7/AAAAAAAAAAA=")
 tile_set = SubResource("TileSet_f1nwj")
 
@@ -276,3 +277,8 @@ script = ExtResource("9_treef")
 [node name="Actors" type="Node2D" parent="." unique_id=216789642]
 
 [node name="Player" parent="Actors" unique_id=1726532600 instance=ExtResource("8_377pv")]
+
+[node name="Ui" type="CanvasLayer" parent="." unique_id=370571950]
+
+[node name="UiRoot" parent="Ui" unique_id=1645349456 instance=ExtResource("10_48aas")]
+show_job_progress = true

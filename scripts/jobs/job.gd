@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var garden_area: Polygon2D = $GardenArea
+@onready var ui = $Ui/UiRoot
 
 var percent_oc : float = 0.0
 var starting_leaves : int = 0
@@ -32,6 +33,7 @@ func leaf_removed():
 	leaves_cleared += 1 
 	print("Leaves cleared: ", leaves_cleared, "\n Completion: ", percent_oc)
 	percent_oc = snapped(float(leaves_cleared) / float(starting_leaves), 0.01)
+	ui.job_progress(percent_oc * 100)
 	if percent_oc >= job_goal:
 		job_status = true
 		job_finished.emit()
