@@ -48,29 +48,21 @@ func input_handling(delta: float) -> void:
 		base.velocity = base.velocity.move_toward(Vector2.ZERO, delta * friction)
 
 func update_walk_animation() -> void:
-	if facing_direction == Vector2.ZERO:
+	if facing_direction == Vector2.ZERO or base.velocity.length() == 0:
 		return
-	if base.velocity.length() == 0:
-		return
-	var anim := "walk_side"
-	if facing_direction.y > 0:
-		anim = "walk_bottom_diag" if facing_direction.x != 0 else "walk_bottom"
-	elif facing_direction.y < 0:
-		anim ="walk_top_diag" if facing_direction.x != 0 else "walk_top"
-	sprite.flip_h = facing_direction.x < 0
-	if sprite.animation != anim:
-		sprite.play(anim)
+	_play_facing_anim("walk")
 
 func update_idle_animation() -> void:
-	if facing_direction == Vector2.ZERO:
+	if facing_direction == Vector2.ZERO or base.velocity.length() > 0:
 		return
-	if base.velocity.length() > 0:
-		return
-	var anim := "idle_side"
+	_play_facing_anim("idle")
+
+func _play_facing_anim(prefix: String) -> void:
+	var anim := prefix + "_side"
 	if facing_direction.y > 0:
-		anim = "idle_bottom_diag" if facing_direction.x != 0 else "idle_bottom"
+		anim = prefix + "_bottom_diag" if facing_direction.x != 0 else prefix + "_bottom"
 	elif facing_direction.y < 0:
-		anim = "idle_top_diag" if facing_direction.x != 0 else "idle_top"
+		anim = prefix + "_top_diag" if facing_direction.x != 0 else prefix + "_top"
 	sprite.flip_h = facing_direction.x < 0
 	if sprite.animation != anim:
 		sprite.play(anim)
