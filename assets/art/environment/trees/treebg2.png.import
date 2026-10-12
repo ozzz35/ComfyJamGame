@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2mbbxce6mil5"
-path="res://.godot/imported/rake.png-17bb22b7d322fe4753c60d598fd45ddc.ctex"
+uid="uid://b45km4q6dajkn"
+path="res://.godot/imported/treebg2.png-22ed73853b8e2b1a4ad1fc1c25fa2873.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/props/rake.png"
-dest_files=["res://.godot/imported/rake.png-17bb22b7d322fe4753c60d598fd45ddc.ctex"]
+source_file="res://assets/art/environment/trees/treebg2.png"
+dest_files=["res://.godot/imported/treebg2.png-22ed73853b8e2b1a4ad1fc1c25fa2873.ctex"]
 
 [params]
 
