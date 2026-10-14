@@ -2,6 +2,12 @@
 
 [ext_resource type="Script" uid="uid://n58v7ia2l6d1" path="res://scripts/jobs/leaf.gd" id="1_n322b"]
 [ext_resource type="Texture2D" uid="uid://dxiepwt5bo15h" path="res://assets/art/environment/leaves/leaf_1.png" id="2_leaf1"]
+[ext_resource type="Script" uid="uid://0wyey87ujsw1" path="res://scripts/jobs/rustle_sound.gd" id="3_rustle"]
+[ext_resource type="AudioStream" uid="uid://0snr0msb7r6" path="res://assets/audio/sfx/rustle/Rustle1.wav" id="4_r1"]
+[ext_resource type="AudioStream" uid="uid://dl0cq3a78steo" path="res://assets/audio/sfx/rustle/Rustle2.wav" id="5_r2"]
+[ext_resource type="AudioStream" uid="uid://d0modg2h1dpv4" path="res://assets/audio/sfx/rustle/Rustle3.wav" id="6_r3"]
+[ext_resource type="AudioStream" uid="uid://bew1f0nhlivf6" path="res://assets/audio/sfx/rustle/Rustle4.wav" id="7_r4"]
+[ext_resource type="AudioStream" uid="uid://df5vcsgqs5npx" path="res://assets/audio/sfx/rustle/Rustle5.wav" id="8_r5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ur6hh"]
 size = Vector2(6, 6)
@@ -20,3 +26,7 @@ collision_mask = 2
 
 [node name="LeafAreaCollider" type="CollisionShape2D" parent="LeafArea" unique_id=290321102]
 shape = SubResource("RectangleShape2D_ur6hh")
+
+[node name="RustleSound" type="AudioStreamPlayer2D" parent="." unique_id=1847293012]
+script = ExtResource("3_rustle")
+rustles = Array[AudioStream]([ExtResource("4_r1"), ExtResource("5_r2"), ExtResource("6_r3"), ExtResource("7_r4"), ExtResource("8_r5")])

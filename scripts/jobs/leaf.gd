@@ -40,6 +40,7 @@ func receive_gust(_origin: Vector2, direction: Vector2, strength: float):
 	var varied_strength := strength * randf_range(0.68, 1.24)
 	velocity = spread_direction.normalized() * varied_strength
 	angular_velocity += randf_range(-7.5, 7.5)
+	_play_rustle()
 
 
 func pull_toward(point: Vector2, strength: float) -> void:
@@ -49,6 +50,13 @@ func pull_toward(point: Vector2, strength: float) -> void:
 		return
 	velocity = to_point.normalized() * strength
 	angular_velocity += randf_range(-3.0, 3.0)
+	_play_rustle()
+
+func _play_rustle() -> void:
+	var rustle := get_node_or_null("RustleSound")
+	if rustle:
+		rustle.play_rustle()
+
 
 func status_check():
 	if velocity == Vector2.ZERO:

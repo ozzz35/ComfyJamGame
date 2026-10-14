@@ -20,6 +20,9 @@ func sweep() -> void:
 	if sweeping:
 		return
 	sweeping = true
+	var sweep_sound := get_node_or_null("SweepSound")
+	if sweep_sound:
+		sweep_sound.play_sweep()
 	var hold := _aim_point()
 	_aim_angle = hold.angle()
 	var facing := hold.normalized()
