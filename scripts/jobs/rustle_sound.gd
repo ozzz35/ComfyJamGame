@@ -1,9 +1,11 @@
+class_name RustleSound
 extends AudioStreamPlayer2D
 
 @export var rustles: Array[AudioStream]
 
-const MAX_AT_ONCE := 400
+const MAX_AT_ONCE := 50
 const CLAIM_GRACE_MSEC := 100
+const COOLDOWN_MSEC := 140
 const LOUDNESS_OF := 6.0
 static var _holders: Array[int] = []
 static var _applied_count := -1
@@ -11,10 +13,18 @@ static var _applied_count := -1
 var last_index: int = -1
 var _holding := false
 var _claimed_msec := 0
+var _last_rustle_msec := -100000
+
+
+static func active_count() -> int:
+	return _holders.size()
 
 
 func play_rustle() -> void:
 	if rustles.is_empty():
+		return
+	var now := Time.get_ticks_msec()
+	if now - _last_rustle_msec < COOLDOWN_MSEC:
 		return
 	_drop_finished()
 	if _holding or _holders.size() >= MAX_AT_ONCE:
@@ -29,6 +39,7 @@ func play_rustle() -> void:
 	_holders.append(get_instance_id())
 	_match_loudness()
 	play()
+	_last_rustle_msec = now
 	last_index = index
 
 

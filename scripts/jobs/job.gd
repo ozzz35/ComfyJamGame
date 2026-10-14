@@ -13,10 +13,12 @@ var leaves_cleared : int = 0
 
 var _leaving := false
 var _tools: Node
+var _garden_bounds := Rect2()
 
 const CHEAT_PUSH_STRENGTH := 900.0
 
 func _ready():
+	_garden_bounds = _bounds_from_polygon(garden_area.polygon)
 	starting_leaves = _count_leaves()
 	exit.monitoring = false
 	var player := find_child("Player", true, false)
@@ -55,7 +57,20 @@ func _count_leaves() -> int:
 
 func contains_world_point(world_position: Vector2) -> bool:
 	var local_point := garden_area.to_local(world_position)
+	if not _garden_bounds.has_point(local_point):
+		return false
 	return Geometry2D.is_point_in_polygon(local_point, garden_area.polygon)
+
+
+func _bounds_from_polygon(polygon: PackedVector2Array) -> Rect2:
+	if polygon.is_empty():
+		return Rect2()
+	var min_p := polygon[0]
+	var max_p := polygon[0]
+	for point in polygon:
+		min_p = min_p.min(point)
+		max_p = max_p.max(point)
+	return Rect2(min_p, max_p - min_p)
 	
 func leaf_removed():
 	leaves_cleared += 1
