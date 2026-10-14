@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://cmde3g2jc561t"]
+[gd_scene format=3 uid="uid://faxm4gvf371q"]
 
-[ext_resource type="Script" uid="uid://8pchj2rcn8po" path="res://scripts/jobs/job_start_area.gd" id="1_psxrv"]
+[ext_resource type="Script" path="res://scripts/jobs/job_start_area.gd" id="1_psxrv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_blip"]
 resource_local_to_scene = true

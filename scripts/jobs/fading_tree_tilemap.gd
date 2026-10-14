@@ -13,6 +13,7 @@ class TreeCover:
 var trees: Array[TreeCover] = []
 
 func _ready() -> void:
+	y_sort_enabled = true
 	var cells := get_used_cells()
 	for cell in cells:
 		var sprite := _make_sprite(cell)
@@ -30,13 +31,17 @@ func _make_sprite(cell: Vector2i) -> Sprite2D:
 	var source := tile_set.get_source(get_cell_source_id(cell)) as TileSetAtlasSource
 	var tile_data := get_cell_tile_data(cell)
 	var region := source.get_tile_texture_region(get_cell_atlas_coords(cell))
+	var ground := map_to_local(cell)
+	var anchor := Node2D.new()
+	anchor.position = ground
+	add_child(anchor)
 	var sprite := Sprite2D.new()
 	sprite.texture = source.texture
 	sprite.region_enabled = true
 	sprite.region_rect = region
 	sprite.centered = false
-	sprite.position = map_to_local(cell) - Vector2(region.size) * 0.5 - Vector2(tile_data.texture_origin)
-	add_child(sprite)
+	sprite.position = -Vector2(region.size) * 0.5 - Vector2(tile_data.texture_origin)
+	anchor.add_child(sprite)
 	return sprite
 
 func _cover_rect(sprite: Sprite2D) -> Rect2:

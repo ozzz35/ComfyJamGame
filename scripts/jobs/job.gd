@@ -46,6 +46,10 @@ func leaf_removed():
 func job_finished() -> void:
 	ui.job_finishedprompt.visible = true
 	exit.monitoring = true
+	if GameManager.current_job is JobData:
+		var data := GameManager.current_job as JobData
+		if data.dialogue_file != "" and data.completion_dialogue_block != &"":
+			ui.start_conversation(data.dialogue_file, data.completion_dialogue_block)
 
 
 func _on_exit_body_entered(body: Node2D) -> void:
@@ -56,4 +60,5 @@ func _leave_through_exit(body: Node) -> void:
 		return
 	_leaving = true
 	ui.job_finishedprompt.visible = false
+	ui.cancel_conversation()
 	GameManager.leave_job.call_deferred()

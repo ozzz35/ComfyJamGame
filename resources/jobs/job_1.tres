@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="JobData" format=3 uid="uid://b7kqm3n8w2pd"]
-
-[ext_resource type="Script" uid="uid://bymxgo7ip2sih" path="res://scripts/jobs/job_data.gd" id="1_script"]
-[ext_resource type="PackedScene" uid="uid://duy522bit7the" path="res://scenes/jobs/job.tscn" id="2_yard"]
-
-[resource]
-script = ExtResource("1_script")
-yard_scene = ExtResource("2_yard")

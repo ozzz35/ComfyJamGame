@@ -12,13 +12,25 @@ var was_moving := false
 var was_in_leaves := false
 var near_padding : float = 18
 
-@onready var audiomap : TileMapLayer = get_node_or_null("../../../World/TestMap/AudioMapLayer")
+var audiomap : TileMapLayer
 @onready var leaf_check_area : Area2D = $"../LeafCheckArea"
 @onready var feets : Marker2D = $"../Feets"
 @onready var moving : bool = $"../MovementComp".input_vector != Vector2.ZERO
 
 func _ready():
 	player = get_parent()
+	audiomap = _find_audio_map()
+
+
+func _find_audio_map() -> TileMapLayer:
+	var node: Node = self
+	while node:
+		var found := node.find_child("AudioMapLayer", true, false)
+		if found is TileMapLayer:
+			return found
+		node = node.get_parent()
+	return null
+
 
 func _physics_process(delta: float) -> void:
 	moving = $"../MovementComp".input_vector != Vector2.ZERO

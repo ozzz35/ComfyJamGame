@@ -22,10 +22,28 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_aac20")
 
-[node name="TextBox" type="Sprite2D" parent="." unique_id=892160840]
+[node name="TextBox" type="Control" parent="." unique_id=892160840]
 visible = false
-position = Vector2(653, 590)
+anchors_preset = 0
+offset_left = 353.0
+offset_top = 502.0
+offset_right = 953.0
+offset_bottom = 678.0
+
+[node name="BoxArt" type="Sprite2D" parent="TextBox" unique_id=553628419]
+position = Vector2(300, 88)
 texture = ExtResource("1_u7n8c")
+
+[node name="DialogueLabel" type="Label" parent="TextBox" unique_id=260928242]
+custom_minimum_size = Vector2(478, 0)
+layout_mode = 0
+offset_left = 173.0
+offset_right = 576.0
+offset_bottom = 176.0
+theme_override_fonts/font = ExtResource("2_f5cxw")
+theme_override_font_sizes/font_size = 24
+vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="MoneyLabel" type="Label" parent="." unique_id=1098739009]
 layout_mode = 0
