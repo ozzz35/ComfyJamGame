@@ -9,6 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://bixnpaa75jrfm" path="res://assets/art/props/Building2.png" id="5_ouso4"]
 [ext_resource type="PackedScene" uid="uid://d41pq0qdntuq" path="res://scenes/npc/job_giver_npc.tscn" id="5_yyfjg"]
 [ext_resource type="Resource" uid="uid://b7kqm3n8w2pd" path="res://resources/jobs/tutorial.tres" id="6_b1x3f"]
+[ext_resource type="Resource" uid="uid://dj8job1res01" path="res://resources/jobs/job_1.tres" id="6_job1"]
+[ext_resource type="Resource" uid="uid://dj8job2res02" path="res://resources/jobs/job_2.tres" id="6_job2"]
+[ext_resource type="Resource" uid="uid://dj8job3res03" path="res://resources/jobs/job_3.tres" id="6_job3"]
 [ext_resource type="Texture2D" uid="uid://bnor5m11c2clh" path="res://assets/art/props/Long building.png" id="6_blune"]
 [ext_resource type="Texture2D" uid="uid://cblje1fieh8wi" path="res://assets/art/props/Garden plot .png" id="7_th5th"]
 [ext_resource type="PackedScene" uid="uid://v82vebanplu1" path="res://scenes/ui/ui.tscn" id="8_yyfjg"]
@@ -357,7 +360,10 @@ tile_set = SubResource("TileSet_7smn1")
 
 [node name="JobGiverNpc" parent="World/Interactibles" unique_id=1610449720 instance=ExtResource("5_yyfjg")]
 position = Vector2(49, -57)
-job = ExtResource("6_b1x3f")
+tutorial_job = ExtResource("6_b1x3f")
+job1 = ExtResource("6_job1")
+job2 = ExtResource("6_job2")
+job3 = ExtResource("6_job3")
 
 [node name="job1" type="Marker2D" parent="World/Interactibles" unique_id=155125180]
 position = Vector2(49, -57)

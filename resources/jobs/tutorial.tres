@@ -5,6 +5,9 @@
 
 [resource]
 script = ExtResource("1_script")
+is_tutorial = true
+yard_tool_id = 1
+offer_dialogue_block = &"tutorial_before"
 dialogue_file = "res://dialogue/foreman.json"
-completion_dialogue_block = &"job1_after"
+completion_dialogue_block = &"tutorial_after"
 yard_scene = ExtResource("2_yard")

@@ -1,9 +1,28 @@
 {
+  "tutorial_before": [
+    "Placeholder: quick yard lesson.",
+    "Use the broom, then head out when you're done."
+  ],
+  "tutorial_after": [
+    "Placeholder: nice sweeping."
+  ],
   "job1_before": [
     "Placeholder: need someone to rake a yard.",
     "Walk through these lines, then you start the job."
   ],
   "job1_after": [
     "Placeholder: good work out there."
+  ],
+  "job2_before": [
+    "Placeholder: bigger yard, bring the vacuum."
+  ],
+  "job2_after": [
+    "Placeholder: yard's clean."
+  ],
+  "job3_before": [
+    "Placeholder: last one needs the blower."
+  ],
+  "job3_after": [
+    "Placeholder: all done."
   ]
 }

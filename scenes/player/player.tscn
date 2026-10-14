@@ -12,7 +12,6 @@
 [ext_resource type="Texture2D" uid="uid://bfeb75xnbwpac" path="res://assets/art/tools/broom.png" id="8_qek5x"]
 [ext_resource type="AudioStream" uid="uid://bk3b3ah48j4p5" path="res://assets/audio/sfx/steps/grass_and_leaves/GrassStep3_1.wav" id="8_ugbui"]
 [ext_resource type="AudioStream" uid="uid://dmv41glel4pp2" path="res://assets/audio/sfx/steps/grass_and_leaves/GrassStep4_1.wav" id="9_fcs02"]
-[ext_resource type="Texture2D" uid="uid://5ub2ele40oik" path="res://icon.svg" id="10_h17s1"]
 [ext_resource type="AudioStream" uid="uid://b21ov5ethstev" path="res://assets/audio/sfx/steps/grass_and_leaves/GrassStep5_1.wav" id="10_myrg7"]
 [ext_resource type="Script" uid="uid://dfae52fp8rhnp" path="res://scripts/tools/leaf_blower.gd" id="11_je7p5"]
 [ext_resource type="AudioStream" uid="uid://c73ervkj63kvm" path="res://assets/audio/sfx/steps/grass_and_leaves/GrassStep6_1.wav" id="11_kvlxm"]
@@ -35,6 +34,8 @@
 [ext_resource type="AudioStream" uid="uid://c8uy28p6wixe" path="res://assets/audio/sfx/sweep/Sweep3.wav" id="27_sw3"]
 [ext_resource type="AudioStream" uid="uid://dcpncsoqsnmmg" path="res://assets/audio/sfx/sweep/Sweep4.wav" id="28_sw4"]
 [ext_resource type="AudioStream" uid="uid://corvx2571uqa5" path="res://assets/audio/sfx/sweep/Sweep5.wav" id="29_sw5"]
+[ext_resource type="Texture2D" uid="uid://wgxdhcp7hkyq" path="res://assets/art/tools/vacuum.png" id="33_kxw46"]
+[ext_resource type="Texture2D" uid="uid://phc30oorf3nl" path="res://assets/art/tools/leaf_blower.png" id="34_bbmj2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p47bc"]
 atlas = ExtResource("4_lvxji")
@@ -385,13 +386,13 @@ size = Vector2(16, 15.875)
 size = Vector2(12, 11)
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_fm80t"]
-points = PackedVector2Array(11.700001, 36, -12.299999, 36, 0, 0)
+points = PackedVector2Array(3.475, 41.87, -13.07, 41.95, -9.65, 0, 0, 0)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f1nwj"]
 radius = 5.700001
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_ur6hh"]
-points = PackedVector2Array(116, 167, -116, 167, 0, 0)
+points = PackedVector2Array(24, 48, -22, 48, 0, 0)
 
 [node name="Player" type="CharacterBody2D" unique_id=1726532600]
 script = ExtResource("1_gmlin")
@@ -472,9 +473,8 @@ script = ExtResource("24_sweep")
 sweeps = Array[AudioStream]([ExtResource("25_sw1"), ExtResource("26_sw2"), ExtResource("27_sw3"), ExtResource("28_sw4"), ExtResource("29_sw5")])
 
 [node name="LeafVacuum" type="Sprite2D" parent="Tools" unique_id=1427302801]
-modulate = Color(0.4509804, 0, 1, 1)
 position = Vector2(-27.7, 0)
-texture = ExtResource("8_qek5x")
+texture = ExtResource("33_kxw46")
 script = ExtResource("15_vac")
 
 [node name="ReachArea" type="Area2D" parent="Tools/LeafVacuum" unique_id=1427302802]
@@ -494,8 +494,7 @@ shape = SubResource("CircleShape2D_f1nwj")
 
 [node name="LeafBlower" type="Sprite2D" parent="Tools" unique_id=1427302733]
 position = Vector2(-58, 2)
-scale = Vector2(0.12890616, 0.203125)
-texture = ExtResource("10_h17s1")
+texture = ExtResource("34_bbmj2")
 script = ExtResource("11_je7p5")
 
 [node name="ReachArea" type="Area2D" parent="Tools/LeafBlower" unique_id=850261234]
@@ -503,4 +502,5 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="ReachAreaCollider" type="CollisionShape2D" parent="Tools/LeafBlower/ReachArea" unique_id=608910905]
+position = Vector2(3, 0)
 shape = SubResource("ConvexPolygonShape2D_ur6hh")

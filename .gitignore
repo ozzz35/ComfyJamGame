@@ -5,3 +5,6 @@
 # Local export output
 build/
 
+# Local debug autoloads (e.g. yard profiler)
+scripts/autoload/debug/
+
