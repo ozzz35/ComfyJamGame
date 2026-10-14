@@ -7,8 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://bxcoqp414kj1c" path="res://assets/art/props/Building1 no sign.png" id="4_ow5a4"]
 [ext_resource type="Texture2D" uid="uid://dxsq8b2v75x6i" path="res://assets/art/tiles/Road__sidewalk.png" id="4_yyfjg"]
 [ext_resource type="Texture2D" uid="uid://bixnpaa75jrfm" path="res://assets/art/props/Building2.png" id="5_ouso4"]
-[ext_resource type="PackedScene" uid="uid://cmde3g2jc561t" path="res://scenes/jobs/job_start_area.tscn" id="5_yyfjg"]
-[ext_resource type="Resource" uid="uid://b7kqm3n8w2pd" path="res://resources/jobs/job_1.tres" id="6_b1x3f"]
+[ext_resource type="PackedScene" uid="uid://d41pq0qdntuq" path="res://scenes/npc/job_giver_npc.tscn" id="5_yyfjg"]
+[ext_resource type="Resource" uid="uid://b7kqm3n8w2pd" path="res://resources/jobs/tutorial.tres" id="6_b1x3f"]
 [ext_resource type="Texture2D" uid="uid://bnor5m11c2clh" path="res://assets/art/props/Long building.png" id="6_blune"]
 [ext_resource type="Texture2D" uid="uid://cblje1fieh8wi" path="res://assets/art/props/Garden plot .png" id="7_th5th"]
 [ext_resource type="PackedScene" uid="uid://v82vebanplu1" path="res://scenes/ui/ui.tscn" id="8_yyfjg"]
@@ -355,11 +355,12 @@ tile_set = SubResource("TileSet_7smn1")
 
 [node name="Interactibles" type="Node2D" parent="World" unique_id=813103996]
 
-[node name="JobStartArea" parent="World/Interactibles" unique_id=922270305 instance=ExtResource("5_yyfjg")]
+[node name="JobGiverNpc" parent="World/Interactibles" unique_id=1610449720 instance=ExtResource("5_yyfjg")]
 position = Vector2(49, -57)
 job = ExtResource("6_b1x3f")
 
-[node name="job1" type="Marker2D" parent="World/Interactibles/JobStartArea" unique_id=155125180]
+[node name="job1" type="Marker2D" parent="World/Interactibles" unique_id=155125180]
+position = Vector2(49, -57)
 
 [node name="YSort" type="Node2D" parent="World" unique_id=-447676245]
 y_sort_enabled = true

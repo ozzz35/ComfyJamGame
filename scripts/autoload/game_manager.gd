@@ -6,6 +6,11 @@ var in_job : bool = false
 var has_rake : bool = false
 var has_vacuum : bool = false
 var has_blower : bool = false
+var tutorial_done : bool = false
+var job1_done : bool = false
+var job2_done : bool = false
+var job3_done : bool = false
+var job4_done : bool = false
 
 func edit_money(amount):
 	money += amount
@@ -24,6 +29,8 @@ func unlock_tool(id: int) -> void:
 		4: has_blower = true
 
 func leave_job() -> void:
+	if current_job is JobData:
+		_set_job_done(current_job.job_number)
 	in_job = false
 	var destination := "res://scenes/main/main.tscn"
 	var marker_name := "job1"
@@ -45,3 +52,18 @@ func leave_job() -> void:
 		player.global_position = marker.global_position
 		player.reset_physics_interpolation()
 		return
+
+func is_job_done(job_number: int) -> bool:
+	match job_number:
+		1: return job1_done
+		2: return job2_done
+		3: return job3_done
+		4: return job4_done
+	return false
+
+func _set_job_done(job_number: int) -> void:
+	match job_number:
+		1: job1_done = true
+		2: job2_done = true
+		3: job3_done = true
+		4: job4_done = true
