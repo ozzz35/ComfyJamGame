@@ -31,11 +31,14 @@ func _input(event):
 	if event.is_action_pressed("tool_1"):
 		equip(broom)
 	if event.is_action_pressed("tool_2"):
-		equip(rake)
+		if GameManager.has_rake:
+			equip(rake)
 	if event.is_action_pressed("tool_3"):
-		equip(vacuum)
+		if GameManager.has_vacuum:
+			equip(vacuum)
 	if event.is_action_pressed("tool_4"):
-		equip(blower)
+		if GameManager.has_blower:
+			equip(blower)
 	
 func equip(tool : Sprite2D):
 	if last_tool != null:

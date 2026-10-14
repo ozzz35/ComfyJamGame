@@ -328,16 +328,6 @@ squish = 0.92
 spin = 3.329035293785277
 edge_wobble = 0.04
 
-[node name="LeafPile6" parent="Leaves" unique_id=2035604845 instance=ExtResource("1_4nao2")]
-light_mask = 2
-visibility_layer = 2
-position = Vector2(-178, 10)
-pile_radius = 35
-density = 0.115
-squish = 0.99
-spin = 5.136200607965833
-edge_wobble = 0.14
-
 [node name="LeafPile7" parent="Leaves" unique_id=2013766399 instance=ExtResource("1_4nao2")]
 light_mask = 2
 visibility_layer = 2

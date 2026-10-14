@@ -3,6 +3,9 @@ extends Node
 var money : int = 0
 var current_job : Resource
 var in_job : bool = false
+var has_rake : bool = false
+var has_vacuum : bool = false
+var has_blower : bool = false
 
 func edit_money(amount):
 	money += amount
@@ -13,7 +16,13 @@ func start_job(job):
 		return
 	current_job = job
 	get_tree().change_scene_to_packed(job.yard_scene)
-	
+
+func unlock_tool(id: int) -> void:
+	match id:
+		2: has_rake = true
+		3: has_vacuum = true
+		4: has_blower = true
+
 func leave_job() -> void:
 	in_job = false
 	var destination := "res://scenes/main/main.tscn"
