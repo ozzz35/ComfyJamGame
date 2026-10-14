@@ -1,8 +1,10 @@
 extends Node2D
 
-@export var job: JobData
+@export var tutorial_job: JobData
+@export var job1: JobData
+@export var job2: JobData
+@export var job3: JobData
 @export_file("*.json") var dialogue_file: String = "res://dialogue/foreman.json"
-@export var offer_block: StringName = &"job1_before"
 @export_range(8, 600, 1) var range: int = 20:
 	set(value):
 		range = maxi(value, 1)
@@ -14,6 +16,7 @@ extends Node2D
 
 var player_here := false
 var player: PlayerBase
+var _offered_job: JobData
 
 func _ready() -> void:
 	_apply_range()
@@ -26,6 +29,8 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if not player_here or ui.conversation_active:
 		return
+	if _next_job() == null:
+		return
 	var pos := get_viewport().get_canvas_transform() * (player.global_position + Vector2(0, -16))
 	ui.talk_prompt(true, pos)
 
@@ -36,15 +41,34 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if not player_here or not event.is_action_pressed("interact"):
 		return
-	if job == null or GameManager.is_job_done(job.job_number):
+	var offer := _next_job()
+	if offer == null:
 		return
 	get_viewport().set_input_as_handled()
+	_offered_job = offer
 	ui.talk_prompt(false, Vector2.ZERO)
-	ui.start_conversation(dialogue_file, offer_block)
+	var path := dialogue_file
+	if offer.dialogue_file != "":
+		path = offer.dialogue_file
+	ui.start_conversation(path, offer.offer_dialogue_block)
+
+func _next_job() -> JobData:
+	if tutorial_job and not GameManager.tutorial_done:
+		return tutorial_job
+	if job1 and not GameManager.job1_done:
+		return job1
+	if job2 and not GameManager.job2_done:
+		return job2
+	if job3 and not GameManager.job3_done:
+		return job3
+	return null
 
 func _on_conversation_finished(block_id: StringName) -> void:
-	if block_id == offer_block and job != null:
-		GameManager.start_job(job)
+	if _offered_job == null:
+		return
+	if block_id == _offered_job.offer_dialogue_block:
+		GameManager.start_job(_offered_job)
+	_offered_job = null
 
 func _apply_range() -> void:
 	if not is_node_ready():

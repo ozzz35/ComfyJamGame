@@ -1,19 +1,12 @@
 extends Node
 
-var money : int = 0
 var current_job : Resource
 var in_job : bool = false
-var has_rake : bool = false
-var has_vacuum : bool = false
-var has_blower : bool = false
 var tutorial_done : bool = false
 var job1_done : bool = false
 var job2_done : bool = false
 var job3_done : bool = false
 var job4_done : bool = false
-
-func edit_money(amount):
-	money += amount
 
 func start_job(job):
 	in_job = true
@@ -22,15 +15,21 @@ func start_job(job):
 	current_job = job
 	get_tree().change_scene_to_packed(job.yard_scene)
 
-func unlock_tool(id: int) -> void:
-	match id:
-		2: has_rake = true
-		3: has_vacuum = true
-		4: has_blower = true
+func yard_tool_id() -> int:
+	if current_job is JobData:
+		return (current_job as JobData).yard_tool_id
+	return 0
+
+func tool_unlocked(tool_id: int) -> bool:
+	return in_job and tool_id == yard_tool_id()
 
 func leave_job() -> void:
 	if current_job is JobData:
-		_set_job_done(current_job.job_number)
+		var data := current_job as JobData
+		if data.is_tutorial:
+			tutorial_done = true
+		else:
+			_set_job_done(data.job_number)
 	in_job = false
 	var destination := "res://scenes/main/main.tscn"
 	var marker_name := "job1"

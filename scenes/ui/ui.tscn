@@ -3,6 +3,20 @@
 [ext_resource type="Script" uid="uid://bys5jjb7ct178" path="res://scripts/ui/ui.gd" id="1_aac20"]
 [ext_resource type="Texture2D" uid="uid://cud338v6x4me2" path="res://assets/art/ui/text_box.png" id="1_u7n8c"]
 [ext_resource type="FontFile" uid="uid://b61bw5j4tx1ig" path="res://assets/fonts/m6x11plus.ttf" id="2_f5cxw"]
+[ext_resource type="Texture2D" uid="uid://cy8jw0fagkun1" path="res://assets/art/ui/button2.png" id="3_btn2"]
+[ext_resource type="Texture2D" uid="uid://qpkv6pqmbu8x" path="res://assets/art/ui/button3.png" id="4_btn3"]
+[ext_resource type="Texture2D" uid="uid://dwb6ifgw176v4" path="res://assets/art/ui/button1.png" id="5_btn1"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btn2"]
+content_margin_left = 12.0
+content_margin_top = 8.0
+content_margin_right = 12.0
+content_margin_bottom = 8.0
+texture = ExtResource("3_btn2")
+texture_margin_left = 16.0
+texture_margin_top = 10.0
+texture_margin_right = 16.0
+texture_margin_bottom = 10.0
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_aac20"]
 load_path = "res://.godot/imported/progress bar medium rounded under.png-e32b876cfdf30d618702fc9f4d180234.ctex"
@@ -13,6 +27,28 @@ load_path = "res://.godot/imported/progress bar medium rounded over.png-3923c35d
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0dwhk"]
 load_path = "res://.godot/imported/progress bar medium rounded progress orange.png-84bfb8c9cc3257d0df1550afdd9fd788.ctex"
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btn3"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+texture = ExtResource("4_btn3")
+texture_margin_left = 20.0
+texture_margin_top = 10.0
+texture_margin_right = 20.0
+texture_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btn1"]
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 8.0
+content_margin_bottom = 4.0
+texture = ExtResource("5_btn1")
+texture_margin_left = 6.0
+texture_margin_top = 5.0
+texture_margin_right = 6.0
+texture_margin_bottom = 5.0
+
 [node name="UiRoot" type="Control" unique_id=1645349456]
 layout_mode = 3
 anchors_preset = 15
@@ -20,80 +56,242 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_aac20")
 
-[node name="TextBox" type="Control" parent="." unique_id=892160840]
+[node name="YardHud" type="Control" parent="." unique_id=9001001]
 visible = false
-anchors_preset = 0
-offset_left = 353.0
-offset_top = 502.0
-offset_right = 953.0
-offset_bottom = 678.0
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -200.0
+offset_right = 360.0
+offset_bottom = -16.0
+grow_vertical = 0
 
-[node name="BoxArt" type="Sprite2D" parent="TextBox" unique_id=553628419]
-position = Vector2(300, 88)
-texture = ExtResource("1_u7n8c")
+[node name="HudPanel" type="PanelContainer" parent="YardHud" unique_id=1553308553]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_btn2")
 
-[node name="DialogueLabel" type="Label" parent="TextBox" unique_id=260928242]
-custom_minimum_size = Vector2(478, 0)
-layout_mode = 0
-offset_left = 173.0
-offset_right = 576.0
-offset_bottom = 176.0
+[node name="Margin" type="MarginContainer" parent="YardHud/HudPanel" unique_id=248193582]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="Column" type="VBoxContainer" parent="YardHud/HudPanel/Margin" unique_id=1141834580]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="ToolLabel" type="Label" parent="YardHud/HudPanel/Margin/Column" unique_id=499878773]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.75)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
 theme_override_fonts/font = ExtResource("2_f5cxw")
 theme_override_font_sizes/font_size = 24
-vertical_alignment = 1
-autowrap_mode = 3
+text = "Tool"
 
-[node name="MoneyLabel" type="Label" parent="." unique_id=1098739009]
-layout_mode = 0
-offset_left = 7.0
-offset_right = 238.0
-offset_bottom = 81.0
+[node name="ProgressRow" type="HBoxContainer" parent="YardHud/HudPanel/Margin/Column" unique_id=314729634]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="ProgressLabel" type="Label" parent="YardHud/HudPanel/Margin/Column/ProgressRow" unique_id=2102183550]
+layout_mode = 2
 theme_override_fonts/font = ExtResource("2_f5cxw")
-theme_override_font_sizes/font_size = 80
-text = "Money: 0"
+theme_override_font_sizes/font_size = 20
+text = "Yard"
 
-[node name="JobProgress" type="TextureProgressBar" parent="." unique_id=707230875]
-layout_mode = 0
-offset_left = 13.0
-offset_top = 638.0
-offset_right = 289.0
-offset_bottom = 707.0
+[node name="ProgressValue" type="Label" parent="YardHud/HudPanel/Margin/Column/ProgressRow" unique_id=1625499374]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_f5cxw")
+theme_override_font_sizes/font_size = 20
+text = "0%"
+horizontal_alignment = 2
+
+[node name="JobProgress" type="TextureProgressBar" parent="YardHud/HudPanel/Margin/Column" unique_id=707230875]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
 nine_patch_stretch = true
 texture_under = SubResource("CompressedTexture2D_aac20")
 texture_over = SubResource("CompressedTexture2D_g5kmx")
 texture_progress = SubResource("CompressedTexture2D_0dwhk")
 
-[node name="JobProgressLabel" type="Label" parent="." unique_id=1820553220]
-layout_mode = 0
-offset_left = 21.0
-offset_top = 553.0
-offset_right = 283.0
-offset_bottom = 634.0
-theme_override_fonts/font = ExtResource("2_f5cxw")
-theme_override_font_sizes/font_size = 80
-text = "Progress:"
-
-[node name="JobStartPrompt" type="Label" parent="." unique_id=1249052444]
+[node name="VacuumRow" type="HBoxContainer" parent="YardHud/HudPanel/Margin/Column" unique_id=779730704]
 visible = false
-layout_mode = 0
-offset_left = 297.0
-offset_top = 187.0
-offset_right = 470.0
-offset_bottom = 208.0
-theme_override_fonts/font = ExtResource("2_f5cxw")
-theme_override_font_sizes/font_size = 20
-text = "Press E to start the job"
+layout_mode = 2
+theme_override_constants/separation = 10
 
-[node name="JobFinishedPrompt" type="Label" parent="." unique_id=1910750355]
-visible = false
-layout_mode = 0
-offset_left = 148.0
-offset_right = 1278.0
-offset_bottom = 165.0
+[node name="VacuumLabel" type="Label" parent="YardHud/HudPanel/Margin/Column/VacuumRow" unique_id=1030520287]
+layout_mode = 2
 theme_override_fonts/font = ExtResource("2_f5cxw")
-theme_override_font_sizes/font_size = 40
-text = "You finished the Job!
+theme_override_font_sizes/font_size = 18
+text = "Tank"
+
+[node name="VacuumBar" type="TextureProgressBar" parent="YardHud/HudPanel/Margin/Column/VacuumRow" unique_id=363253478]
+custom_minimum_size = Vector2(180, 22)
+layout_mode = 2
+size_flags_horizontal = 3
+nine_patch_stretch = true
+texture_under = SubResource("CompressedTexture2D_aac20")
+texture_over = SubResource("CompressedTexture2D_g5kmx")
+texture_progress = SubResource("CompressedTexture2D_0dwhk")
+
+[node name="JobCompleteBanner" type="PanelContainer" parent="." unique_id=1629489093]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -360.0
+offset_top = 20.0
+offset_right = 360.0
+offset_bottom = 120.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_btn3")
+
+[node name="Margin" type="MarginContainer" parent="JobCompleteBanner" unique_id=1525981063]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="JobCompleteBanner/Margin" unique_id=1910750355]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_f5cxw")
+theme_override_font_sizes/font_size = 22
+text = "You finished the job!
 Leave from the bottom to get back to town."
+horizontal_alignment = 1
+
+[node name="HelpPanel" type="PanelContainer" parent="." unique_id=69079259]
+visible = false
+z_index = 8
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -500.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 130.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_btn3")
+
+[node name="Margin" type="MarginContainer" parent="HelpPanel" unique_id=953072]
+layout_mode = 2
+
+[node name="Column" type="VBoxContainer" parent="HelpPanel/Margin" unique_id=1244384833]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Body" type="Label" parent="HelpPanel/Margin/Column" unique_id=380097712]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.55)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_fonts/font = ExtResource("2_f5cxw")
+theme_override_font_sizes/font_size = 18
+text = "Help"
+autowrap_mode = 3
+
+[node name="Subtext" type="Label" parent="HelpPanel/Margin/Column" unique_id=1194963727]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.45)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_fonts/font = ExtResource("2_f5cxw")
+theme_override_font_sizes/font_size = 14
+text = "press H to hide this notification"
+
+[node name="DialoguePanel" type="Control" parent="." unique_id=892160840]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -416.0
+offset_top = -268.0
+offset_right = 416.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="BoxArt" type="TextureRect" parent="DialoguePanel" unique_id=553628419]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_u7n8c")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextMargin" type="MarginContainer" parent="DialoguePanel" unique_id=1165909003]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 302
+theme_override_constants/margin_top = 44
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 39
+
+[node name="Column" type="VBoxContainer" parent="DialoguePanel/TextMargin" unique_id=573558527]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="DialogueLabel" type="Label" parent="DialoguePanel/TextMargin/Column" unique_id=260928242]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.55)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("2_f5cxw")
+theme_override_font_sizes/font_size = 22
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="AdvanceHint" type="Label" parent="DialoguePanel/TextMargin/Column" unique_id=885951521]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.45)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_fonts/font = ExtResource("2_f5cxw")
+theme_override_font_sizes/font_size = 14
+text = "E or click to continue"
 horizontal_alignment = 2
+
+[node name="WorldPrompt" type="Control" parent="." unique_id=1470494714]
+visible = false
+anchors_preset = 0
+
+[node name="Panel" type="PanelContainer" parent="WorldPrompt" unique_id=2029452771]
+layout_mode = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_btn1")
+
+[node name="Margin" type="MarginContainer" parent="WorldPrompt/Panel" unique_id=1317513554]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="WorldPrompt/Panel/Margin" unique_id=1249052444]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_f5cxw")
+theme_override_font_sizes/font_size = 16
+text = "Press E to talk"
