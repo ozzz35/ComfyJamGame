@@ -1,4 +1,4 @@
-# Tentative title: Solace
+# Solace
 
 A cozy top-down autumn game for Comfy Jam Autumn 2026.
 
