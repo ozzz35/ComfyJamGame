@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://c4x0d378roqcm"]
+
+[ext_resource type="Texture2D" uid="uid://doh48d5mlf1sn" path="res://assets/art/characters/ghost_idle.png" id="1_g23t6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_434k8"]
+atlas = ExtResource("1_g23t6")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_klo5b"]
+atlas = ExtResource("1_g23t6")
+region = Rect2(16, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ydna"]
+atlas = ExtResource("1_g23t6")
+region = Rect2(32, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_his2k"]
+atlas = ExtResource("1_g23t6")
+region = Rect2(48, 0, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ur6hh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_434k8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_klo5b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ydna")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_his2k")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 1.0
+}]
+
+[node name="Ghost" type="Node2D" unique_id=1798530520]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1235621648]
+sprite_frames = SubResource("SpriteFrames_ur6hh")
+autoplay = "default"

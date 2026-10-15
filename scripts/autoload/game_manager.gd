@@ -32,7 +32,7 @@ func leave_job() -> void:
 			_set_job_done(data.job_number)
 	in_job = false
 	var destination := "res://scenes/main/main.tscn"
-	var marker_name := "job1"
+	var marker_name := "oldman_job_return"
 	if current_job != null:
 		if String(current_job.street_scene) != "":
 			destination = String(current_job.street_scene)
@@ -59,6 +59,20 @@ func is_job_done(job_number: int) -> bool:
 		3: return job3_done
 		4: return job4_done
 	return false
+
+func can_offer_job(job: JobData) -> bool:
+	if job == null:
+		return false
+	if job.is_tutorial:
+		return not tutorial_done
+	if not tutorial_done:
+		return false
+	if is_job_done(job.job_number):
+		return false
+	for n in range(1, job.job_number):
+		if not is_job_done(n):
+			return false
+	return true
 
 func _set_job_done(job_number: int) -> void:
 	match job_number:
