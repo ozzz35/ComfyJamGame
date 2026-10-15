@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://6kdccni3yb0c"]
 
-[ext_resource type="Script" uid="uid://bheohr5w4fyua" path="res://scripts/jobs/job.gd" id="1_p05nm"]
+[ext_resource type="Script" uid="uid://bheohr5w4fyua" path="res://scripts/jobs/yard_level.gd" id="1_p05nm"]
 [ext_resource type="Texture2D" uid="uid://dphlg4rsm8wim" path="res://assets/art/tiles/Dirt_tiles.png" id="2_af45f"]
 [ext_resource type="Texture2D" uid="uid://cxnryrdmagts7" path="res://assets/art/tiles/Grass_tiles.png" id="3_aeetr"]
 [ext_resource type="Texture2D" uid="uid://dxsq8b2v75x6i" path="res://assets/art/tiles/Road__sidewalk.png" id="4_1wmkf"]
@@ -297,7 +297,7 @@ sources/2 = SubResource("TileSetAtlasSource_5jhrj")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ur6hh"]
 size = Vector2(78, 11)
 
-[node name="JobRoot" type="Node2D" unique_id=718308018]
+[node name="YardLevel" type="Node2D" unique_id=718308018]
 script = ExtResource("1_p05nm")
 metadata/_edit_horizontal_guides_ = [-102.0]
 

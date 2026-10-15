@@ -70,7 +70,7 @@ func _spawn_leaves() -> void:
 		return
 	_clear_spawned()
 	var count := roundi(float(pile_radius * pile_radius) * squish * density)
-	for i in count:
+	for _unused in count:
 		var leaf := leaves.instantiate()
 		leaf.add_to_group("spawned_leaf")
 		if Engine.is_editor_hint():

@@ -1,7 +1,6 @@
 extends Node2D
 
 @onready var garden_area: Polygon2D = $GardenArea
-@onready var ui = $Ui/UiRoot
 @onready var exit : Area2D = $Exit
 
 var percent_oc : float = 0.0
@@ -14,6 +13,7 @@ var leaves_cleared : int = 0
 var _leaving := false
 var _tools: Node
 var _garden_bounds := Rect2()
+var _ui: Control
 
 const CHEAT_PUSH_STRENGTH := 900.0
 
@@ -24,13 +24,30 @@ func _ready():
 	var player := find_child("Player", true, false)
 	if player:
 		_tools = player.find_child("Tools", true, false)
+	_setup_ui()
+
+func _setup_ui() -> void:
+	var existing := GameUI.get_root()
+	if existing:
+		_ui = existing
+		_try_begin_yard_ui()
+		return
+	GameUI.root_changed.connect(_on_ui_root_changed, CONNECT_ONE_SHOT)
+
+func _on_ui_root_changed(root: Control) -> void:
+	_ui = root
+	_try_begin_yard_ui()
+
+func _try_begin_yard_ui() -> void:
+	if _ui == null:
+		return
 	if GameManager.current_job is JobData:
-		ui.begin_yard(GameManager.current_job as JobData)
+		_ui.begin_yard(GameManager.current_job as JobData)
 
 func _process(_delta: float) -> void:
-	if _tools == null:
+	if _tools == null or _ui == null:
 		return
-	ui.set_vacuum_fill(_tools.get_vacuum_storage_ratio())
+	_ui.set_vacuum_fill(_tools.get_vacuum_storage_ratio())
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not event.is_action_pressed("debug_push_leaves"):
@@ -76,7 +93,8 @@ func leaf_removed():
 	leaves_cleared += 1
 	if starting_leaves > 0:
 		percent_oc = snapped(float(leaves_cleared) / float(starting_leaves), 0.01)
-	ui.job_progress(minf(percent_oc * 100.0, 100.0))
+	if _ui:
+		_ui.job_progress(minf(percent_oc * 100.0, 100.0))
 	if job_status:
 		return
 	if percent_oc >= job_goal:
@@ -84,12 +102,14 @@ func leaf_removed():
 		job_finished()
 		
 func job_finished() -> void:
-	ui.show_job_complete_banner()
+	if _ui == null:
+		return
+	_ui.show_job_complete_banner()
 	exit.monitoring = true
 	if GameManager.current_job is JobData:
 		var data := GameManager.current_job as JobData
 		if data.dialogue_file != "" and data.completion_dialogue_block != &"":
-			ui.start_conversation(data.dialogue_file, data.completion_dialogue_block)
+			_ui.start_conversation(data.dialogue_file, data.completion_dialogue_block)
 
 func _on_exit_body_entered(body: Node2D) -> void:
 	_leave_through_exit(body)
@@ -98,7 +118,8 @@ func _leave_through_exit(body: Node) -> void:
 	if _leaving or not job_status or not body is PlayerBase:
 		return
 	_leaving = true
-	ui.hide_job_complete_banner()
-	ui.cancel_conversation()
-	ui.hide_help()
+	if _ui:
+		_ui.hide_job_complete_banner()
+		_ui.cancel_conversation()
+		_ui.hide_help()
 	GameManager.leave_job.call_deferred()

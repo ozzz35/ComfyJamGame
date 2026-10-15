@@ -10,4 +10,4 @@ extends Resource
 @export var completion_dialogue_block: StringName = &""
 @export var yard_scene: PackedScene
 @export_file("*.tscn") var street_scene: String = "res://scenes/main/main.tscn"
-@export var return_marker: StringName = &"job1"
+@export var return_marker: StringName = &"oldman_job_return"

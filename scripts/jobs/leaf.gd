@@ -2,7 +2,6 @@ class_name Leaf extends Node2D
 var velocity : Vector2 = Vector2.ZERO
 var angular_velocity: float = 0.0
 var slowdown : int = 60
-var gone : bool = false
 var job : Node2D
 
 const angular_drag: float = 16.0
