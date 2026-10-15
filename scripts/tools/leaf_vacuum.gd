@@ -1,9 +1,10 @@
 extends "res://scripts/tools/aimed_tool.gd"
 
 @onready var _intake: CollisionShape2D = $IntakeArea/IntakeAreaCollider
+@onready var _sound: AudioStreamPlayer2D = $VacuumSound
 
 @export var tool_strength: float = 60.0
-@export var vacuum_capacity: int = 50
+@export var vacuum_capacity: int = 125
 @export var spew_strength: float = 140.0
 
 var vacuum_stored: int = 0
@@ -11,6 +12,10 @@ var _stored_leaves: Array[Leaf] = []
 var _spewing: Array[Leaf] = []
 
 const _ARRIVE_DISTANCE_SQ := 4.0
+const _ACTION_DELAY_SEC := 0.12
+
+var _left_hold_sec := 0.0
+var _right_hold_sec := 0.0
 
 
 func _ready() -> void:
@@ -23,10 +28,29 @@ func _physics_process(delta: float) -> void:
 	_aim_angle = _tip.angle()
 	_place_from_tip()
 	_reveal_spewed()
-	if Input.is_action_pressed("mouse_right"):
+	var left_held := Input.is_action_pressed("mouse_left")
+	var right_held := Input.is_action_pressed("mouse_right")
+	var spew_ready := right_held and not left_held and not _stored_leaves.is_empty()
+	var vacuum_ready := left_held and not right_held and vacuum_stored < vacuum_capacity
+	if spew_ready:
+		_right_hold_sec += delta
+	else:
+		_right_hold_sec = 0.0
+	if vacuum_ready:
+		_left_hold_sec += delta
+	else:
+		_left_hold_sec = 0.0
+	var can_spew := spew_ready and _right_hold_sec >= _ACTION_DELAY_SEC
+	var can_vacuum := vacuum_ready and _left_hold_sec >= _ACTION_DELAY_SEC
+	var motor_on := false
+	if can_spew:
+		motor_on = true
 		spew()
-	elif Input.is_action_pressed("mouse_left") and vacuum_stored < vacuum_capacity:
-		vacuum()
+	elif can_vacuum:
+		motor_on = true
+		if _sound.can_vacuum_leaves():
+			vacuum()
+	_sound.set_motor_on(motor_on)
 
 
 func vacuum() -> void:

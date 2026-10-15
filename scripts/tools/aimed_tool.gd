@@ -12,6 +12,7 @@ func _place_from_tip() -> void:
 	if _tip.length_squared() <= 0.001:
 		return
 	rotation = _tip.angle()
+	_aim_angle = rotation
 	position = _tip - _reach_shape.position.rotated(rotation)
 
 
