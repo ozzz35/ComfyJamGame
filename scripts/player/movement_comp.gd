@@ -15,11 +15,6 @@ var knockback_velocity : Vector2 = Vector2.ZERO
 
 var can_recieve_input : bool = true
 
-## Components
-#@onready var movement_component: Node2D = $"../movement_component"
-#@onready var combat_component: Node2D = $"../combat_component"
-#@onready var state_machine: StateMachine = $"../state_machine"
-
 func _physics_process(delta: float) -> void:
 	input_handling(delta)
 	update_walk_animation()
@@ -34,7 +29,7 @@ func _physics_process(delta: float) -> void:
 	base.move_and_slide()
 
 func input_handling(delta: float) -> void:
-	if can_recieve_input:
+	if can_recieve_input and not GameUI.movement_locked:
 		input_vector.x = Input.get_action_strength("right") - Input.get_action_strength("left")
 		input_vector.y = Input.get_action_strength("down") - Input.get_action_strength("up")
 	else:
