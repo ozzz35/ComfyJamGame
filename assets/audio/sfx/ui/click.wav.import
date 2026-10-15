@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://dcpncsoqsnmmg"
-path="res://.godot/imported/Sweep4.wav-89dd39d75d7cfd9f4d8dda3f1507de63.sample"
+uid="uid://1qxsgv63tc2s"
+path="res://.godot/imported/click.wav-cec872618d03e71afa69d54e3470854e.sample"
 
 [deps]
 
-source_file="res://assets/audio/sfx/sweep/Sweep4.wav"
-dest_files=["res://.godot/imported/Sweep4.wav-89dd39d75d7cfd9f4d8dda3f1507de63.sample"]
+source_file="res://assets/audio/sfx/ui/click.wav"
+dest_files=["res://.godot/imported/click.wav-cec872618d03e71afa69d54e3470854e.sample"]
 
 [params]
 

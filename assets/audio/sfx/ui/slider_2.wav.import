@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://c8uy28p6wixe"
-path="res://.godot/imported/Sweep3.wav-f0614c3e3f0efdad7e97aca537703369.sample"
+uid="uid://c14ks2k3wbeba"
+path="res://.godot/imported/slider_2.wav-c5923005f0dc4cc87b936d09c7103f84.sample"
 
 [deps]
 
-source_file="res://assets/audio/sfx/sweep/Sweep3.wav"
-dest_files=["res://.godot/imported/Sweep3.wav-f0614c3e3f0efdad7e97aca537703369.sample"]
+source_file="res://assets/audio/sfx/ui/slider_2.wav"
+dest_files=["res://.godot/imported/slider_2.wav-c5923005f0dc4cc87b936d09c7103f84.sample"]
 
 [params]
 
