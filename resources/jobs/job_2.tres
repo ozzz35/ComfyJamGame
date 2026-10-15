@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="JobData" format=3 uid="uid://dj8job2res02"]
 
 [ext_resource type="Script" uid="uid://bymxgo7ip2sih" path="res://scripts/jobs/job_data.gd" id="1_script"]
-[ext_resource type="PackedScene" path="res://scenes/jobs/job2.tscn" id="2_yard"]
+[ext_resource type="PackedScene" uid="uid://bjob1yardsk01" path="res://scenes/jobs/job2.tscn" id="2_yard"]
 
 [resource]
 script = ExtResource("1_script")
@@ -9,7 +9,7 @@ job_number = 2
 yard_tool_id = 3
 show_vacuum_help = true
 offer_dialogue_block = &"job2_before"
-dialogue_file = "res://dialogue/foreman.json"
+dialogue_file = "res://dialogue/game_dialogue.json"
 completion_dialogue_block = &"job2_after"
 yard_scene = ExtResource("2_yard")
 return_marker = &"butcher_job_return"

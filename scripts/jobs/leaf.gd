@@ -6,8 +6,10 @@ var job : Node2D
 
 const angular_drag: float = 16.0
 const GUST_GAP_MSEC := 55
+const FENCE_MASK := 32
 
 var _next_gust_msec := 0
+var _blocker_shape := RectangleShape2D.new()
 
 const LEAF_TEXTURES: Array[Texture2D] = [
 	preload("res://assets/art/environment/leaves/leaf_1.png"),
@@ -25,11 +27,12 @@ func _ready() -> void:
 			job = node
 			break
 		node = node.get_parent()
+	_blocker_shape.size = Vector2(6, 6)
 	set_physics_process(false)
 
 func _physics_process(delta):
 	status_check()
-	position += velocity * delta
+	_move_against_fences(delta)
 	velocity = velocity.move_toward(Vector2.ZERO, slowdown * delta)
 	graphic.rotation += angular_velocity * delta
 	angular_velocity = move_toward(angular_velocity, 0.0, angular_drag * delta)
@@ -67,6 +70,47 @@ func _play_rustle() -> void:
 	var rustle := get_node_or_null("RustleSound")
 	if rustle:
 		rustle.play_rustle()
+
+
+func _move_against_fences(delta: float) -> void:
+	var remaining := velocity * delta
+	if remaining.length_squared() <= 0.000001:
+		return
+	var space := get_world_2d().direct_space_state
+	for _attempt in 2:
+		if remaining.length_squared() <= 0.000001:
+			return
+		var params := PhysicsShapeQueryParameters2D.new()
+		params.shape = _blocker_shape
+		params.transform = Transform2D(0.0, global_position)
+		params.motion = remaining
+		params.collision_mask = FENCE_MASK
+		params.collide_with_areas = false
+		params.collide_with_bodies = true
+		var fractions := space.cast_motion(params)
+		var safe: float = fractions[0]
+		global_position += remaining * safe
+		if safe >= 1.0:
+			return
+		var normal := _fence_normal(space, remaining)
+		if normal == Vector2.ZERO:
+			velocity = Vector2.ZERO
+			return
+		velocity = velocity.slide(normal)
+		remaining = velocity * delta * (1.0 - safe)
+
+
+func _fence_normal(space: PhysicsDirectSpaceState2D, motion: Vector2) -> Vector2:
+	var probe := PhysicsShapeQueryParameters2D.new()
+	probe.shape = _blocker_shape
+	probe.collision_mask = FENCE_MASK
+	probe.collide_with_areas = false
+	probe.collide_with_bodies = true
+	probe.transform = Transform2D(0.0, global_position + motion.normalized() * 2.0)
+	var info := space.get_rest_info(probe)
+	if info.is_empty():
+		return Vector2.ZERO
+	return info.normal
 
 
 func status_check():

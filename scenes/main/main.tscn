@@ -500,11 +500,13 @@ talk_focus = NodePath("../../YSort/OldNPC")
 [node name="FarmerArea" parent="World/Interactibles" unique_id=1464714481 instance=ExtResource("5_yyfjg")]
 position = Vector2(188.43, 105.62)
 offered_jobs = Array[ExtResource("6_pg34l")]([ExtResource("6_job1")])
+no_work_dialogue_block = &"job1_before_blocked"
 talk_focus = NodePath("../../YSort/FarmerNPC")
 
 [node name="ButcherArea" parent="World/Interactibles" unique_id=1986474018 instance=ExtResource("5_yyfjg")]
 position = Vector2(400.16, -125.715)
 offered_jobs = Array[ExtResource("6_pg34l")]([ExtResource("6_job2")])
+no_work_dialogue_block = &"job2_before_blocked"
 talk_focus = NodePath("../../YSort/ButcherNPC")
 
 [node name="oldman_job_return" type="Marker2D" parent="World/Interactibles" unique_id=155125180]

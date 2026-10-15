@@ -8,12 +8,13 @@ class TreeCover:
 @export var covered_alpha : float = 0.3
 @export var fade_speed : float = 5.0
 
-@onready var player : Node2D = get_parent().get_node_or_null("Actors/Player")
+@onready var player : Node2D = get_parent().find_child("Player", true, false) as Node2D
 
 var trees: Array[TreeCover] = []
 
 func _ready() -> void:
-	y_sort_enabled = true
+	var sort_parent := get_parent()
+	y_sort_enabled = sort_parent != null and sort_parent.y_sort_enabled
 	var cells := get_used_cells()
 	for cell in cells:
 		var sprite := _make_sprite(cell)

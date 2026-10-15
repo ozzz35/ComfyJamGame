@@ -1,6 +1,15 @@
 extends Control
 
 signal conversation_finished(block_id: StringName)
+signal dialogue_line(line: Dictionary)
+signal dialogue_action(action: StringName)
+
+const PORTRAITS := {
+	"jane": preload("res://assets/art/ui/portraits/jane_portrait.png"),
+	"ghost": preload("res://assets/art/ui/portraits/ghost_portrait.png"),
+}
+
+const SPEAKER_FOCUS_IDS := ["gilbert", "jane", "butcher", "ghost", "player"]
 
 @onready var yard_hud: Control = $YardHud
 @onready var job_pgbar: TextureProgressBar = $YardHud/HudPanel/Margin/Column/JobProgress
@@ -13,10 +22,13 @@ signal conversation_finished(block_id: StringName)
 @onready var job_startprompt: Label = $WorldPrompt/Panel/Margin/Label
 @onready var job_finished_banner: PanelContainer = $JobCompleteBanner
 @onready var text_box: Control = $DialoguePanel
+@onready var portrait: TextureRect = $DialoguePanel/Portrait
 @onready var dialogue_label: Label = $DialoguePanel/TextMargin/Column/DialogueLabel
 @onready var help_panel: PanelContainer = $HelpPanel
 @onready var help_body: Label = $HelpPanel/Margin/Column/Body
 @onready var help_subtext: Label = $HelpPanel/Margin/Column/Subtext
+@onready var credits_overlay: ColorRect = $CreditsOverlay
+@onready var credits_label: Label = $CreditsOverlay/CreditsMargin/CreditsLabel
 
 @export var show_job_progress: bool = false
 
@@ -26,8 +38,10 @@ var _dialogue_cache: Dictionary = {}
 var _lines: Array = []
 var _line_index: int = 0
 var _block_id: StringName = &""
+var _credits_lines: PackedStringArray = PackedStringArray()
+var _credits_scroll := 0.0
 
-func _ready():
+func _ready() -> void:
 	GameUI.register_root(self)
 	if not tree_exiting.is_connected(_on_tree_exiting):
 		tree_exiting.connect(_on_tree_exiting)
@@ -35,7 +49,20 @@ func _ready():
 	job_finished_banner.visible = false
 	help_panel.visible = false
 	text_box.visible = false
+	credits_overlay.visible = false
+	portrait.visible = false
 	text_box.gui_input.connect(_on_dialogue_gui_input)
+	var root := _load_dialogue_file(DialogueLibrary.DEFAULT_PATH)
+	if root.has("credits"):
+		_credits_lines = PackedStringArray(root.credits)
+
+func _process(delta: float) -> void:
+	if not credits_overlay.visible:
+		return
+	_credits_scroll += delta * 42.0
+	credits_label.position.y = credits_overlay.size.y - _credits_scroll
+	if _credits_scroll > credits_label.size.y + credits_overlay.size.y + 80.0:
+		get_tree().change_scene_to_file("res://scenes/main/main_menu.tscn")
 
 func _on_tree_exiting() -> void:
 	GameUI.unregister_root(self)
@@ -59,6 +86,22 @@ func begin_yard(job_data: JobData) -> void:
 	_help_dismissed = false
 	if job_data.show_vacuum_help:
 		call_deferred("show_vacuum_help")
+	var yard_block := _yard_start_block(job_data)
+	if yard_block != &"":
+		var path := DialogueLibrary.resolve_path(job_data.dialogue_file)
+		call_deferred("start_conversation", path, yard_block)
+
+func _yard_start_block(job_data: JobData) -> StringName:
+	if job_data.is_tutorial:
+		return &"tutorial_yard_start"
+	match job_data.job_number:
+		1:
+			return &"job1_yard_start"
+		2:
+			return &"job2_yard_start"
+		3:
+			return &"job3_gilbert_yard_start"
+	return &""
 
 func set_vacuum_fill(ratio: float) -> void:
 	if not vacuum_row.visible:
@@ -86,11 +129,11 @@ func show_job_complete_banner() -> void:
 func hide_job_complete_banner() -> void:
 	job_finished_banner.visible = false
 
-func job_progress(progress):
+func job_progress(progress) -> void:
 	job_pgbar.value = progress
 	progress_value.text = str(int(progress)) + "%"
 
-func jobstart_prompt(visibility : bool, pos : Vector2):
+func jobstart_prompt(visibility: bool, pos: Vector2) -> void:
 	world_prompt.visible = visibility
 	if not visibility:
 		return
@@ -104,19 +147,30 @@ func talk_prompt(visibility: bool, pos: Vector2) -> void:
 	jobstart_prompt(visibility, pos)
 
 func start_conversation(path: String, block_id: StringName) -> bool:
-	var data := _load_dialogue(path)
-	if not data.has(block_id):
+	var file_root := _load_dialogue_file(path)
+	var lines := DialogueLibrary.get_block_lines(file_root, block_id)
+	if lines.is_empty():
 		return false
-	_lines = data[block_id]
-	if _lines.is_empty():
-		return false
+	_lines = lines
 	_block_id = block_id
 	_line_index = 0
 	conversation_active = true
 	GameUI.set_movement_locked(true)
 	text_box.visible = true
-	dialogue_label.text = str(_lines[0])
+	_show_line(_lines[0])
 	return true
+
+func show_credits(extra_lines: PackedStringArray = PackedStringArray()) -> void:
+	cancel_conversation()
+	var combined := _credits_lines.duplicate()
+	for line in extra_lines:
+		combined.append(line)
+	credits_label.text = "\n\n".join(combined)
+	credits_label.reset_size()
+	_credits_scroll = 0.0
+	credits_label.position.y = credits_overlay.size.y
+	credits_overlay.visible = true
+	credits_overlay.move_to_front()
 
 func _on_dialogue_gui_input(event: InputEvent) -> void:
 	if not conversation_active:
@@ -130,13 +184,39 @@ func _advance_line() -> void:
 	if _line_index >= _lines.size():
 		_close_conversation()
 		return
-	dialogue_label.text = str(_lines[_line_index])
+	_show_line(_lines[_line_index])
+
+func _show_line(line: Variant) -> void:
+	var entry := _enrich_line(line if line is Dictionary else {"text": str(line)})
+	dialogue_label.text = str(entry.get("text", ""))
+	_apply_portrait(entry)
+	dialogue_line.emit(entry)
+	var action := str(entry.get("action", ""))
+	if not action.is_empty():
+		dialogue_action.emit(StringName(action))
+
+func _enrich_line(raw: Dictionary) -> Dictionary:
+	var entry := raw.duplicate()
+	if str(entry.get("focus", "")).is_empty():
+		var speaker := str(entry.get("speaker", ""))
+		if speaker in SPEAKER_FOCUS_IDS:
+			entry["focus"] = speaker
+	return entry
+
+func _apply_portrait(line: Dictionary) -> void:
+	var portrait_key := str(line.get("portrait", line.get("speaker", "")))
+	if PORTRAITS.has(portrait_key):
+		portrait.texture = PORTRAITS[portrait_key]
+		portrait.visible = true
+	else:
+		portrait.visible = false
 
 func cancel_conversation() -> void:
 	conversation_active = false
 	GameUI.set_movement_locked(false)
 	text_box.visible = false
 	dialogue_label.text = ""
+	portrait.visible = false
 	_lines.clear()
 	_block_id = &""
 	_line_index = 0
@@ -146,12 +226,13 @@ func _close_conversation() -> void:
 	cancel_conversation()
 	conversation_finished.emit(finished_id)
 
-func _load_dialogue(path: String) -> Dictionary:
-	if _dialogue_cache.has(path):
-		return _dialogue_cache[path]
-	var text := FileAccess.get_file_as_string(path)
+func _load_dialogue_file(path: String) -> Dictionary:
+	var resolved := DialogueLibrary.resolve_path(path)
+	if _dialogue_cache.has(resolved):
+		return _dialogue_cache[resolved]
+	var text := FileAccess.get_file_as_string(resolved)
 	var parsed = JSON.parse_string(text)
 	if parsed is Dictionary:
-		_dialogue_cache[path] = parsed
+		_dialogue_cache[resolved] = parsed
 		return parsed
 	return {}

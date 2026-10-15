@@ -2,7 +2,7 @@ extends Node2D
 
 ## Jobs this NPC can offer, in order. First entry that GameManager allows is shown.
 @export var offered_jobs: Array[JobData] = []
-@export_file("*.json") var dialogue_file: String = "res://dialogue/foreman.json"
+@export_file("*.json") var dialogue_file: String = "res://dialogue/game_dialogue.json"
 @export var no_work_dialogue_block: StringName = &"no_work"
 @export var talk_focus: Node2D
 
@@ -12,6 +12,7 @@ var player_here := false
 var player: PlayerBase
 var _offered_job: JobData
 var _ui: Control
+var _conversation_host := false
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
@@ -32,6 +33,8 @@ func _bind_ui(ui_node: Control) -> void:
 		return
 	_ui = ui_node
 	_ui.conversation_finished.connect(_on_conversation_finished)
+	if not _ui.dialogue_line.is_connected(_on_dialogue_line):
+		_ui.dialogue_line.connect(_on_dialogue_line)
 
 func _process(_delta: float) -> void:
 	if _ui == null or not player_here or _ui.conversation_active:
@@ -46,7 +49,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if not player_here or not event.is_action_pressed("interact"):
 		return
-	# Later: open a small menu (ask for work / ask about them) before starting dialogue.
 	get_viewport().set_input_as_handled()
 	var offer := _next_job()
 	if offer != null:
@@ -55,19 +57,25 @@ func _unhandled_input(event: InputEvent) -> void:
 		_begin_no_work_talk()
 
 func _begin_job_offer(offer: JobData) -> void:
+	_conversation_host = true
 	_offered_job = offer
 	_ui.talk_prompt(false, Vector2.ZERO)
-	var path := dialogue_file
+	var path := DialogueLibrary.resolve_path(dialogue_file)
 	if offer.dialogue_file != "":
-		path = offer.dialogue_file
+		path = DialogueLibrary.resolve_path(offer.dialogue_file)
 	_set_camera_dialogue(true)
-	_ui.start_conversation(path, offer.offer_dialogue_block)
+	if not _ui.start_conversation(path, offer.offer_dialogue_block):
+		_conversation_host = false
+		_set_camera_dialogue(false)
 
 func _begin_no_work_talk() -> void:
+	_conversation_host = true
 	_offered_job = null
 	_ui.talk_prompt(false, Vector2.ZERO)
 	_set_camera_dialogue(true)
-	if not _ui.start_conversation(dialogue_file, no_work_dialogue_block):
+	var path := DialogueLibrary.resolve_path(dialogue_file)
+	if not _ui.start_conversation(path, no_work_dialogue_block):
+		_conversation_host = false
 		_set_camera_dialogue(false)
 
 func _next_job() -> JobData:
@@ -77,12 +85,28 @@ func _next_job() -> JobData:
 	return null
 
 func _on_conversation_finished(block_id: StringName) -> void:
-	_set_camera_dialogue(false)
+	if _conversation_host:
+		_set_camera_dialogue(false)
+	_conversation_host = false
 	if _offered_job == null:
 		return
 	if block_id == _offered_job.offer_dialogue_block:
 		GameManager.start_job(_offered_job)
 	_offered_job = null
+
+func _on_dialogue_line(line: Dictionary) -> void:
+	if not _conversation_host or _ui == null or not _ui.conversation_active or player == null:
+		return
+	var focus_id := str(line.get("focus", ""))
+	var focus_pos := Vector2.ZERO
+	if not focus_id.is_empty():
+		focus_pos = DialogueFocus.global_position(get_tree().current_scene, focus_id, player)
+	if focus_pos == Vector2.ZERO:
+		return
+	var cam := player.get_node_or_null("Camera") as Camera2D
+	if cam == null:
+		return
+	cam.set_dialogue_focus(true, focus_pos)
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is PlayerBase:
