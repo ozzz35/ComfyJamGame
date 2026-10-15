@@ -219,6 +219,7 @@ theme_override_font_sizes/font_size = 14
 text = "press H to hide this notification"
 
 [node name="DialoguePanel" type="Control" parent="." unique_id=892160840]
+visible = false
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5

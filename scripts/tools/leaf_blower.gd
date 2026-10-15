@@ -9,6 +9,9 @@ const FRONT_LAYER_DEPTH := 14.0
 
 
 func _physics_process(delta: float) -> void:
+	if GameUI.movement_locked:
+		_sound.set_blowing(false)
+		return
 	var target := _aim_point()
 	_tip = _tip.lerp(target, clampf(delta * 10.0, 0.0, 1.0))
 	_aim_angle = _tip.angle()

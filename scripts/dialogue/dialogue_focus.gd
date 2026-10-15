@@ -16,7 +16,7 @@ static func global_position(root: Node, focus_id: String, player: Node2D = null)
 		return player.global_position
 	if focus_id == "gilbert":
 		var yard_gilbert := root.find_child("GilbertFinale", true, false) as Node2D
-		if yard_gilbert != null:
+		if yard_gilbert != null and yard_gilbert.visible:
 			return yard_gilbert.global_position
 	var node_name: StringName = NPC_NODE_NAMES.get(focus_id, &"")
 	if node_name == &"":

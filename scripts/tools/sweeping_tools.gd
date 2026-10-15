@@ -5,11 +5,15 @@ var sweeping := false
 
 
 func _input(event: InputEvent) -> void:
+	if GameUI.movement_locked:
+		return
 	if event.is_action_pressed("mouse_left"):
 		sweep()
 
 
 func _physics_process(delta: float) -> void:
+	if GameUI.movement_locked:
+		return
 	if not sweeping:
 		var target := _aim_point()
 		_tip = _tip.lerp(target, clampf(delta * 10.0, 0.0, 1.0))

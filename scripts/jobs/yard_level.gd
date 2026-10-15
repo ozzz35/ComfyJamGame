@@ -24,6 +24,7 @@ const JOB3_GHOST_BLOCK := &"job3_ghost"
 const JOB3_EVIDENCE_BLOCK := &"job3_ghost_evidence"
 const JOB3_FINALE_BLOCK := &"job3_finale"
 const JOB3_EPILOGUE_BLOCK := &"job3_epilogue"
+const JOB3_YARD_START_BLOCK := &"job3_gilbert_yard_start"
 
 func _ready() -> void:
 	_garden_bounds = _bounds_from_polygon(garden_area.polygon)
@@ -31,6 +32,8 @@ func _ready() -> void:
 	exit.monitoring = false
 	_yard_ghost = get_node_or_null("Ghost") as Node2D
 	_gilbert_finale = get_node_or_null("GilbertFinale") as Node2D
+	if _yard_ghost:
+		_yard_ghost.visible = false
 	if _gilbert_finale:
 		_gilbert_finale.visible = false
 	_player = find_child("Player", true, false) as PlayerBase
@@ -67,7 +70,10 @@ func _try_begin_yard_ui() -> void:
 	if _ui == null:
 		return
 	if GameManager.current_job is JobData:
-		_ui.begin_yard(GameManager.current_job as JobData)
+		var data := GameManager.current_job as JobData
+		if data.job_number == 3:
+			_end_yard_dialogue_camera()
+		_ui.begin_yard(data)
 
 func _process(_delta: float) -> void:
 	if _tools == null or _ui == null:
@@ -144,7 +150,8 @@ func _begin_job3_ghost_debrief() -> bool:
 	if data.job_number != 3 or _yard_ghost == null:
 		return false
 	_ui.hide_job_complete_banner()
-	_yard_ghost.visible = true
+	if _yard_ghost:
+		_yard_ghost.visible = true
 	var path := DialogueLibrary.resolve_path(data.dialogue_file)
 	_ui.start_conversation(path, JOB3_GHOST_BLOCK)
 	return true
@@ -158,6 +165,8 @@ func _on_conversation_finished(block_id: StringName) -> void:
 		return
 	var path := DialogueLibrary.resolve_path(data.dialogue_file)
 	match block_id:
+		JOB3_YARD_START_BLOCK:
+			_end_yard_dialogue_camera()
 		JOB3_GHOST_BLOCK:
 			_ui.start_conversation(path, JOB3_EVIDENCE_BLOCK)
 		JOB3_EVIDENCE_BLOCK:
@@ -178,6 +187,10 @@ func _end_yard_dialogue_camera() -> void:
 func _on_dialogue_line(line: Dictionary) -> void:
 	if _player == null or _ui == null or not _ui.conversation_active:
 		return
+	if GameManager.current_job is JobData:
+		var data := GameManager.current_job as JobData
+		if data.job_number == 3 and not job_status:
+			return
 	var focus_id := str(line.get("focus", ""))
 	if focus_id.is_empty():
 		return

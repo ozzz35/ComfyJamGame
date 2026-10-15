@@ -4,6 +4,10 @@ extends Node2D
 @export var offered_jobs: Array[JobData] = []
 @export_file("*.json") var dialogue_file: String = "res://dialogue/game_dialogue.json"
 @export var no_work_dialogue_block: StringName = &"no_work"
+## When prerequisites for offered job(s) are not met (e.g. talk to Jane before Gilbert).
+@export var blocked_dialogue_block: StringName = &""
+## When every non-tutorial job this NPC offers is already completed.
+@export var after_jobs_done_dialogue_block: StringName = &""
 @export var talk_focus: Node2D
 
 @onready var area: Area2D = $TalkArea2D
@@ -74,7 +78,7 @@ func _begin_no_work_talk() -> void:
 	_ui.talk_prompt(false, Vector2.ZERO)
 	_set_camera_dialogue(true)
 	var path := DialogueLibrary.resolve_path(dialogue_file)
-	if not _ui.start_conversation(path, no_work_dialogue_block):
+	if not _ui.start_conversation(path, _resolve_no_work_block()):
 		_conversation_host = false
 		_set_camera_dialogue(false)
 
@@ -83,6 +87,46 @@ func _next_job() -> JobData:
 		if GameManager.can_offer_job(job):
 			return job
 	return null
+
+func _resolve_no_work_block() -> StringName:
+	for job in offered_jobs:
+		if GameManager.can_offer_job(job):
+			return no_work_dialogue_block
+	if blocked_dialogue_block != &"":
+		for job in offered_jobs:
+			if job.is_tutorial:
+				continue
+			if not _job_prerequisites_met(job) and not _job_marked_done(job):
+				return blocked_dialogue_block
+	if after_jobs_done_dialogue_block != &"" and _all_offered_jobs_done():
+		return after_jobs_done_dialogue_block
+	return no_work_dialogue_block
+
+func _job_prerequisites_met(job: JobData) -> bool:
+	if job.is_tutorial:
+		return true
+	if not GameManager.tutorial_done:
+		return false
+	for n in range(1, job.job_number):
+		if not GameManager.is_job_done(n):
+			return false
+	return true
+
+func _job_marked_done(job: JobData) -> bool:
+	if job.is_tutorial:
+		return GameManager.tutorial_done
+	return GameManager.is_job_done(job.job_number)
+
+func _all_offered_jobs_done() -> bool:
+	if offered_jobs.is_empty():
+		return false
+	for job in offered_jobs:
+		if job.is_tutorial:
+			if not GameManager.tutorial_done:
+				return false
+		elif not GameManager.is_job_done(job.job_number):
+			return false
+	return true
 
 func _on_conversation_finished(block_id: StringName) -> void:
 	if _conversation_host:

@@ -23,6 +23,11 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if GameUI.movement_locked:
+		_sound.set_motor_on(false)
+		_left_hold_sec = 0.0
+		_right_hold_sec = 0.0
+		return
 	var target := _aim_point()
 	_tip = _tip.lerp(target, clampf(delta * 10.0, 0.0, 1.0))
 	_aim_angle = _tip.angle()
