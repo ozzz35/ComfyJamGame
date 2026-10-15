@@ -6,7 +6,7 @@ extends AudioStreamPlayer2D
 const MAX_AT_ONCE := 50
 const CLAIM_GRACE_MSEC := 100
 const COOLDOWN_MSEC := 140
-const LOUDNESS_OF := 6.0
+const LOUDNESS_OF := 3.0
 static var _holders: Array[int] = []
 static var _applied_count := -1
 

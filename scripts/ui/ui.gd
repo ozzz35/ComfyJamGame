@@ -2,16 +2,8 @@ extends Control
 
 signal conversation_finished(block_id: StringName)
 
-const TOOL_NAMES := {
-	1: "Broom",
-	2: "Rake",
-	3: "Leaf vacuum",
-	4: "Leaf blower",
-}
-
 @onready var yard_hud: Control = $YardHud
 @onready var job_pgbar: TextureProgressBar = $YardHud/HudPanel/Margin/Column/JobProgress
-@onready var job_pglabel: Label = $YardHud/HudPanel/Margin/Column/ProgressRow/ProgressLabel
 @onready var progress_value: Label = $YardHud/HudPanel/Margin/Column/ProgressRow/ProgressValue
 @onready var tool_label: Label = $YardHud/HudPanel/Margin/Column/ToolLabel
 @onready var vacuum_row: HBoxContainer = $YardHud/HudPanel/Margin/Column/VacuumRow
@@ -36,11 +28,17 @@ var _line_index: int = 0
 var _block_id: StringName = &""
 
 func _ready():
+	GameUI.register_root(self)
+	if not tree_exiting.is_connected(_on_tree_exiting):
+		tree_exiting.connect(_on_tree_exiting)
 	yard_hud.visible = show_job_progress
 	job_finished_banner.visible = false
 	help_panel.visible = false
 	text_box.visible = false
 	text_box.gui_input.connect(_on_dialogue_gui_input)
+
+func _on_tree_exiting() -> void:
+	GameUI.unregister_root(self)
 
 func _input(event: InputEvent) -> void:
 	if help_panel.visible and event.is_action_pressed("dismiss_help"):
@@ -55,9 +53,8 @@ func _input(event: InputEvent) -> void:
 
 func begin_yard(job_data: JobData) -> void:
 	yard_hud.visible = show_job_progress
-	var name = TOOL_NAMES.get(job_data.yard_tool_id, "")
-	tool_label.text = name
-	vacuum_row.visible = job_data.yard_tool_id == 3
+	tool_label.text = GameTools.display_name(job_data.yard_tool_id)
+	vacuum_row.visible = GameTools.is_vacuum(job_data.yard_tool_id)
 	set_vacuum_fill(-1.0)
 	_help_dismissed = false
 	if job_data.show_vacuum_help:
@@ -103,7 +100,7 @@ func jobstart_prompt(visibility : bool, pos : Vector2):
 
 func talk_prompt(visibility: bool, pos: Vector2) -> void:
 	if visibility:
-		job_startprompt.text = "Press E or click to talk"
+		job_startprompt.text = "Press E to talk"
 	jobstart_prompt(visibility, pos)
 
 func start_conversation(path: String, block_id: StringName) -> bool:
@@ -116,6 +113,7 @@ func start_conversation(path: String, block_id: StringName) -> bool:
 	_block_id = block_id
 	_line_index = 0
 	conversation_active = true
+	GameUI.set_movement_locked(true)
 	text_box.visible = true
 	dialogue_label.text = str(_lines[0])
 	return true
@@ -136,6 +134,7 @@ func _advance_line() -> void:
 
 func cancel_conversation() -> void:
 	conversation_active = false
+	GameUI.set_movement_locked(false)
 	text_box.visible = false
 	dialogue_label.text = ""
 	_lines.clear()

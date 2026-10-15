@@ -1,5 +1,7 @@
 extends "res://scripts/tools/aimed_tool.gd"
 
+@onready var _sound: AudioStreamPlayer2D = $BlowerSound
+
 @export var tool_strength: float = 80.0
 
 const MAX_LEAVES_PER_BLOW := 48
@@ -11,7 +13,9 @@ func _physics_process(delta: float) -> void:
 	_tip = _tip.lerp(target, clampf(delta * 10.0, 0.0, 1.0))
 	_aim_angle = _tip.angle()
 	_place_from_tip()
-	if Input.is_action_pressed("mouse_left"):
+	var blowing := Input.is_action_pressed("mouse_left")
+	_sound.set_blowing(blowing)
+	if blowing:
 		blow()
 
 

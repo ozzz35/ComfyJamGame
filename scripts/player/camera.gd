@@ -3,8 +3,6 @@ extends Camera2D
 @export var max_offset_distance: float = 100.0
 @export var smoothness: float = 2.0
 
-const DEFAULT_SHAKE_DURATION := 0.18
-
 var original_offset: Vector2 = Vector2.ZERO
 var _smoothed_offset: Vector2 = Vector2.ZERO
 
@@ -25,8 +23,15 @@ var _shake_jitter_speed: float = 25.0
 var target_scale: float = 1.0
 var _zoom_tween: Tween
 
+var is_talking := false
+var _talk_focus_global := Vector2.ZERO
+
+@export var talk_smoothness: float = 5.0
+
 
 func _unhandled_input(event: InputEvent) -> void:
+	if is_talking:
+		return
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			_change_zoom(1.0 / zoom_step)
@@ -57,10 +62,29 @@ func _process(delta: float) -> void:
 		zoom = Vector2(new_scale, new_scale)
 
 
+func set_dialogue_focus(active: bool, focus_global: Vector2 = Vector2.ZERO) -> void:
+	is_talking = active
+	_talk_focus_global = focus_global
+
+
 func update_camera_offset(delta: float) -> void:
 	var max_offset_y := _max_downward_offset()
 	var min_offset_y := _max_upward_offset()
-	var base_target := _clamp_vertical(_mouse_look_target(), min_offset_y, max_offset_y)
+	var base_target: Vector2
+	if is_talking:
+		var parent_2d := get_parent() as Node2D
+		if parent_2d:
+			base_target = _talk_focus_global - parent_2d.global_position
+		else:
+			base_target = original_offset
+		base_target = _clamp_vertical(base_target, min_offset_y, max_offset_y)
+		var talk_weight: float = clampf(delta * talk_smoothness, 0.0, 1.0)
+		_smoothed_offset = _smoothed_offset.lerp(base_target, talk_weight)
+		_smoothed_offset = _clamp_vertical(_smoothed_offset, min_offset_y, max_offset_y)
+		_advance_shake(delta)
+		offset = _clamp_vertical(_smoothed_offset + _shake_offset, min_offset_y, max_offset_y)
+		return
+	base_target = _clamp_vertical(_mouse_look_target(), min_offset_y, max_offset_y)
 	var weight: float = clampf(delta * smoothness, 0.0, 1.0)
 	_smoothed_offset = _smoothed_offset.lerp(base_target, weight)
 	_smoothed_offset = _clamp_vertical(_smoothed_offset, min_offset_y, max_offset_y)
@@ -79,7 +103,7 @@ func _mouse_look_target() -> Vector2:
 
 func _clamp_vertical(point: Vector2, min_offset_y: float, max_offset_y: float) -> Vector2:
 	point = _clamp_downward(point, max_offset_y)
-	return _clampd_upward(point, min_offset_y)
+	return _clamp_upward(point, min_offset_y)
 
 
 func _clamp_downward(point: Vector2, max_offset_y: float) -> Vector2:
@@ -87,7 +111,7 @@ func _clamp_downward(point: Vector2, max_offset_y: float) -> Vector2:
 		point.y = max_offset_y
 	return point
 
-func _clampd_upward(point: Vector2, min_offset_y: float) -> Vector2:
+func _clamp_upward(point: Vector2, min_offset_y: float) -> Vector2:
 	if point.y < min_offset_y:
 		point.y = min_offset_y
 	return point

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bssrfsbb1ixwi"]
 
 [ext_resource type="Script" uid="uid://n58v7ia2l6d1" path="res://scripts/jobs/leaf.gd" id="1_n322b"]
-[ext_resource type="Texture2D" uid="uid://dxiepwt5bo15h" path="res://assets/art/environment/leaves/leaf_1.png" id="2_leaf1"]
+[ext_resource type="Texture2D" uid="uid://ckucdrrt5axco" path="res://assets/art/environment/leaves/leaf_1.png" id="2_leaf1"]
 [ext_resource type="Script" uid="uid://0wyey87ujsw1" path="res://scripts/jobs/rustle_sound.gd" id="3_rustle"]
 [ext_resource type="AudioStream" uid="uid://0snr0msb7r6" path="res://assets/audio/sfx/rustle/Rustle1.wav" id="4_r1"]
 [ext_resource type="AudioStream" uid="uid://dl0cq3a78steo" path="res://assets/audio/sfx/rustle/Rustle2.wav" id="5_r2"]
@@ -28,5 +28,6 @@ collision_mask = 2
 shape = SubResource("RectangleShape2D_ur6hh")
 
 [node name="RustleSound" type="AudioStreamPlayer2D" parent="." unique_id=1847293012]
+volume_db = -2.0
 script = ExtResource("3_rustle")
 rustles = Array[AudioStream]([ExtResource("4_r1"), ExtResource("5_r2"), ExtResource("6_r3"), ExtResource("7_r4"), ExtResource("8_r5")])

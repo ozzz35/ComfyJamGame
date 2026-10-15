@@ -2,15 +2,14 @@ extends AudioStreamPlayer2D
 
 @export var grass_steps : Array[AudioStream] 
 @export var dirt_steps : Array[AudioStream]
+@export var road_steps : Array[AudioStream]
 
 var last_index : int = -1
 var stride : float = 60 # How quickly the step sound repeats
 var distance : float = 0
 var player : CharacterBody2D
-var last_speed : float = 0
 var was_moving := false
 var was_in_leaves := false
-var near_padding : float = 18
 
 var audiomap : TileMapLayer
 @onready var leaf_check_area : Area2D = $"../LeafCheckArea"
@@ -64,11 +63,12 @@ func terrain_check():
 	var ground_type = audiomap.get_cell_tile_data(cell_pos)
 	if ground_type == null:
 		return
-	if ground_type.get_custom_data("dirt"):
+	if ground_type.get_custom_data("road"):
+		play_step(road_steps)
+	elif ground_type.get_custom_data("dirt"):
 		play_step(dirt_steps)
-	if ground_type.get_custom_data("grass"):
+	elif ground_type.get_custom_data("grass"):
 		play_step(grass_steps)
-
 
 func _near_leaf_pile() -> bool:
 	var hits = leaf_check_area.get_overlapping_areas()

@@ -11,8 +11,23 @@ var looping_music: Array[String] = []
 var current_music: String = ""
 var current_player: AudioStreamPlayer
 
+const SETTINGS_PATH := "user://settings.cfg"
+
 signal transition_ended
 signal music_ended(music_name: String)
+
+
+func _ready() -> void:
+	_load_saved_bus_volumes()
+
+
+func _load_saved_bus_volumes() -> void:
+	var cfg := ConfigFile.new()
+	if cfg.load(SETTINGS_PATH) != OK:
+		return
+	set_bus_volume("Master", float(cfg.get_value("audio", "master", 1.0)))
+	set_bus_volume("Music", float(cfg.get_value("audio", "music", 1.0)))
+	set_bus_volume("SFX", float(cfg.get_value("audio", "sfx", 1.0)))
 
 
 func play_music(music_name: String, transition_duration: float = 1.0) -> void:

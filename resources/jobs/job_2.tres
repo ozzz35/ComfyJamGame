@@ -12,3 +12,4 @@ offer_dialogue_block = &"job2_before"
 dialogue_file = "res://dialogue/foreman.json"
 completion_dialogue_block = &"job2_after"
 yard_scene = ExtResource("2_yard")
+return_marker = &"butcher_job_return"

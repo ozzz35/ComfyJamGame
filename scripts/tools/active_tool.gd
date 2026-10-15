@@ -24,10 +24,10 @@ func equip_yard_tool() -> void:
 	if not GameManager.in_job:
 		return
 	match GameManager.yard_tool_id():
-		1: equip(broom)
-		2: equip(rake)
-		3: equip(vacuum)
-		4: equip(blower)
+		GameTools.BROOM: equip(broom)
+		GameTools.RAKE: equip(rake)
+		GameTools.VACUUM: equip(vacuum)
+		GameTools.BLOWER: equip(blower)
 
 func get_vacuum_storage_ratio() -> float:
 	if vacuum.process_mode == Node.PROCESS_MODE_DISABLED:

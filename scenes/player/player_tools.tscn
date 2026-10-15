@@ -1,0 +1,119 @@
+[gd_scene format=3 uid="uid://cd8x7kpj7bfam"]
+
+[ext_resource type="Script" uid="uid://dhqtrg4860xqb" path="res://scripts/tools/active_tool.gd" id="6_5gtgg"]
+[ext_resource type="Texture2D" uid="uid://bfeb75xnbwpac" path="res://assets/art/tools/broom.png" id="8_qek5x"]
+[ext_resource type="Script" uid="uid://dfae52fp8rhnp" path="res://scripts/tools/leaf_blower.gd" id="11_je7p5"]
+[ext_resource type="Texture2D" uid="uid://b2mbbxce6mil5" path="res://assets/art/tools/rake.png" id="13_rake_tex"]
+[ext_resource type="Script" uid="uid://y46kb38xmwpq" path="res://scripts/tools/sweeping_tools.gd" id="14_rake"]
+[ext_resource type="Script" uid="uid://uobej1y5a2rg" path="res://scripts/tools/leaf_vacuum.gd" id="15_vac"]
+[ext_resource type="Script" uid="uid://wlh02tqe27yj" path="res://scripts/tools/sweep_sound.gd" id="24_sweep"]
+[ext_resource type="AudioStream" uid="uid://dgctnvj2bnoke" path="res://assets/audio/sfx/tools/sweep/Sweep1.wav" id="25_sw1"]
+[ext_resource type="AudioStream" uid="uid://bxulutxwog1l3" path="res://assets/audio/sfx/tools/sweep/Sweep2.wav" id="26_sw2"]
+[ext_resource type="AudioStream" uid="uid://c8uy28p6wixe" path="res://assets/audio/sfx/tools/sweep/Sweep3.wav" id="27_sw3"]
+[ext_resource type="AudioStream" uid="uid://dcpncsoqsnmmg" path="res://assets/audio/sfx/tools/sweep/Sweep4.wav" id="28_sw4"]
+[ext_resource type="AudioStream" uid="uid://corvx2571uqa5" path="res://assets/audio/sfx/tools/sweep/Sweep5.wav" id="29_sw5"]
+[ext_resource type="Texture2D" uid="uid://wgxdhcp7hkyq" path="res://assets/art/tools/vacuum.png" id="33_kxw46"]
+[ext_resource type="Texture2D" uid="uid://phc30oorf3nl" path="res://assets/art/tools/leaf_blower.png" id="34_bbmj2"]
+[ext_resource type="Script" uid="uid://bcqiai6ltct56" path="res://scripts/tools/vacuum_sound.gd" id="41_vacsnd"]
+[ext_resource type="Script" uid="uid://cspj7m6wxd2yq" path="res://scripts/tools/blower_sound.gd" id="45_blowsnd"]
+[ext_resource type="AudioStream" uid="uid://csohaka1jgay6" path="res://assets/audio/sfx/tools/blower/Souffleur s'arrête.wav" id="blow_end"]
+[ext_resource type="AudioStream" uid="uid://cx2tv86jry4hl" path="res://assets/audio/sfx/tools/blower/Souffleur boucle.wav" id="blow_loop"]
+[ext_resource type="AudioStream" uid="uid://u47mlwpc8fp0" path="res://assets/audio/sfx/tools/vacuum/Aspirateur s'arrête.wav" id="vac_end"]
+[ext_resource type="AudioStream" uid="uid://bk10e1isn6osi" path="res://assets/audio/sfx/tools/vacuum/Aspirateur boucle.wav" id="vac_loop"]
+[ext_resource type="AudioStream" uid="uid://4mqrr20yprhc" path="res://assets/audio/sfx/tools/vacuum/Aspirateur ce lance.wav" id="vac_start"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rake"]
+size = Vector2(16, 15.875)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5gtgg"]
+size = Vector2(12, 11)
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_fm80t"]
+points = PackedVector2Array(3.475, 41.87, -13.07, 41.95, -9.65, 0, 0, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f1nwj"]
+radius = 5.700001
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_ur6hh"]
+points = PackedVector2Array(24, 48, -22, 48, 0, 0)
+
+[node name="Tools" type="Node2D" unique_id=700380]
+script = ExtResource("6_5gtgg")
+
+[node name="Rake" type="Sprite2D" parent="." unique_id=327417097]
+position = Vector2(28, 0)
+texture = ExtResource("13_rake_tex")
+script = ExtResource("14_rake")
+
+[node name="ReachArea" type="Area2D" parent="Rake" unique_id=1685371138]
+collision_layer = 0
+collision_mask = 4
+
+[node name="ReachAreaCollider" type="CollisionShape2D" parent="Rake/ReachArea" unique_id=1502066586]
+position = Vector2(0, 10)
+shape = SubResource("RectangleShape2D_rake")
+
+[node name="Broom" type="Sprite2D" parent="." unique_id=778699521]
+position = Vector2(54.715, 0)
+texture = ExtResource("8_qek5x")
+script = ExtResource("14_rake")
+tool_strength = 25.0
+
+[node name="ReachArea" type="Area2D" parent="Broom" unique_id=1148355761]
+collision_layer = 0
+collision_mask = 4
+
+[node name="ReachAreaCollider" type="CollisionShape2D" parent="Broom/ReachArea" unique_id=1839254958]
+position = Vector2(3.2849998, 7.5)
+shape = SubResource("RectangleShape2D_5gtgg")
+
+[node name="SweepSound" type="AudioStreamPlayer2D" parent="Broom" unique_id=1638492011]
+volume_db = 4.0
+script = ExtResource("24_sweep")
+sweeps = Array[AudioStream]([ExtResource("25_sw1"), ExtResource("26_sw2"), ExtResource("27_sw3"), ExtResource("28_sw4"), ExtResource("29_sw5")])
+
+[node name="LeafVacuum" type="Sprite2D" parent="." unique_id=1427302801]
+position = Vector2(-27.7, 0)
+texture = ExtResource("33_kxw46")
+script = ExtResource("15_vac")
+
+[node name="ReachArea" type="Area2D" parent="LeafVacuum" unique_id=1427302802]
+collision_layer = 0
+collision_mask = 4
+
+[node name="ReachAreaCollider" type="CollisionShape2D" parent="LeafVacuum/ReachArea" unique_id=255377703]
+position = Vector2(4.700001, 0)
+shape = SubResource("ConvexPolygonShape2D_fm80t")
+
+[node name="IntakeArea" type="Area2D" parent="LeafVacuum" unique_id=1516283268]
+monitoring = false
+
+[node name="IntakeAreaCollider" type="CollisionShape2D" parent="LeafVacuum/IntakeArea" unique_id=668198629]
+position = Vector2(3.7000008, 7)
+shape = SubResource("CircleShape2D_f1nwj")
+
+[node name="VacuumSound" type="AudioStreamPlayer2D" parent="LeafVacuum" unique_id=111154549]
+volume_db = -8.0
+script = ExtResource("41_vacsnd")
+vacuum_startup = ExtResource("vac_start")
+vacuum_loop = ExtResource("vac_loop")
+vacuum_end = ExtResource("vac_end")
+
+[node name="LeafBlower" type="Sprite2D" parent="." unique_id=1427302733]
+position = Vector2(-58, 2)
+texture = ExtResource("34_bbmj2")
+script = ExtResource("11_je7p5")
+
+[node name="ReachArea" type="Area2D" parent="LeafBlower" unique_id=850261234]
+collision_layer = 0
+collision_mask = 4
+
+[node name="ReachAreaCollider" type="CollisionShape2D" parent="LeafBlower/ReachArea" unique_id=608910905]
+position = Vector2(3, 0)
+shape = SubResource("ConvexPolygonShape2D_ur6hh")
+
+[node name="BlowerSound" type="AudioStreamPlayer2D" parent="LeafBlower" unique_id=1982736451]
+volume_db = -8.0
+script = ExtResource("45_blowsnd")
+blower_loop = ExtResource("blow_loop")
+blower_end = ExtResource("blow_end")

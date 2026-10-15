@@ -1,4 +1,8 @@
 {
+  "no_work": [
+    "Nothing for you to do here right now.",
+    "Check back once you've got more experience around town."
+  ],
   "tutorial_before": [
     "Placeholder: quick yard lesson.",
     "Use the broom, then head out when you're done."
