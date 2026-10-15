@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://c8treesheet1" path="res://assets/art/environment/trees/trees.png" id="9_ocrtu"]
 [ext_resource type="Script" uid="uid://dk4n8wtree0fa" path="res://scripts/jobs/fading_tree_tilemap.gd" id="9_treef"]
 [ext_resource type="PackedScene" uid="uid://v82vebanplu1" path="res://scenes/ui/ui.tscn" id="10_48aas"]
+[ext_resource type="Texture2D" uid="uid://3q4spbfqbe2w" path="res://assets/art/props/Fence.png" id="12_fence"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0bn0k"]
 texture = ExtResource("3_yhiig")
@@ -254,6 +255,58 @@ texture_region_size = Vector2i(64, 64)
 tile_size = Vector2i(32, 32)
 sources/2 = SubResource("TileSetAtlasSource_5jhrj")
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fence"]
+texture = ExtResource("12_fence")
+texture_region_size = Vector2i(8, 20)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4.3148365, -10.051029, 4.0102596, -10.051029, 4.0102577, -5.888482, -4.0102596, -5.888482)
+0:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4.3148365, -10.051029, 4.0102596, -10.051029, 4.0102577, -5.888482, -4.0102596, -5.888482)
+1:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4.3148365, -10.051029, 4.0102596, -10.051029, 4.0102577, -5.888482, -4.0102596, -5.888482)
+2:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-4, -6, 0, -6, 0, 8, -4, 8)
+5:0/size_in_atlas = Vector2i(2, 1)
+5:0/0 = 0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8.375858, -10.051029, 8.07128, -10.051029, 8.172806, -5.888482, -8.274333, -5.6854305)
+5:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -6, 8, -6, 8, 6, -8, 6)
+3:0/size_in_atlas = Vector2i(2, 1)
+3:0/0 = 0
+3:0/0/texture_origin = Vector2i(4, 0)
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8.375858, -10.051029, 8.07128, -10.051029, 8.172806, -5.888482, -8.274333, -5.6854305)
+3:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-12, -6, 0, -6, 0, 6, -12, 6)
+
+[sub_resource type="TileSet" id="TileSet_fence"]
+tile_size = Vector2i(8, 8)
+physics_layer_0/collision_layer = 1
+physics_layer_1/collision_layer = 32
+physics_layer_1/collision_mask = 0
+sources/0 = SubResource("TileSetAtlasSource_fence")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ocrtu"]
+texture = ExtResource("12_fence")
+texture_region_size = Vector2i(8, 20)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -6, 0, -6, 0, 8, -4, 8)
+5:0/size_in_atlas = Vector2i(2, 1)
+5:0/0 = 0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -6, 8, -6, 8, 6, -8, 6)
+3:0/size_in_atlas = Vector2i(2, 1)
+3:0/0 = 0
+3:0/0/texture_origin = Vector2i(4, 0)
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -6, 0, -6, 0, 6, -12, 6)
+
+[sub_resource type="TileSet" id="TileSet_fkjkc"]
+tile_size = Vector2i(8, 8)
+physics_layer_0/collision_layer = 32
+physics_layer_0/collision_mask = 0
+sources/0 = SubResource("TileSetAtlasSource_ocrtu")
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ur6hh"]
 size = Vector2(78, 11)
 
@@ -270,7 +323,7 @@ position = Vector2(96.525, 8.95)
 
 [node name="MainMapLayer" type="TileMapLayer" parent="World/Garden" unique_id=1325637812]
 z_index = -1
-tile_map_data = PackedByteArray("AAD+////AQAEAAAAAAD+/wAAAQAAAAAAAAD+/wEAAQAAAAAAAAD9////AQAEAAAAAAD9/wAAAQAAAAIAAAD9/wEAAQAAAAQAAAD+/wIAAQAAAAQAAAD+/wMAAQAAAAAAAAD9/wMAAQAAAAAAAAD9/wIAAQAAAAIAAAD8/wIAAQAAAAQAAAD8/wEAAQAAAAAAAAD8/wAAAQAAAAAAAAD8////AQAEAAAAAAD7////AQAEAAAAAAD7/wAAAQAAAAQAAAD7/wEAAQAAAAIAAAD7/wIAAQAAAAIAAAD8/wMAAQAAAAAAAAD7/wMAAQAAAAAAAAD6/wMAAQAAAAAAAAD6/wIAAQAAAAQAAAD6/wEAAQAAAAIAAAD6/wAAAQAAAAQAAAD6////AQAEAAAAAAD6/wQAAQAEAAIAAAD5/wMAAQAAAAAAAAD5/wIAAQAAAAAAAAD5/wEAAQAAAAAAAAD5/wAAAQAAAAAAAAD5////AQAEAAAAAAD5/wQAAQAEAAIAAAD4////AQACAAAAAAD4/wAAAQAEAAIAAFD/////AQAGAAAAAAD//wAAAQAEAAIAAGD//wEAAQAEAAIAAGD//wIAAQAEAAIAAGD//wMAAQAEAAIAAGD//wQAAQAGAAIAAAD+/wQAAQAEAAIAAAD9/wQAAQAEAAIAAAD8/wQAAQAEAAIAAAD7/wQAAQAEAAIAAAD4/wMAAQAEAAIAAFD4/wQAAQACAAIAAAD4/wIAAQAEAAIAAFD4/wEAAQAEAAIAAFA=")
+tile_map_data = PackedByteArray("AAD+////AQAEAAAAAAD+/wAAAQAAAAAAAAD+/wEAAQAAAAAAAAD9////AQAEAAAAAAD9/wAAAQAAAAIAAAD9/wEAAQAAAAQAAAD+/wIAAQAAAAQAAAD+/wMAAQAAAAAAAAD9/wMAAQAAAAAAAAD9/wIAAQAAAAIAAAD8/wIAAQAAAAQAAAD8/wEAAQAAAAAAAAD8/wAAAQAAAAAAAAD8////AQAEAAAAAAD7////AQAEAAAAAAD7/wAAAQAAAAQAAAD7/wEAAQAAAAIAAAD7/wIAAQAAAAIAAAD8/wMAAQAAAAAAAAD7/wMAAQAAAAAAAAD6/wMAAQAAAAAAAAD6/wIAAQAAAAQAAAD6/wEAAQAAAAIAAAD6/wAAAQAAAAQAAAD6////AQAEAAAAAAD6/wQAAQAEAAIAAAD5/wMAAQAAAAAAAAD5/wIAAQAAAAAAAAD5/wEAAQAAAAAAAAD5/wAAAQAAAAAAAAD5/wQAAQAEAAIAAAD4////AQACAAAAAAD4/wAAAQAEAAIAAFD/////AQAGAAAAAAD//wAAAQAEAAIAAGD//wEAAQAEAAIAAGD//wIAAQAEAAIAAGD//wMAAQAEAAIAAGD//wQAAQAGAAIAAAD+/wQAAQAEAAIAAAD9/wQAAQAEAAIAAAD8/wQAAQAEAAIAAAD7/wQAAQAEAAIAAAD4/wMAAQAEAAIAAFD4/wQAAQACAAIAAAD4/wIAAQAEAAIAAFD4/wEAAQAEAAIAAFD5////AQAEAAAAAAA=")
 tile_set = SubResource("TileSet_ik4td")
 
 [node name="SubMapLayer" type="TileMapLayer" parent="World/Garden" unique_id=567339107]
@@ -346,7 +399,7 @@ edge_wobble = 0.32
 position = Vector2(42.174583, -5.2819204)
 scale = Vector2(1.3492063, 1.0265956)
 color = Color(1, 1, 1, 0)
-polygon = PackedVector2Array(-32, -26, -221, -27, -220.99998, 161.00003, -30.517633, 161.00003)
+polygon = PackedVector2Array(-31.25881, -33.818653, -220.2588, -32.84456, -220.99998, 175.61143, -30.517633, 175.61143)
 
 [node name="TreeBackground" type="TileMapLayer" parent="." unique_id=943943578]
 tile_map_data = PackedByteArray("AAD4//7/AAAAAAAAAAD5//7/AAAAAAAAAAD6//7/AAAAAAAAAAD7//7/AAAAAAAAAAD8//7/AAAAAAAAAAD9//7/AAAAAAAAAAD+//7/AAAAAAAAAAD///7/AAAAAAAAAAD2//7/AAAAAAAAAAD3//7/AAAAAAAAAAACAP7/AAAAAAAAAAADAP7/AAAAAAAAAAAEAP7/AAAAAAAAAAAFAP7/AAAAAAAAAAABAP7/AAAAAAAAAAAAAP7/AAAAAAAAAAD1//7/AAAAAAAAAAAJAP7/AAAAAAAAAAAIAP7/AAAAAAAAAAAHAP7/AAAAAAAAAAAGAP7/AAAAAAAAAAD0//7/AAAAAAAAAADz//7/AAAAAAAAAADy//7/AAAAAAAAAADx//7/AAAAAAAAAADw//7/AAAAAAAAAADv//7/AAAAAAAAAAA=")
@@ -366,6 +419,17 @@ z_index = 1
 tile_map_data = PackedByteArray("AAD4/wUAAgACAAAAAAD5/wUAAgABAAAABQD6/wUAAgABAAAABAD9/wUAAgACAAAAAQD+/wUAAgABAAAAAQD//wUAAgABAAAAAwA=")
 tile_set = SubResource("TileSet_f1nwj")
 script = ExtResource("9_treef")
+
+[node name="FenceMapLayer" type="TileMapLayer" parent="." unique_id=1783106294]
+z_index = -1
+tile_map_data = PackedByteArray("AAD///z/AAABAAAAAAD+//z/AAAFAAAAAAD8//z/AAAFAAAAAAD6//z/AAAFAAAAAAD4//z/AAAFAAAAAAD2//z/AAAFAAAAAAD0//z/AAAFAAAAAADy//z/AAAFAAAAAADw//z/AAAFAAAAAADu//z/AAAFAAAAAADs//z/AAAFAAAAAADq//z/AAAFAAAAAADo//z/AAAFAAAAAADm//z/AAAFAAAAAADk//z/AAAFAAAAAADi//z/AAAFAAAAAADf//z/AAAAAAAAAADg//z/AAAFAAAAAADg/xMAAAAAAAAAAADh/xMAAAAFAAAAAADj/xMAAAAFAAAAAADl/xMAAAAFAAAAAADn/xMAAAAFAAAAAADp/xMAAAAFAAAAAADr/xMAAAADAAAAAADy/xMAAAADAAAAABD0/xMAAAAFAAAAAAD2/xMAAAAFAAAAAAD4/xMAAAAFAAAAAAD6/xMAAAAFAAAAAAD8/xMAAAAFAAAAAAD+/xMAAAAFAAAAAAD//xMAAAABAAAAAAA=")
+tile_set = SubResource("TileSet_fence")
+
+[node name="InvisFenceMapLayer" type="TileMapLayer" parent="." unique_id=1236568943]
+visible = false
+z_index = -1
+tile_map_data = PackedByteArray("AAD///z/AAABAAAAAAD+//z/AAAFAAAAAAD8//z/AAAFAAAAAAD6//z/AAAFAAAAAAD4//z/AAAFAAAAAAD2//z/AAAFAAAAAAD0//z/AAAFAAAAAADy//z/AAAFAAAAAADw//z/AAAFAAAAAADu//z/AAAFAAAAAADs//z/AAAFAAAAAADq//z/AAAFAAAAAADo//z/AAAFAAAAAADm//z/AAAFAAAAAADk//z/AAAFAAAAAADi//z/AAAFAAAAAADf//z/AAAAAAAAAADg//z/AAAFAAAAAADg/xMAAAAAAAAAAADh/xMAAAAFAAAAAADj/xMAAAAFAAAAAADl/xMAAAAFAAAAAADn/xMAAAAFAAAAAADp/xMAAAAFAAAAAADr/xMAAAADAAAAAADy/xMAAAAFAAAAAAD0/xMAAAAFAAAAAAD2/xMAAAAFAAAAAAD4/xMAAAAFAAAAAAD6/xMAAAAFAAAAAAD8/xMAAAAFAAAAAAD+/xMAAAAFAAAAAAD//xMAAAABAAAAAADs/xMAAAAFAAAAAADt/xMAAAAFAAAAAADu/xMAAAAFAAAAAADv/xMAAAAFAAAAAADw/xMAAAAFAAAAAADx/xMAAAAFAAAAAAA=")
+tile_set = SubResource("TileSet_fkjkc")
 
 [node name="Actors" type="Node2D" parent="." unique_id=216789642]
 

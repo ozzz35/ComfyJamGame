@@ -500,11 +500,15 @@ talk_focus = NodePath("../../YSort/OldNPC")
 [node name="FarmerArea" parent="World/Interactibles" unique_id=1464714481 instance=ExtResource("5_yyfjg")]
 position = Vector2(188.43, 105.62)
 offered_jobs = Array[ExtResource("6_pg34l")]([ExtResource("6_job1")])
+blocked_dialogue_block = &"job1_before_blocked"
+after_jobs_done_dialogue_block = &"job1_street_after_done"
 talk_focus = NodePath("../../YSort/FarmerNPC")
 
 [node name="ButcherArea" parent="World/Interactibles" unique_id=1986474018 instance=ExtResource("5_yyfjg")]
 position = Vector2(400.16, -125.715)
 offered_jobs = Array[ExtResource("6_pg34l")]([ExtResource("6_job2")])
+blocked_dialogue_block = &"job2_before_blocked"
+after_jobs_done_dialogue_block = &"job2_street_after_done"
 talk_focus = NodePath("../../YSort/ButcherNPC")
 
 [node name="oldman_job_return" type="Marker2D" parent="World/Interactibles" unique_id=155125180]
@@ -594,7 +598,7 @@ sprite_frames = SubResource("SpriteFrames_m4h2d")
 autoplay = "default"
 
 [node name="ButcherNPC" type="AnimatedSprite2D" parent="World/YSort" unique_id=1187746644]
-position = Vector2(119, 70)
+position = Vector2(400, -154)
 sprite_frames = SubResource("SpriteFrames_necax")
 autoplay = "default"
 

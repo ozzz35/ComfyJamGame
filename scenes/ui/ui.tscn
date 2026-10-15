@@ -38,6 +38,12 @@ texture_margin_top = 10.0
 texture_margin_right = 20.0
 texture_margin_bottom = 10.0
 
+[sub_resource type="Gradient" id="Gradient_pfayw"]
+colors = PackedColorArray(0, 0, 0, 0.47058824, 0, 0, 0, 0.47058824)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_f1nwj"]
+gradient = SubResource("Gradient_pfayw")
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btn1"]
 content_margin_left = 8.0
 content_margin_top = 4.0
@@ -239,6 +245,23 @@ texture = ExtResource("1_u7n8c")
 expand_mode = 1
 stretch_mode = 5
 
+[node name="TextureRect" type="TextureRect" parent="DialoguePanel" unique_id=1100610744]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 14.0
+offset_right = 248.0
+offset_bottom = 240.0
+texture = SubResource("GradientTexture2D_f1nwj")
+
+[node name="Portrait" type="TextureRect" parent="DialoguePanel" unique_id=1394578446]
+layout_mode = 0
+offset_left = 10.33
+offset_top = 41.0
+offset_right = 258.33002
+offset_bottom = 240.0
+expand_mode = 1
+stretch_mode = 5
+
 [node name="TextMargin" type="MarginContainer" parent="DialoguePanel" unique_id=1165909003]
 layout_mode = 1
 anchors_preset = 15
@@ -295,3 +318,31 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("2_f5cxw")
 theme_override_font_sizes/font_size = 16
 text = "Press E to talk"
+
+[node name="CreditsOverlay" type="ColorRect" parent="." unique_id=730112920]
+visible = false
+z_index = 20
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="CreditsMargin" type="MarginContainer" parent="CreditsOverlay" unique_id=1587879362]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CreditsLabel" type="Label" parent="CreditsOverlay/CreditsMargin" unique_id=135992072]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_f5cxw")
+theme_override_font_sizes/font_size = 28
+text = "Credits"
+horizontal_alignment = 1
