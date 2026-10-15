@@ -1,160 +1,181 @@
 {
   "intro": [
-    { "text": "In a quiet little village…" },
-    { "text": "You're looking for a way to make some extra cash." },
-    { "text": "Luckily, you find a job: clearing leaves from people's gardens." },
-    { "text": "Simple work. Easy money." }
+	{ "text": "In a quiet little village…" },
+	{ "text": "You're looking for a way to make some extra cash." },
+	{ "text": "Luckily, you find a job: clearing leaves from people's gardens." },
+	{ "text": "Simple work. Easy money." }
   ],
   "blocks": {
-    "no_work": {
-      "lines": [
-        { "speaker": "gilbert", "text": "Nothing for you to do here right now.", "focus": "gilbert" },
-        { "speaker": "gilbert", "text": "Check back once you've got more experience around town.", "focus": "gilbert" }
-      ]
-    },
-    "job1_before_blocked": {
-      "lines": [
-        { "speaker": "jane", "text": "Hey kid, sorry... I don't trust you enough to let you in my garden....", "focus": "jane" }
-      ]
-    },
-    "job2_before_blocked": {
-      "lines": [
-        { "speaker": "butcher", "text": "Who are you? Leave me alone kid i'm working...", "focus": "butcher" }
-      ]
-    },
-    "tutorial_before": {
-      "lines": [
-        { "speaker": "gilbert", "text": "Hey, kid! My name's Gilbert.", "focus": "gilbert" },
-        { "speaker": "gilbert", "text": "I heard you volunteered to clear all those damn leaves from our gardens this October. Well, ain't that just wonderful!", "focus": "gilbert" },
-        { "speaker": "gilbert", "text": "I've been looking for someone to take that chore off my hands.", "focus": "gilbert" },
-        { "speaker": "gilbert", "text": "So, what do you say? Ready to get started? I can show you the garden.", "focus": "gilbert" }
-      ]
-    },
-    "tutorial_yard_start": {
-      "lines": [
-        { "speaker": "gilbert", "text": "Alright! Here's a broom... Sorry, it's all I've got!", "focus": "gilbert" },
-        { "speaker": "gilbert", "text": "Start by sweeping up the leaves out front, then dump 'em in the forest... Just make sure you don't toss 'em over the fences on either side. We don't want those leaves ending up in the neighbors' gardens!", "focus": "gilbert" },
-        { "speaker": "gilbert", "text": "Let's just hope they stay in the forest...", "focus": "gilbert" }
-      ]
-    },
-    "gilbert_after_tutorial": {
-      "lines": [
-        { "speaker": "gilbert", "text": "Well, look at you! You've got a knack for this, kid! Keep this up and I'll have to recommend you to a few of my friends, haha!", "focus": "gilbert" },
-        { "speaker": "gilbert", "text": "Say, you still looking for work? I know a farmer who could use a hand. Her garden's an absolute mess! You'll find her right in the middle of the village. Can't miss her — she's the one wearing the straw hat.", "focus": "gilbert" },
-        { "speaker": "gilbert", "text": "Go on, see what she's got for you!", "focus": "gilbert" }
-      ]
-    },
-    "job1_before": {
-      "lines": [
-        { "speaker": "jane", "text": "Well, hello there, young man! You're the one who helped old Gilbert with his garden, aren't you? He said you did a wonderful job!", "focus": "jane" },
-        { "speaker": "jane", "text": "Say, would you be willing to give me a hand with mine? Between the farm work and everything else, I can barely keep up with the garden!", "focus": "jane" },
-        { "speaker": "jane", "text": "How about it? Come on, I'll show you what needs doing!", "focus": "jane" }
-      ]
-    },
-    "job1_yard_start": {
-      "lines": [
-        { "speaker": "jane", "text": "Alright, here's my little patch of paradise! Now, what on earth are you gonna do with that broom?", "focus": "jane" },
-        { "speaker": "jane", "text": "Here, take this rake, kid. Much more useful, trust me!", "focus": "jane" },
-        { "speaker": "jane", "text": "You know the drill, right? Get these leaves outta my garden and dump 'em in the forest!", "focus": "jane" }
-      ]
-    },
-    "job1_after": {
-      "lines": [
-        { "speaker": "jane", "text": "Well, I'll be darned! You're a natural, kid! You're really good at this. You oughta start your own business!", "focus": "jane" },
-        { "speaker": "jane", "text": "Not sure if you're done for the day, but that butcher I told you about earlier could use a hand... If you need the money, go on ahead. Just be careful, though. That guy's a little... off.", "focus": "jane" },
-        { "speaker": "jane", "text": "Alright! See ya around, partner!", "focus": "jane" }
-      ]
-    },
-    "job2_before": {
-      "lines": [
-        { "speaker": "butcher", "text": "Well, aren't you the kid going around cleaning gardens for cheap? If you're looking for work, I could use a hand.", "focus": "butcher" }
-      ]
-    },
-    "job2_yard_start": {
-      "lines": [
-        { "speaker": "butcher", "text": "Alright. Clean up the whole garden. I'm not here to teach you how to do your job. Take this vacuum. You ain't gonna finish before dark with a rake. Suck up the leaves and dump 'em in the forest. I'm not your damn boss. I shouldn't have to explain how to do your job, should I?", "focus": "butcher" }
-      ]
-    },
-    "job2_after": {
-      "lines": [
-        { "speaker": "butcher", "text": "You done? About time. You should get going. Old Gilbert wanted to talk to you, I think. Now get lost...", "focus": "butcher" }
-      ]
-    },
-    "job3_before": {
-      "lines": [
-        { "speaker": "gilbert", "text": "Hey, kid! How'd Jane's garden turn out? Give you much trouble? Haha! Of course not, you're a pro at this by now!", "focus": "gilbert" },
-        { "speaker": "gilbert", "text": "Listen, I've got another job for you. Don't worry, it's not my garden again! Haha, I haven't messed it up... yet.", "focus": "gilbert" },
-        { "speaker": "gilbert", "text": "I've got some land just outside the village that I haven't touched in years. Place is a real mess, to say the least.", "focus": "gilbert" },
-        { "speaker": "gilbert", "text": "So, what do you say? I'll pay you a little extra this time!", "focus": "gilbert" }
-      ]
-    },
-    "job3_gilbert_yard_start": {
-      "lines": [
-        { "speaker": "gilbert", "text": "Alright, here we are! That rake Jane gave you is great and all, but I bought you a little something to help out... How about a brand-new leaf blower?!", "focus": "gilbert" },
-        { "speaker": "gilbert", "text": "With this baby, you can blow those leaves right outta the garden in no time! Go on, have some fun... and help me out while you're at it, hehe!", "focus": "gilbert" }
-      ]
-    },
-    "job3_ghost": {
-      "lines": [
-        { "speaker": "ghost", "text": "Hey... you... Don't be afraid... I'm nice... I've been watching you from the very beginning, and... you found some things in that butcher's garden, didn't you? Please... show them to me.", "focus": "ghost" }
-      ]
-    },
-    "job3_ghost_evidence": {
-      "lines": [
-        { "speaker": "ghost", "text": "These are my things! They could prove that damn butcher murdered me... and finally set my soul free, so I can move on to the afterlife!", "focus": "ghost" },
-        { "speaker": "ghost", "text": "Please... if you really wanna help me, take them to the police. Tell them what that monster did!", "focus": "ghost" }
-      ]
-    },
-    "job3_finale": {
-      "lines": [
-        { "speaker": "gilbert", "text": "Hey, kid! What are you doin'—?", "focus": "ghost", "action": "reveal_gilbert" },
-        { "speaker": "gilbert", "text": "Wait... What in the world?!", "focus": "gilbert" },
-        { "speaker": "gilbert", "text": "Is that... a ghost?!", "focus": "gilbert" },
-        { "speaker": "ghost", "text": "Grandpa...? You can see me...?", "focus": "ghost" },
-        { "speaker": "gilbert", "text": "Thomas...? Is that really you...?", "focus": "gilbert" },
-        { "speaker": "ghost", "text": "Grandpa! You can finally see me!", "focus": "ghost" },
-        { "speaker": "ghost", "text": "It must be because... because this kid found the evidence! The proof that the butcher... that he murdered me!", "focus": "ghost" },
-        { "speaker": "gilbert", "text": "The butcher...? It was HIM all along?!", "focus": "gilbert" },
-        { "speaker": "gilbert", "text": "But... everyone thought I did it! They all blamed me... Nobody wanted anything to do with me anymore. I lost everything, Thomas... Everything...", "focus": "gilbert" },
-        { "speaker": "gilbert", "text": "And all this time... it was that bastard?!", "focus": "gilbert" },
-        { "speaker": "gilbert", "text": "I... I can't believe it...", "focus": "gilbert" },
-        { "speaker": "gilbert", "text": "Thomas...? What's happening to you, son?", "focus": "gilbert", "action": "ghost_glow" },
-        { "speaker": "ghost", "text": "My murder... it's been solved.", "focus": "ghost" },
-        { "speaker": "ghost", "text": "I can feel it... I'm finally free, Grandpa. I can leave this world behind... and go to heaven.", "focus": "ghost" },
-        { "speaker": "gilbert", "text": "No... No, wait... Not yet...", "focus": "gilbert" },
-        { "speaker": "gilbert", "text": "Thomas, my little boy...", "focus": "gilbert" },
-        { "speaker": "gilbert", "text": "I've missed you so much. I've prayed for you every single night, hopin' that one day, somehow, I'd find out what happened to you...", "focus": "gilbert" },
-        { "speaker": "gilbert", "text": "And now... now that I can finally see you again...", "focus": "gilbert" },
-        { "speaker": "gilbert", "text": "But... if it's time for you to go, then go, my boy. You've been here long enough.", "focus": "gilbert" },
-        { "speaker": "gilbert", "text": "You deserve to rest. You deserve some peace.", "focus": "gilbert" },
-        { "speaker": "gilbert", "text": "I'll make sure that butcher pays for what he did to you. I promise. I'll see that justice is done, Thomas. You have my word.", "focus": "gilbert" },
-        { "speaker": "gilbert", "text": "And you, kid...", "focus": "player" },
-        { "speaker": "gilbert", "text": "I don't even know what to say. Thank you. Truly.", "focus": "gilbert" },
-        { "speaker": "gilbert", "text": "You found the truth when everyone else had given up. You cleared my name... and you helped my grandson find peace.", "focus": "gilbert" },
-        { "speaker": "gilbert", "text": "For years, I thought I'd lost everything. I thought the whole village would always see me as a monster...", "focus": "gilbert" },
-        { "speaker": "gilbert", "text": "But you've given me my life back, kid.", "focus": "gilbert" },
-        { "speaker": "gilbert", "text": "I can never thank you enough.", "focus": "gilbert" },
-        { "speaker": "ghost", "text": "Grandpa...", "focus": "ghost", "action": "ghost_fade" },
-        { "speaker": "ghost", "text": "Thank you for never forgetting me.", "focus": "ghost" },
-        { "speaker": "ghost", "text": "I love you.", "focus": "ghost" },
-        { "speaker": "ghost", "text": "Goodbye...", "focus": "ghost" },
-        { "speaker": "gilbert", "text": "I love you too, Thomas...", "focus": "gilbert" },
-        { "speaker": "gilbert", "text": "I always will.", "focus": "gilbert" },
-        { "speaker": "gilbert", "text": "Rest easy now, my boy...", "focus": "gilbert" },
-        { "speaker": "gilbert", "text": "Rest easy...", "focus": "gilbert" }
-      ]
-    },
-    "job3_epilogue": {
-      "lines": [
-        {
-          "speaker": "narrator",
-          "text": "And it was where they shared their happiest moments, that they were both set free in their own way..",
-          "action": "start_credits"
-        }
-      ]
-    }
+	"no_work": {
+	  "lines": [
+		{ "speaker": "gilbert", "text": "Nothing for you to do here right now.", "focus": "gilbert" },
+		{ "speaker": "gilbert", "text": "Check back once you've got more experience around town.", "focus": "gilbert" }
+	  ]
+	},
+	"job1_before_blocked": {
+	  "lines": [
+		{ "speaker": "jane", "text": "Hey kid, sorry... I don't trust you enough to let you in my garden....", "focus": "jane" }
+	  ]
+	},
+	"job2_before_blocked": {
+	  "lines": [
+		{ "speaker": "butcher", "text": "Who are you? Leave me alone kid i'm working...", "focus": "butcher" }
+	  ]
+	},
+	"tutorial_before": {
+	  "lines": [
+		{ "speaker": "gilbert", "text": "Hey, kid! My name's Gilbert.", "focus": "gilbert" },
+		{ "speaker": "gilbert", "text": "I heard you volunteered to clear all those damn leaves from our gardens this October. Well, ain't that just wonderful!", "focus": "gilbert" },
+		{ "speaker": "gilbert", "text": "I've been looking for someone to take that chore off my hands.", "focus": "gilbert" },
+		{ "speaker": "gilbert", "text": "So, what do you say? Ready to get started? I can show you the garden.", "focus": "gilbert" }
+	  ]
+	},
+	"tutorial_yard_start": {
+	  "lines": [
+		{ "speaker": "gilbert", "text": "Alright! Here's a broom... Sorry, it's all I've got!", "focus": "gilbert" },
+		{ "speaker": "gilbert", "text": "Start by sweeping up the leaves out front, then dump 'em in the forest... Just make sure you don't toss 'em over the fences on either side. We don't want those leaves ending up in the neighbors' gardens!", "focus": "gilbert" },
+		{ "speaker": "gilbert", "text": "Let's just hope they stay in the forest...", "focus": "gilbert" }
+	  ]
+	},
+	"gilbert_after_tutorial": {
+	  "lines": [
+		{ "speaker": "gilbert", "text": "Well, look at you! You've got a knack for this, kid! Keep this up and I'll have to recommend you to a few of my friends, haha!", "focus": "gilbert" },
+		{ "speaker": "gilbert", "text": "Say, you still looking for work? I know a farmer who could use a hand. Her garden's an absolute mess! You'll find her right in the middle of the village. Can't miss her — she's the one wearing the straw hat.", "focus": "gilbert" },
+		{ "speaker": "gilbert", "text": "Go on, see what she's got for you!", "focus": "gilbert" }
+	  ]
+	},
+	"job1_before": {
+	  "lines": [
+		{ "speaker": "jane", "text": "Well, hello there, young man! You're the one who helped old Gilbert with his garden, aren't you? He said you did a wonderful job!", "focus": "jane" },
+		{ "speaker": "jane", "text": "Say, would you be willing to give me a hand with mine? Between the farm work and everything else, I can barely keep up with the garden!", "focus": "jane" },
+		{ "speaker": "jane", "text": "How about it? Come on, I'll show you what needs doing!", "focus": "jane" }
+	  ]
+	},
+	"job1_yard_start": {
+	  "lines": [
+		{ "speaker": "jane", "text": "Alright, here's my little patch of paradise! Now, what on earth are you gonna do with that broom?", "focus": "jane" },
+		{ "speaker": "jane", "text": "Here, take this rake, kid. Much more useful, trust me!", "focus": "jane" },
+		{ "speaker": "jane", "text": "You know the drill, right? Get these leaves outta my garden and dump 'em in the forest!", "focus": "jane" }
+	  ]
+	},
+	"job1_after": {
+	  "lines": [
+		{ "speaker": "jane", "text": "Well, I'll be darned! You're a natural, kid! You're really good at this. You oughta start your own business!", "focus": "jane" },
+		{ "speaker": "jane", "text": "Not sure if you're done for the day, but that butcher I told you about earlier could use a hand... If you need the money, go on ahead. Just be careful, though. That guy's a little... off.", "focus": "jane" },
+		{ "speaker": "jane", "text": "Alright! See ya around, partner!", "focus": "jane" }
+	  ]
+	},
+	"job1_street_after_done": {
+	  "lines": [
+		{ "speaker": "jane", "text": "Hey again, partner! Garden's still spotless thanks to you.", "focus": "jane" },
+		{ "speaker": "jane", "text": "I don't have more work for you here. If you're still lookin' to earn a few bucks, try the butcher down the way.", "focus": "jane" }
+	  ]
+	},
+	"job2_before": {
+	  "lines": [
+		{ "speaker": "butcher", "text": "Well, aren't you the kid going around cleaning gardens for cheap? If you're looking for work, I could use a hand.", "focus": "butcher" }
+	  ]
+	},
+	"job2_yard_start": {
+	  "lines": [
+		{ "speaker": "butcher", "text": "Alright. Clean up the whole garden. I'm not here to teach you how to do your job. Take this vacuum. You ain't gonna finish before dark with a rake. Suck up the leaves and dump 'em in the forest. I'm not your damn boss. I shouldn't have to explain how to do your job, should I?", "focus": "butcher" }
+	  ]
+	},
+	"job2_after": {
+	  "lines": [
+		{ "speaker": "butcher", "text": "You done? About time. You should get going. Old Gilbert wanted to talk to you, I think. Now get lost...", "focus": "butcher" }
+	  ]
+	},
+	"job2_street_after_done": {
+	  "lines": [
+		{ "speaker": "butcher", "text": "I told you to get lost already. Gilbert's the one with more work for you not me.", "focus": "butcher" }
+	  ]
+	},
+	"job3_before": {
+	  "lines": [
+		{ "speaker": "gilbert", "text": "Hey, kid! How'd Jane's garden turn out? Give you much trouble? Haha! Of course not, you're a pro at this by now!", "focus": "gilbert" },
+		{ "speaker": "gilbert", "text": "Listen, I've got another job for you. Don't worry, it's not my garden again! Haha, I haven't messed it up... yet.", "focus": "gilbert" },
+		{ "speaker": "gilbert", "text": "I've got some land just outside the village that I haven't touched in years. Place is a real mess, to say the least.", "focus": "gilbert" },
+		{ "speaker": "gilbert", "text": "So, what do you say? I'll pay you a little extra this time!", "focus": "gilbert" }
+	  ]
+	},
+	"job3_gilbert_yard_start": {
+	  "lines": [
+		{ "speaker": "gilbert", "text": "Alright, here we are! That rake Jane gave you is great and all, but I bought you a little something to help out... How about a brand-new leaf blower?!", "focus": "player" },
+		{ "speaker": "gilbert", "text": "With this baby, you can blow those leaves right outta the garden in no time! Go on, have some fun... and help me out while you're at it, hehe!", "focus": "player" }
+	  ]
+	},
+	"job3_ghost": {
+	  "lines": [
+		{ "speaker": "ghost", "text": "Hey... you... Don't be afraid... I'm nice... I've been watching you from the very beginning, and... you found some things in that butcher's garden, didn't you? Please... show them to me.", "focus": "ghost" }
+	  ]
+	},
+	"job3_ghost_evidence": {
+	  "lines": [
+		{ "speaker": "ghost", "text": "These are my things! They could prove that damn butcher murdered me... and finally set my soul free, so I can move on to the afterlife!", "focus": "ghost" },
+		{ "speaker": "ghost", "text": "Please... if you really wanna help me, take them to the police. Tell them what that monster did!", "focus": "ghost" }
+	  ]
+	},
+	"job3_finale": {
+	  "lines": [
+		{ "speaker": "gilbert", "text": "Hey, kid! What are you doin'—?", "focus": "ghost", "action": "reveal_gilbert" },
+		{ "speaker": "gilbert", "text": "Wait... What in the world?!", "focus": "gilbert" },
+		{ "speaker": "gilbert", "text": "Is that... a ghost?!", "focus": "gilbert" },
+		{ "speaker": "ghost", "text": "Grandpa...? You can see me...?", "focus": "ghost" },
+		{ "speaker": "gilbert", "text": "Thomas...? Is that really you...?", "focus": "gilbert" },
+		{ "speaker": "ghost", "text": "Grandpa! You can finally see me!", "focus": "ghost" },
+		{ "speaker": "ghost", "text": "It must be because... because this kid found the evidence! The proof that the butcher... that he murdered me!", "focus": "ghost" },
+		{ "speaker": "gilbert", "text": "The butcher...? It was HIM all along?!", "focus": "gilbert" },
+		{ "speaker": "gilbert", "text": "But... everyone thought I did it! They all blamed me... Nobody wanted anything to do with me anymore. I lost everything, Thomas... Everything...", "focus": "gilbert" },
+		{ "speaker": "gilbert", "text": "And all this time... it was that bastard?!", "focus": "gilbert" },
+		{ "speaker": "gilbert", "text": "I... I can't believe it...", "focus": "gilbert" },
+		{ "speaker": "gilbert", "text": "Thomas...? What's happening to you, son?", "focus": "gilbert", "action": "ghost_glow" },
+		{ "speaker": "ghost", "text": "My murder... it's been solved.", "focus": "ghost" },
+		{ "speaker": "ghost", "text": "I can feel it... I'm finally free, Grandpa. I can leave this world behind... and go to heaven.", "focus": "ghost" },
+		{ "speaker": "gilbert", "text": "No... No, wait... Not yet...", "focus": "gilbert" },
+		{ "speaker": "gilbert", "text": "Thomas, my little boy...", "focus": "gilbert" },
+		{ "speaker": "gilbert", "text": "I've missed you so much. I've prayed for you every single night, hopin' that one day, somehow, I'd find out what happened to you...", "focus": "gilbert" },
+		{ "speaker": "gilbert", "text": "And now... now that I can finally see you again...", "focus": "gilbert" },
+		{ "speaker": "gilbert", "text": "But... if it's time for you to go, then go, my boy. You've been here long enough.", "focus": "gilbert" },
+		{ "speaker": "gilbert", "text": "You deserve to rest. You deserve some peace.", "focus": "gilbert" },
+		{ "speaker": "gilbert", "text": "I'll make sure that butcher pays for what he did to you. I promise. I'll see that justice is done, Thomas. You have my word.", "focus": "gilbert" },
+		{ "speaker": "gilbert", "text": "And you, kid...", "focus": "player" },
+		{ "speaker": "gilbert", "text": "I don't even know what to say. Thank you. Truly.", "focus": "gilbert" },
+		{ "speaker": "gilbert", "text": "You found the truth when everyone else had given up. You cleared my name... and you helped my grandson find peace.", "focus": "gilbert" },
+		{ "speaker": "gilbert", "text": "For years, I thought I'd lost everything. I thought the whole village would always see me as a monster...", "focus": "gilbert" },
+		{ "speaker": "gilbert", "text": "But you've given me my life back, kid.", "focus": "gilbert" },
+		{ "speaker": "gilbert", "text": "I can never thank you enough.", "focus": "gilbert" },
+		{ "speaker": "ghost", "text": "Grandpa...", "focus": "ghost", "action": "ghost_fade" },
+		{ "speaker": "ghost", "text": "Thank you for never forgetting me.", "focus": "ghost" },
+		{ "speaker": "ghost", "text": "I love you.", "focus": "ghost" },
+		{ "speaker": "ghost", "text": "Goodbye...", "focus": "ghost" },
+		{ "speaker": "gilbert", "text": "I love you too, Thomas...", "focus": "gilbert" },
+		{ "speaker": "gilbert", "text": "I always will.", "focus": "gilbert" },
+		{ "speaker": "gilbert", "text": "Rest easy now, my boy...", "focus": "gilbert" },
+		{ "speaker": "gilbert", "text": "Rest easy...", "focus": "gilbert" }
+	  ]
+	},
+	"job3_epilogue": {
+	  "lines": [
+		{
+		  "speaker": "narrator",
+		  "text": "And it was where they shared their happiest moments, that they were both set free in their own way..",
+		  "action": "start_credits"
+		}
+	  ]
+	}
   },
   "credits": [
-    "CliffWake Studio"
+	"Solace",
+	"Comfy Jam Autumn 2026",
+	"Devs",
+	"Ozz, Akuvent (Alexis Rats-Forgeron)",
+	"Artists",
+	"Fenley, Lothy (Sarah Toussaint), Cocaz (Benjamin Loeuil)",
+	"Composers",
+	"Psyopic, WrongIsRight",
+	"SFX Artists",
+	"Cocaz (Benjamin Loeuil), Psyopic",
+	"Featuring contributors from Cliffwake Studio"
   ]
 }
