@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c5n8pxx1pgafk"
+path="res://.godot/imported/3 Bamboo Battle - Blue Lava.mp3-69456c781c4a1f2f28c372fafba714ef.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/music/melodic_autumn/Melodic Autumn - Blue Lava Music Pack/MP3 Files/3 Bamboo Battle - Blue Lava.mp3"
+dest_files=["res://.godot/imported/3 Bamboo Battle - Blue Lava.mp3-69456c781c4a1f2f28c372fafba714ef.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

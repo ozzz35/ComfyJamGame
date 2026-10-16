@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b4d8y1072paep"
+path="res://.godot/imported/8 Hint of Frost - Blue Lava.mp3-6d6659666aaa59b948d98dc6360f1bbc.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/music/melodic_autumn/Melodic Autumn - Blue Lava Music Pack/MP3 Files/8 Hint of Frost - Blue Lava.mp3"
+dest_files=["res://.godot/imported/8 Hint of Frost - Blue Lava.mp3-6d6659666aaa59b948d98dc6360f1bbc.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

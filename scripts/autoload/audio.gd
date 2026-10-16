@@ -3,70 +3,257 @@ extends Node
 @onready var music: Node = $Music
 @onready var sfx: Node = $SFX
 
-## Add a key when a clip exists, for example "yard": "res://assets/audio/music/yard.ogg"
 var sounds: Dictionary = {}
 
 var looping_music: Array[String] = []
 
 var current_music: String = ""
 var current_player: AudioStreamPlayer
+var _playlist: Array[String] = []
+var _playlist_index: int = 0
+var _crossfade_tween: Tween
+var _vanish_player: AudioStreamPlayer
+var _vanish_playback: AudioStreamGeneratorPlayback
+var _vanish_audio_active := false
+var _vanish_phase := 0.0
 
 const SETTINGS_PATH := "user://settings.cfg"
+const DEFAULT_CROSSFADE := 2.0
+const VANISH_TARGET_DB := -4.0
 
 signal transition_ended
 signal music_ended(music_name: String)
 
 
 func _ready() -> void:
-	_load_saved_bus_volumes()
+	_register_music_tracks()
+	_load_saved_settings()
 
 
-func _load_saved_bus_volumes() -> void:
+func _register_music_tracks() -> void:
+	for key: String in MusicTracks.TRACKS:
+		sounds[key] = MusicTracks.TRACKS[key]
+	looping_music.assign(MusicTracks.LOOP)
+
+
+func _load_saved_settings() -> void:
+	var cfg := _read_settings_file()
+	if cfg == null:
+		return
+	apply_audio_levels(
+		float(cfg.get_value("audio", "master", 1.0)),
+		float(cfg.get_value("audio", "music", 1.0)),
+		float(cfg.get_value("audio", "sfx", 1.0)),
+	)
+	apply_vsync(bool(cfg.get_value("display", "vsync", true)))
+
+
+func _read_settings_file() -> ConfigFile:
 	var cfg := ConfigFile.new()
 	if cfg.load(SETTINGS_PATH) != OK:
+		return null
+	return cfg
+
+
+func read_audio_levels() -> Vector3:
+	var cfg := _read_settings_file()
+	if cfg == null:
+		return Vector3(1.0, 1.0, 1.0)
+	return Vector3(
+		float(cfg.get_value("audio", "master", 1.0)),
+		float(cfg.get_value("audio", "music", 1.0)),
+		float(cfg.get_value("audio", "sfx", 1.0)),
+	)
+
+
+func read_vsync() -> bool:
+	var cfg := _read_settings_file()
+	if cfg == null:
+		return true
+	return bool(cfg.get_value("display", "vsync", true))
+
+
+func persist_settings(master: float, music: float, sfx: float, vsync: bool) -> void:
+	var cfg := ConfigFile.new()
+	cfg.load(SETTINGS_PATH)
+	cfg.set_value("audio", "master", master)
+	cfg.set_value("audio", "music", music)
+	cfg.set_value("audio", "sfx", sfx)
+	cfg.set_value("display", "vsync", vsync)
+	cfg.save(SETTINGS_PATH)
+
+
+func apply_audio_levels(master: float, music: float, sfx: float) -> void:
+	set_bus_volume("Master", master)
+	set_bus_volume("Music", music)
+	set_bus_volume("SFX", sfx)
+
+
+func apply_vsync(enabled: bool) -> void:
+	DisplayServer.window_set_vsync_mode(
+		DisplayServer.VSYNC_ENABLED if enabled else DisplayServer.VSYNC_DISABLED
+	)
+
+
+func start_music_playlist(track_keys: Array[String], transition_duration: float = DEFAULT_CROSSFADE) -> void:
+	if track_keys.is_empty():
 		return
-	set_bus_volume("Master", float(cfg.get_value("audio", "master", 1.0)))
-	set_bus_volume("Music", float(cfg.get_value("audio", "music", 1.0)))
-	set_bus_volume("SFX", float(cfg.get_value("audio", "sfx", 1.0)))
+	_playlist = track_keys.duplicate()
+	_playlist_index = 0
+	play_music(_playlist[0], transition_duration, true)
 
 
-func play_music(music_name: String, transition_duration: float = 1.0) -> void:
+func play_music(music_name: String, transition_duration: float = DEFAULT_CROSSFADE, keep_playlist: bool = false) -> void:
+	if not keep_playlist:
+		_playlist.clear()
+		_playlist_index = 0
 	if current_music == music_name or not sounds.has(music_name):
+		return
+
+	var stream := _music_stream_for(music_name)
+	if stream == null:
 		return
 
 	var old_player: AudioStreamPlayer = current_player
 	var new_player := AudioStreamPlayer.new()
-	new_player.stream = load(sounds[music_name])
+	new_player.stream = stream
 	new_player.volume_db = -80.0
 	new_player.bus = "Music"
 	music.add_child(new_player)
 	new_player.play()
 
-	if current_player:
-		current_player.finished.disconnect(on_player_stream_finished)
+	if is_instance_valid(old_player) and old_player.finished.is_connected(on_player_stream_finished):
+		old_player.finished.disconnect(on_player_stream_finished)
 
 	current_player = new_player
 	current_music = music_name
 	current_player.finished.connect(on_player_stream_finished)
 
-	var tween := create_tween().set_parallel().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	tween.tween_property(new_player, "volume_db", 0.0, transition_duration).set_delay(transition_duration * 0.15)
+	if _crossfade_tween != null and _crossfade_tween.is_valid():
+		_crossfade_tween.kill()
+	_crossfade_tween = create_tween().set_parallel().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	_crossfade_tween.tween_property(new_player, "volume_db", 0.0, transition_duration)
 	if is_instance_valid(old_player):
-		tween.tween_property(old_player, "volume_db", -80.0, transition_duration / 2.0).set_delay(transition_duration / 2.0)
+		_crossfade_tween.tween_property(old_player, "volume_db", -80.0, transition_duration)
+	_crossfade_tween.finished.connect(func() -> void:
+		if is_instance_valid(old_player):
+			old_player.stop()
+			old_player.queue_free()
+		transition_ended.emit()
+	, CONNECT_ONE_SHOT)
 
-	await tween.finished
 
-	if is_instance_valid(old_player):
+func set_music_paused(paused: bool) -> void:
+	if current_player == null or not is_instance_valid(current_player):
+		return
+	current_player.stream_paused = paused
+
+
+func crossfade_music_volume(target_db: float, transition_duration: float = DEFAULT_CROSSFADE) -> void:
+	if current_player == null or not is_instance_valid(current_player):
+		return
+	current_player.stream_paused = false
+	if _crossfade_tween != null and _crossfade_tween.is_valid():
+		_crossfade_tween.kill()
+	_crossfade_tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	_crossfade_tween.tween_property(current_player, "volume_db", target_db, transition_duration)
+
+
+func begin_remnant_vanish_audio() -> void:
+	_ensure_vanish_player()
+	_vanish_phase = randf() * TAU
+	_vanish_player.volume_db = VANISH_TARGET_DB
+	_vanish_player.play()
+	_vanish_playback = _vanish_player.get_stream_playback() as AudioStreamGeneratorPlayback
+	_vanish_audio_active = true
+
+
+func end_remnant_vanish_audio() -> void:
+	_vanish_audio_active = false
+	if is_instance_valid(_vanish_player):
+		_vanish_player.stop()
+	_vanish_playback = null
+
+
+func _ensure_vanish_player() -> void:
+	if is_instance_valid(_vanish_player):
+		return
+	var generator := AudioStreamGenerator.new()
+	generator.mix_rate = 44100
+	generator.buffer_length = 0.15
+	_vanish_player = AudioStreamPlayer.new()
+	_vanish_player.stream = generator
+	_vanish_player.bus = "SFX"
+	_vanish_player.volume_db = VANISH_TARGET_DB
+	sfx.add_child(_vanish_player)
+
+
+func _process(_delta: float) -> void:
+	if not _vanish_audio_active or _vanish_playback == null:
+		return
+	var frames_available := _vanish_playback.get_frames_available()
+	if frames_available < 1:
+		return
+	var frames := PackedVector2Array()
+	frames.resize(frames_available)
+	var mix_rate := 44100.0
+	for i in frames_available:
+		_vanish_phase += 1.0 / mix_rate
+		var hum := sin(_vanish_phase * 47.0) * 0.06 + sin(_vanish_phase * 113.0) * 0.04
+		var hiss := randf_range(-1.0, 1.0) * 0.18
+		if randf() < 0.018:
+			hiss += randf_range(-1.0, 1.0) * 0.65
+		if randf() < 0.004:
+			hiss = 0.0
+		var sample := clampf(hiss + hum, -1.0, 1.0)
+		var wobble := randf_range(0.85, 1.15)
+		frames[i] = Vector2(sample, sample * wobble)
+	_vanish_playback.push_buffer(frames)
+
+
+func stop_music(transition_duration: float = DEFAULT_CROSSFADE) -> void:
+	_playlist.clear()
+	_playlist_index = 0
+	if current_player == null or not is_instance_valid(current_player):
+		current_music = ""
+		return
+	var old_player: AudioStreamPlayer = current_player
+	current_player = null
+	current_music = ""
+	if old_player.finished.is_connected(on_player_stream_finished):
+		old_player.finished.disconnect(on_player_stream_finished)
+	if _crossfade_tween != null and _crossfade_tween.is_valid():
+		_crossfade_tween.kill()
+	_crossfade_tween = create_tween()
+	_crossfade_tween.tween_property(old_player, "volume_db", -80.0, transition_duration)
+	_crossfade_tween.finished.connect(func() -> void:
+		old_player.stop()
 		old_player.queue_free()
-
-	transition_ended.emit()
+	, CONNECT_ONE_SHOT)
 
 
 func on_player_stream_finished() -> void:
+	if _playlist.size() > 0:
+		_playlist_index = (_playlist_index + 1) % _playlist.size()
+		play_music(_playlist[_playlist_index], DEFAULT_CROSSFADE, true)
+		return
 	if looping_music.has(current_music):
-		current_player.play()
-	else:
-		music_ended.emit(current_music)
+		return
+	music_ended.emit(current_music)
+
+
+func _music_stream_for(music_name: String) -> AudioStream:
+	var stream: AudioStream = load(sounds[music_name])
+	if stream == null:
+		return null
+	stream = stream.duplicate()
+	if not looping_music.has(music_name):
+		return stream
+	if stream is AudioStreamOggVorbis:
+		(stream as AudioStreamOggVorbis).loop = true
+	elif stream is AudioStreamMP3:
+		(stream as AudioStreamMP3).loop = true
+	return stream
 
 
 func play_sfx(sfx_key: String, change_pitch: bool = true, volume_db: float = 0.0) -> AudioStreamPlayer:

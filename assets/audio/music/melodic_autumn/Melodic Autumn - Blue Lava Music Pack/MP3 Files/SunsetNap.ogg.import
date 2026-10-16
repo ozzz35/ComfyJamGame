@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://v2rg3l36al0t"
+path="res://.godot/imported/SunsetNap.ogg-27a491b2a3f39d5af0a7ecbbbe011d0d.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/music/melodic_autumn/Melodic Autumn - Blue Lava Music Pack/MP3 Files/SunsetNap.ogg"
+dest_files=["res://.godot/imported/SunsetNap.ogg-27a491b2a3f39d5af0a7ecbbbe011d0d.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
