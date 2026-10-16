@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource("1_script")
 yard_tool_id = 2
+offer_dialogue_block = &"job1_before"
 dialogue_file = "res://dialogue/game_dialogue.json"
 completion_dialogue_block = &"job1_after"
 yard_scene = ExtResource("2_yard")

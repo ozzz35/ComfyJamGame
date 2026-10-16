@@ -12,6 +12,23 @@
 		{ "speaker": "gilbert", "text": "Check back once you've got more experience around town.", "focus": "gilbert" }
 	  ]
 	},
+	"gilbert_about": {
+	  "lines": [
+		{ "speaker": "gilbert", "text": "As I said, my name is Gilbert. I've lived here for as long as I can remember. I love this little village, even if most of my family lives pretty far away.", "focus": "gilbert" },
+		{ "speaker": "gilbert", "text": "My daughter and son used to drop by from time to time, but... well, they haven't been around much lately...", "focus": "gilbert" }
+	  ]
+	},
+	"jane_about": {
+	  "lines": [
+		{ "speaker": "jane", "text": "My name's Jane, cowboy! I'm a farmer. Moved to this town a few years back, looking for a quiet life, just me and my animals. Couldn't have picked a better place!", "focus": "jane" },
+		{ "speaker": "jane", "text": "Most folks around here are real nice, too. Well... except for the butcher. Let's just say he's a little... strange. But hey, who am I to judge? We've all got our own problems, right?", "focus": "jane" }
+	  ]
+	},
+	"butcher_about": {
+	  "lines": [
+		{ "speaker": "butcher", "text": "I'm not your buddy, kid. I'm your customer. I'm not here to make small talk.", "focus": "butcher" }
+	  ]
+	},
 	"job1_before_blocked": {
 	  "lines": [
 		{ "speaker": "jane", "text": "Hey kid, sorry... I don't trust you enough to let you in my garden....", "focus": "jane" }
@@ -20,6 +37,12 @@
 	"job2_before_blocked": {
 	  "lines": [
 		{ "speaker": "butcher", "text": "Who are you? Leave me alone kid i'm working...", "focus": "butcher" }
+	  ]
+	},
+	"job3_before_blocked": {
+	  "lines": [
+		{ "speaker": "gilbert", "text": "Whoa there, kid. I got land that needs clearin', but you ain't ready for that mess yet.", "focus": "gilbert" },
+		{ "speaker": "gilbert", "text": "Help Jane and that butcher with their gardens first. Then come find me.", "focus": "gilbert" }
 	  ]
 	},
 	"tutorial_before": {
@@ -112,13 +135,13 @@
 	},
 	"job3_ghost_evidence": {
 	  "lines": [
-		{ "speaker": "ghost", "text": "These are my things! They could prove that damn butcher murdered me... and finally set my soul free, so I can move on to the afterlife!", "focus": "ghost" },
+		{ "speaker": "ghost", "text": "These are perfect! They could prove that damn butcher murdered me... and finally set my soul free, so I can move on to the afterlife!", "focus": "ghost" },
 		{ "speaker": "ghost", "text": "Please... if you really wanna help me, take them to the police. Tell them what that monster did!", "focus": "ghost" }
 	  ]
 	},
 	"job3_finale": {
 	  "lines": [
-		{ "speaker": "gilbert", "text": "Hey, kid! What are you doin'—?", "focus": "ghost", "action": "reveal_gilbert" },
+		{ "speaker": "gilbert", "text": "Hey, kid! What are you doin'—?", "focus": "gilbert", "action": "reveal_gilbert" },
 		{ "speaker": "gilbert", "text": "Wait... What in the world?!", "focus": "gilbert" },
 		{ "speaker": "gilbert", "text": "Is that... a ghost?!", "focus": "gilbert" },
 		{ "speaker": "ghost", "text": "Grandpa...? You can see me...?", "focus": "ghost" },
@@ -168,6 +191,7 @@
   "credits": [
 	"Solace",
 	"Comfy Jam Autumn 2026",
+	"Featuring contributors from Cliffwake Studio",
 	"Devs",
 	"Ozz, Akuvent (Alexis Rats-Forgeron)",
 	"Artists",
@@ -175,7 +199,7 @@
 	"Composers",
 	"Psyopic, WrongIsRight",
 	"SFX Artists",
-	"Cocaz (Benjamin Loeuil), Psyopic",
-	"Featuring contributors from Cliffwake Studio"
+	"Cocaz (Benjamin Loeuil), Psyopic"
+
   ]
 }

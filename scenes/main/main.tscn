@@ -20,8 +20,10 @@
 [ext_resource type="Texture2D" uid="uid://cxad7mfkrgkd" path="res://assets/art/characters/gerald_idle.png" id="11_r4lks"]
 [ext_resource type="Texture2D" uid="uid://3q4spbfqbe2w" path="res://assets/art/props/Fence.png" id="13_7smn1"]
 [ext_resource type="Texture2D" uid="uid://bf2sf56mpu85h" path="res://assets/art/props/Plants.png" id="13_th5th"]
+[ext_resource type="Texture2D" uid="uid://bqq5yrh3qsk0m" path="res://assets/art/props/building_red.png" id="14_s17dp"]
 [ext_resource type="Texture2D" uid="uid://dnkdtj7aevb5e" path="res://assets/art/characters/jane_idle.png" id="15_r4lks"]
 [ext_resource type="Texture2D" uid="uid://bulpirqm863nh" path="res://assets/art/props/plant_pots.png" id="16_necax"]
+[ext_resource type="Script" uid="uid://cc30hsm0as27p" path="res://scripts/audio/music_zone.gd" id="17_music"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l3cfh"]
 texture = ExtResource("2_ow5a4")
@@ -495,21 +497,24 @@ tile_set = SubResource("TileSet_7smn1")
 [node name="OldManArea" parent="World/Interactibles" unique_id=1610449720 node_paths=PackedStringArray("talk_focus") instance=ExtResource("5_yyfjg")]
 position = Vector2(17, -50)
 offered_jobs = Array[ExtResource("6_pg34l")]([ExtResource("6_b1x3f"), ExtResource("6_job3")])
+blocked_dialogue_block = &"job3_before_blocked"
+about_dialogue_block = &"gilbert_about"
 talk_focus = NodePath("../../YSort/OldNPC")
+run_intro_hub_greeting = true
 
 [node name="FarmerArea" parent="World/Interactibles" unique_id=1464714481 instance=ExtResource("5_yyfjg")]
 position = Vector2(188.43, 105.62)
 offered_jobs = Array[ExtResource("6_pg34l")]([ExtResource("6_job1")])
 blocked_dialogue_block = &"job1_before_blocked"
 after_jobs_done_dialogue_block = &"job1_street_after_done"
-talk_focus = NodePath("../../YSort/FarmerNPC")
+about_dialogue_block = &"jane_about"
 
 [node name="ButcherArea" parent="World/Interactibles" unique_id=1986474018 instance=ExtResource("5_yyfjg")]
 position = Vector2(400.16, -125.715)
 offered_jobs = Array[ExtResource("6_pg34l")]([ExtResource("6_job2")])
 blocked_dialogue_block = &"job2_before_blocked"
 after_jobs_done_dialogue_block = &"job2_street_after_done"
-talk_focus = NodePath("../../YSort/ButcherNPC")
+about_dialogue_block = &"butcher_about"
 
 [node name="oldman_job_return" type="Marker2D" parent="World/Interactibles" unique_id=155125180]
 position = Vector2(48, -59)
@@ -570,6 +575,17 @@ position = Vector2(100, 161.25)
 position = Vector2(-100.5, -175.25)
 shape = SubResource("RectangleShape2D_7smn1")
 
+[node name="BuildingRed" type="Sprite2D" parent="World/YSort/LongBuilding2" unique_id=997432007]
+position = Vector2(16, 176)
+texture = ExtResource("14_s17dp")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="World/YSort/LongBuilding2/BuildingRed" unique_id=867433351]
+position = Vector2(100, 161.25)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/YSort/LongBuilding2/BuildingRed/StaticBody2D" unique_id=1579581757]
+position = Vector2(-100.5, -175.25)
+shape = SubResource("RectangleShape2D_7smn1")
+
 [node name="GardenPlot" type="Sprite2D" parent="World/YSort" unique_id=1081196435]
 z_index = -1
 position = Vector2(150, -112)
@@ -626,3 +642,6 @@ position = Vector2(353.005, 460)
 
 [node name="UiRoot" parent="UI" unique_id=1645349456 instance=ExtResource("8_yyfjg")]
 z_index = 2
+
+[node name="MusicZone" type="Node" parent="." unique_id=833777751]
+script = ExtResource("17_music")
