@@ -8,6 +8,7 @@ signal hub_fade_in_finished
 const PORTRAITS := {
 	"gilbert": preload("res://assets/art/ui/portraits/gilbert_portrait.png"),
 	"jane": preload("res://assets/art/ui/portraits/jane_portrait.png"),
+	"butcher": preload("res://assets/art/ui/portraits/butcher_portrait.png"),
 	"ghost": preload("res://assets/art/ui/portraits/ghost_portrait.png"),
 }
 
