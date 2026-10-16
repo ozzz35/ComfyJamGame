@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://bmtuardkm8h4b"]
+
+[ext_resource type="Script" uid="uid://chwr8kbt6ysac" path="res://scripts/ui/intro.gd" id="1_i8df0"]
+[ext_resource type="FontFile" uid="uid://b61bw5j4tx1ig" path="res://assets/fonts/m6x11plus.ttf" id="2_i2slu"]
+
+[node name="Intro" type="Control" unique_id=595775006]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i8df0")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=17599332]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 0)
+
+[node name="LineContainer" type="VBoxContainer" parent="." unique_id=1935342971]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="line0" type="Label" parent="LineContainer" unique_id=774510867]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.9153465, 0.47296572, 1.732707e-06, 1)
+theme_override_fonts/font = ExtResource("2_i2slu")
+theme_override_font_sizes/font_size = 55
+horizontal_alignment = 1
+
+[node name="line1" type="Label" parent="LineContainer" unique_id=1989727542]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.9153465, 0.47296572, 1.732707e-06, 1)
+theme_override_fonts/font = ExtResource("2_i2slu")
+theme_override_font_sizes/font_size = 55
+horizontal_alignment = 1
+
+[node name="line2" type="Label" parent="LineContainer" unique_id=2068769659]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.9153465, 0.47296572, 1.732707e-06, 1)
+theme_override_fonts/font = ExtResource("2_i2slu")
+theme_override_font_sizes/font_size = 55
+horizontal_alignment = 1
+
+[node name="line3" type="Label" parent="LineContainer" unique_id=248188407]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.9153465, 0.47296572, 1.732707e-06, 1)
+theme_override_fonts/font = ExtResource("2_i2slu")
+theme_override_font_sizes/font_size = 55
+horizontal_alignment = 1

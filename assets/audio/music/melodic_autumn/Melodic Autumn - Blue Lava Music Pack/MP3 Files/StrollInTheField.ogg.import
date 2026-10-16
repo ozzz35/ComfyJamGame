@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bicayhgcq21jr"
+path="res://.godot/imported/StrollInTheField.ogg-7323588ff1d79264051770f6cc2f2429.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/music/melodic_autumn/Melodic Autumn - Blue Lava Music Pack/MP3 Files/StrollInTheField.ogg"
+dest_files=["res://.godot/imported/StrollInTheField.ogg-7323588ff1d79264051770f6cc2f2429.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

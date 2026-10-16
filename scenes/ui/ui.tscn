@@ -6,6 +6,11 @@
 [ext_resource type="Texture2D" uid="uid://cy8jw0fagkun1" path="res://assets/art/ui/button2.png" id="3_btn2"]
 [ext_resource type="Texture2D" uid="uid://qpkv6pqmbu8x" path="res://assets/art/ui/button3.png" id="4_btn3"]
 [ext_resource type="Texture2D" uid="uid://dwb6ifgw176v4" path="res://assets/art/ui/button1.png" id="5_btn1"]
+[ext_resource type="PackedScene" uid="uid://b4ril0gw2pdbw" path="res://scenes/ui/options_overlay.tscn" id="6_options"]
+[ext_resource type="Texture2D" uid="uid://c0p2lvev6hq26" path="res://assets/art/ui/main_menu_bg.png" id="8_jcn1r"]
+[ext_resource type="StyleBox" path="res://resources/ui/menu_button_normal.tres" id="9_norm"]
+[ext_resource type="StyleBox" path="res://resources/ui/menu_button_hover.tres" id="10_hov"]
+[ext_resource type="StyleBox" path="res://resources/ui/menu_button_pressed.tres" id="11_prs"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btn2"]
 content_margin_left = 12.0
@@ -39,7 +44,8 @@ texture_margin_right = 20.0
 texture_margin_bottom = 10.0
 
 [sub_resource type="Gradient" id="Gradient_pfayw"]
-colors = PackedColorArray(0, 0, 0, 0.47058824, 0, 0, 0, 0.47058824)
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(0, 0, 0, 0.23529412)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_f1nwj"]
 gradient = SubResource("Gradient_pfayw")
@@ -245,14 +251,6 @@ texture = ExtResource("1_u7n8c")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="TextureRect" type="TextureRect" parent="DialoguePanel" unique_id=1100610744]
-layout_mode = 0
-offset_left = 13.0
-offset_top = 14.0
-offset_right = 248.0
-offset_bottom = 240.0
-texture = SubResource("GradientTexture2D_f1nwj")
-
 [node name="Portrait" type="TextureRect" parent="DialoguePanel" unique_id=1394578446]
 layout_mode = 0
 offset_left = 10.33
@@ -261,6 +259,14 @@ offset_right = 258.33002
 offset_bottom = 240.0
 expand_mode = 1
 stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="DialoguePanel" unique_id=1100610744]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 14.0
+offset_right = 248.0
+offset_bottom = 240.0
+texture = SubResource("GradientTexture2D_f1nwj")
 
 [node name="TextMargin" type="MarginContainer" parent="DialoguePanel" unique_id=1165909003]
 layout_mode = 1
@@ -319,9 +325,67 @@ theme_override_fonts/font = ExtResource("2_f5cxw")
 theme_override_font_sizes/font_size = 16
 text = "Press E to talk"
 
-[node name="CreditsOverlay" type="ColorRect" parent="." unique_id=730112920]
+[node name="TalkChoicePanel" type="PanelContainer" parent="." unique_id=1562799507]
 visible = false
 z_index = 20
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -72.0
+offset_right = 200.0
+offset_bottom = 72.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_btn3")
+
+[node name="Margin" type="MarginContainer" parent="TalkChoicePanel" unique_id=1396157920]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 12
+
+[node name="Column" type="VBoxContainer" parent="TalkChoicePanel/Margin" unique_id=1677925054]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Prompt" type="Label" parent="TalkChoicePanel/Margin/Column" unique_id=1437031813]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.55)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_fonts/font = ExtResource("2_f5cxw")
+theme_override_font_sizes/font_size = 20
+text = "What do you want to say?"
+horizontal_alignment = 1
+
+[node name="WorkButton" type="Button" parent="TalkChoicePanel/Margin/Column" unique_id=272619929]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_f5cxw")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = ExtResource("9_norm")
+theme_override_styles/pressed = ExtResource("11_prs")
+theme_override_styles/hover = ExtResource("10_hov")
+text = "Ask for work"
+
+[node name="AboutButton" type="Button" parent="TalkChoicePanel/Margin/Column" unique_id=894675497]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_f5cxw")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = ExtResource("9_norm")
+theme_override_styles/pressed = ExtResource("11_prs")
+theme_override_styles/hover = ExtResource("10_hov")
+text = "Ask about them"
+
+[node name="HubFadeOverlay" type="ColorRect" parent="." unique_id=1546176262]
+visible = false
+z_index = 35
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -331,12 +395,25 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
+[node name="OptionsOverlay" parent="." unique_id=771300484 instance=ExtResource("6_options")]
+z_index = 30
+layout_mode = 1
+pause_game_when_open = true
+title_text = "Paused"
+
+[node name="CreditsOverlay" type="TextureRect" parent="." unique_id=1620455417]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("8_jcn1r")
+
 [node name="CreditsMargin" type="MarginContainer" parent="CreditsOverlay" unique_id=1587879362]
 clip_contents = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 30.0
 grow_horizontal = 2
 grow_vertical = 2
 

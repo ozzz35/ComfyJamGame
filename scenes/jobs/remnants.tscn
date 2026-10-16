@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://bgh8mrdiff18h"]
+
+[ext_resource type="Script" uid="uid://ch46j1ugdl6dg" path="res://scripts/jobs/remnants.gd" id="1_1fix5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ur6hh"]
+radius = 21.213203
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1fix5"]
+radius = 7.071068
+
+[node name="Remnants" type="Node2D" unique_id=1966091463 node_paths=PackedStringArray("remnant_sprite")]
+z_index = -1
+script = ExtResource("1_1fix5")
+remnant_sprite = NodePath("RemnantSprite")
+
+[node name="RemnantSprite" type="Sprite2D" parent="." unique_id=1307441780]
+
+[node name="WitnessArea" type="Area2D" parent="." unique_id=175582494]
+collision_layer = 16
+collision_mask = 2
+
+[node name="WitnessAreaCollider" type="CollisionShape2D" parent="WitnessArea" unique_id=128707321]
+shape = SubResource("CircleShape2D_ur6hh")
+
+[node name="CoveredArea" type="Area2D" parent="." unique_id=2137011931]
+collision_layer = 16
+collision_mask = 4
+
+[node name="CoveredAreaCollider" type="CollisionShape2D" parent="CoveredArea" unique_id=2008078657]
+shape = SubResource("CircleShape2D_1fix5")
+
+[connection signal="body_entered" from="WitnessArea" to="." method="_on_covered_area_body_entered"]

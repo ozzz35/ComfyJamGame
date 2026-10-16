@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ckhwpnixpddi8"
+path="res://.godot/imported/7 Scarlet Woods - Blue Lava.mp3-3829fc652938c43a26df36eeaa5b1bdf.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/music/melodic_autumn/Melodic Autumn - Blue Lava Music Pack/MP3 Files/7 Scarlet Woods - Blue Lava.mp3"
+dest_files=["res://.godot/imported/7 Scarlet Woods - Blue Lava.mp3-3829fc652938c43a26df36eeaa5b1bdf.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -7,6 +7,8 @@ var job1_done : bool = false
 var job2_done : bool = false
 var job3_done : bool = false
 var job4_done : bool = false
+var greet_gilbert_on_hub_load := false
+var hub_fade_in_on_load := false
 
 func start_job(job):
 	in_job = true

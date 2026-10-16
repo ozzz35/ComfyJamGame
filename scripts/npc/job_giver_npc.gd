@@ -8,7 +8,11 @@ extends Node2D
 @export var blocked_dialogue_block: StringName = &""
 ## When every non-tutorial job this NPC offers is already completed.
 @export var after_jobs_done_dialogue_block: StringName = &""
+## Small-talk when the player picks "Ask about them" on the talk menu.
+@export var about_dialogue_block: StringName = &""
 @export var talk_focus: Node2D
+## After the menu intro, auto-play the next job offer (Gilbert tutorial on the hub).
+@export var run_intro_hub_greeting := false
 
 @onready var area: Area2D = $TalkArea2D
 
@@ -39,9 +43,22 @@ func _bind_ui(ui_node: Control) -> void:
 	_ui.conversation_finished.connect(_on_conversation_finished)
 	if not _ui.dialogue_line.is_connected(_on_dialogue_line):
 		_ui.dialogue_line.connect(_on_dialogue_line)
+	if run_intro_hub_greeting:
+		call_deferred("_run_intro_hub_greeting_when_ready")
+
+func _run_intro_hub_greeting_when_ready() -> void:
+	if not GameManager.greet_gilbert_on_hub_load:
+		return
+	if _ui == null:
+		return
+	if GameManager.hub_fade_in_on_load or _ui.is_hub_fade_in_running():
+		if not _ui.hub_fade_in_finished.is_connected(_try_intro_hub_greeting):
+			_ui.hub_fade_in_finished.connect(_try_intro_hub_greeting, CONNECT_ONE_SHOT)
+		return
+	_try_intro_hub_greeting()
 
 func _process(_delta: float) -> void:
-	if _ui == null or not player_here or _ui.conversation_active:
+	if _ui == null or not player_here or _ui.conversation_active or _ui.talk_choice_active:
 		return
 	var pos := get_viewport().get_canvas_transform() * (player.global_position + Vector2(0, -16))
 	_ui.talk_prompt(true, pos)
@@ -49,16 +66,66 @@ func _process(_delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if Engine.is_editor_hint():
 		return
-	if _ui == null or _ui.conversation_active:
+	if _ui == null or _ui.conversation_active or _ui.talk_choice_active:
 		return
 	if not player_here or not event.is_action_pressed("interact"):
 		return
 	get_viewport().set_input_as_handled()
+	_begin_talk_menu()
+
+func _try_intro_hub_greeting() -> void:
+	if not run_intro_hub_greeting or not GameManager.greet_gilbert_on_hub_load:
+		return
+	GameManager.greet_gilbert_on_hub_load = false
+	var offer := _next_job()
+	if offer == null:
+		return
+	_ensure_player()
+	if player == null:
+		return
+	_begin_job_offer(offer)
+
+func _ensure_player() -> void:
+	if player != null:
+		return
+	var found := get_tree().current_scene.find_child("Player", true, false)
+	if found is PlayerBase:
+		player = found
+
+func _begin_talk_menu() -> void:
+	_conversation_host = true
+	_ui.talk_prompt(false, Vector2.ZERO)
+	_set_camera_dialogue(true)
+	if about_dialogue_block == &"":
+		_begin_work_talk()
+		return
+	_ui.show_talk_choice(_on_talk_menu_picked)
+
+func _on_talk_menu_picked(choice: StringName) -> void:
+	if choice.is_empty():
+		_conversation_host = false
+		_set_camera_dialogue(false)
+		return
+	if choice == &"about":
+		_offered_job = null
+		_start_dialogue(about_dialogue_block)
+	else:
+		_begin_work_talk()
+
+func _begin_work_talk() -> void:
 	var offer := _next_job()
 	if offer != null:
 		_begin_job_offer(offer)
 	else:
-		_begin_no_work_talk()
+		_offered_job = null
+		_start_dialogue(_resolve_no_work_block())
+
+func _start_dialogue(block_id: StringName) -> void:
+	_conversation_host = true
+	var path := DialogueLibrary.resolve_path(dialogue_file)
+	if not _ui.start_conversation(path, block_id):
+		_conversation_host = false
+		_set_camera_dialogue(false)
 
 func _begin_job_offer(offer: JobData) -> void:
 	_conversation_host = true
@@ -69,16 +136,6 @@ func _begin_job_offer(offer: JobData) -> void:
 		path = DialogueLibrary.resolve_path(offer.dialogue_file)
 	_set_camera_dialogue(true)
 	if not _ui.start_conversation(path, offer.offer_dialogue_block):
-		_conversation_host = false
-		_set_camera_dialogue(false)
-
-func _begin_no_work_talk() -> void:
-	_conversation_host = true
-	_offered_job = null
-	_ui.talk_prompt(false, Vector2.ZERO)
-	_set_camera_dialogue(true)
-	var path := DialogueLibrary.resolve_path(dialogue_file)
-	if not _ui.start_conversation(path, _resolve_no_work_block()):
 		_conversation_host = false
 		_set_camera_dialogue(false)
 

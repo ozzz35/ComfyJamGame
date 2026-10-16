@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dv1cupjqj67aw"
+path="res://.godot/imported/1 Firefly Stream - Blue Lava.mp3-1dccd38cd89f16ef1a4014a2fcef5115.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/music/melodic_autumn/Melodic Autumn - Blue Lava Music Pack/MP3 Files/1 Firefly Stream - Blue Lava.mp3"
+dest_files=["res://.godot/imported/1 Firefly Stream - Blue Lava.mp3-1dccd38cd89f16ef1a4014a2fcef5115.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

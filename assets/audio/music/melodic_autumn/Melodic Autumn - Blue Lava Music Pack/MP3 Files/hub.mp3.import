@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://pg30rou638np"
+path="res://.godot/imported/hub.mp3-ac6bd982e47d961388e56a08c8febe60.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/music/melodic_autumn/Melodic Autumn - Blue Lava Music Pack/MP3 Files/hub.mp3"
+dest_files=["res://.godot/imported/hub.mp3-ac6bd982e47d961388e56a08c8febe60.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

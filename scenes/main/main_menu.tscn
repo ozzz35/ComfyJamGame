@@ -1,28 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://oa1t7v33prqq"]
+[gd_scene format=3 uid="uid://oa1t7v33prqq"]
 
 [ext_resource type="Script" uid="uid://b11ukanr772as" path="res://scripts/ui/main_menu.gd" id="1_menu"]
 [ext_resource type="Texture2D" uid="uid://c0p2lvev6hq26" path="res://assets/art/ui/main_menu_bg.png" id="2_bg"]
 [ext_resource type="FontFile" uid="uid://b61bw5j4tx1ig" path="res://assets/fonts/m6x11plus.ttf" id="3_font"]
-[ext_resource type="Texture2D" uid="uid://qpkv6pqmbu8x" path="res://assets/art/ui/button3.png" id="5_btn3"]
 [ext_resource type="StyleBox" path="res://resources/ui/menu_button_normal.tres" id="6_norm"]
 [ext_resource type="StyleBox" path="res://resources/ui/menu_button_hover.tres" id="7_hov"]
 [ext_resource type="StyleBox" path="res://resources/ui/menu_button_pressed.tres" id="8_prs"]
-[ext_resource type="StyleBox" path="res://resources/ui/icon_button_normal.tres" id="9_inorm"]
-[ext_resource type="StyleBox" path="res://resources/ui/icon_button_hover.tres" id="10_ihov"]
-[ext_resource type="StyleBox" path="res://resources/ui/icon_button_pressed.tres" id="11_iprs"]
-[ext_resource type="Texture2D" uid="uid://b0fqhhnv46vcs" path="res://assets/art/ui/ui-cross.png" id="12_cross"]
-[ext_resource type="Script" path="res://scripts/ui/menu_ui_sounds.gd" id="18_sounds"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_panel"]
-content_margin_left = 20.0
-content_margin_top = 16.0
-content_margin_right = 20.0
-content_margin_bottom = 16.0
-texture = ExtResource("5_btn3")
-texture_margin_left = 20.0
-texture_margin_top = 10.0
-texture_margin_right = 20.0
-texture_margin_bottom = 10.0
+[ext_resource type="PackedScene" uid="uid://bmtuardkm8h4b" path="res://scenes/ui/intro.tscn" id="13_001j1"]
+[ext_resource type="PackedScene" uid="uid://b4ril0gw2pdbw" path="res://scenes/ui/options_overlay.tscn" id="14_options"]
+[ext_resource type="Script" uid="uid://djbfoq385dnxq" path="res://scripts/ui/menu_ui_sounds.gd" id="18_sounds"]
 
 [node name="MainMenu" type="Control" unique_id=1075407550]
 layout_mode = 3
@@ -65,9 +51,9 @@ custom_minimum_size = Vector2(260, 44)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 28
-theme_override_styles/hover = ExtResource("7_hov")
 theme_override_styles/normal = ExtResource("6_norm")
 theme_override_styles/pressed = ExtResource("8_prs")
+theme_override_styles/hover = ExtResource("7_hov")
 text = "Start"
 
 [node name="OptionsButton" type="Button" parent="MenuColumn" unique_id=1516533910]
@@ -75,9 +61,9 @@ custom_minimum_size = Vector2(260, 44)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 28
-theme_override_styles/hover = ExtResource("7_hov")
 theme_override_styles/normal = ExtResource("6_norm")
 theme_override_styles/pressed = ExtResource("8_prs")
+theme_override_styles/hover = ExtResource("7_hov")
 text = "Options"
 
 [node name="QuitButton" type="Button" parent="MenuColumn" unique_id=1337033797]
@@ -85,184 +71,34 @@ custom_minimum_size = Vector2(260, 44)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 28
-theme_override_styles/hover = ExtResource("7_hov")
 theme_override_styles/normal = ExtResource("6_norm")
 theme_override_styles/pressed = ExtResource("8_prs")
+theme_override_styles/hover = ExtResource("7_hov")
 text = "Quit"
 
-[node name="DimOverlay" type="ColorRect" parent="." unique_id=1982736401]
-visible = false
+[node name="OptionsOverlay" parent="." unique_id=493884513 instance=ExtResource("14_options")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 0
-color = Color(0.08, 0.06, 0.1, 0.55)
-
-[node name="OptionsPanel" type="PanelContainer" parent="." unique_id=1387354170]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -280.0
-offset_top = -170.0
-offset_right = 280.0
-offset_bottom = 170.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_panel")
-
-[node name="Margin" type="MarginContainer" parent="OptionsPanel" unique_id=1509764110]
-layout_mode = 2
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 12
-
-[node name="Column" type="VBoxContainer" parent="OptionsPanel/Margin" unique_id=1161432990]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="Title" type="Label" parent="OptionsPanel/Margin/Column" unique_id=202652387]
-layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6)
-theme_override_constants/shadow_offset_x = 2
-theme_override_constants/shadow_offset_y = 2
-theme_override_fonts/font = ExtResource("3_font")
-theme_override_font_sizes/font_size = 26
-text = "Options"
-horizontal_alignment = 1
-
-[node name="Separator" type="HSeparator" parent="OptionsPanel/Margin/Column" unique_id=771122334]
-layout_mode = 2
-
-[node name="MasterVolumeRow" type="HBoxContainer" parent="OptionsPanel/Margin/Column" unique_id=565994436]
-layout_mode = 2
-theme_override_constants/separation = 12
-
-[node name="VolumeLabel" type="Label" parent="OptionsPanel/Margin/Column/MasterVolumeRow" unique_id=139708290]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-theme_override_fonts/font = ExtResource("3_font")
-theme_override_font_sizes/font_size = 18
-text = "Master"
-vertical_alignment = 1
-
-[node name="VolumeSlider" type="HSlider" parent="OptionsPanel/Margin/Column/MasterVolumeRow" unique_id=1644658023]
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-size_flags_horizontal = 3
-max_value = 1.0
-step = 0.05
-value = 1.0
-
-[node name="VolumeValue" type="Label" parent="OptionsPanel/Margin/Column/MasterVolumeRow" unique_id=556677889]
-custom_minimum_size = Vector2(48, 0)
-layout_mode = 2
-theme_override_fonts/font = ExtResource("3_font")
-theme_override_font_sizes/font_size = 18
-text = "100%"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="MusicVolumeRow" type="HBoxContainer" parent="OptionsPanel/Margin/Column" unique_id=565994437]
-layout_mode = 2
-theme_override_constants/separation = 12
-
-[node name="MusicLabel" type="Label" parent="OptionsPanel/Margin/Column/MusicVolumeRow" unique_id=139708291]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-theme_override_fonts/font = ExtResource("3_font")
-theme_override_font_sizes/font_size = 18
-text = "Music"
-vertical_alignment = 1
-
-[node name="MusicSlider" type="HSlider" parent="OptionsPanel/Margin/Column/MusicVolumeRow" unique_id=1644658024]
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-size_flags_horizontal = 3
-max_value = 1.0
-step = 0.05
-value = 1.0
-
-[node name="MusicValue" type="Label" parent="OptionsPanel/Margin/Column/MusicVolumeRow" unique_id=556677890]
-custom_minimum_size = Vector2(48, 0)
-layout_mode = 2
-theme_override_fonts/font = ExtResource("3_font")
-theme_override_font_sizes/font_size = 18
-text = "100%"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="SfxVolumeRow" type="HBoxContainer" parent="OptionsPanel/Margin/Column" unique_id=565994438]
-layout_mode = 2
-theme_override_constants/separation = 12
-
-[node name="SfxLabel" type="Label" parent="OptionsPanel/Margin/Column/SfxVolumeRow" unique_id=139708292]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-theme_override_fonts/font = ExtResource("3_font")
-theme_override_font_sizes/font_size = 18
-text = "SFX"
-vertical_alignment = 1
-
-[node name="SfxSlider" type="HSlider" parent="OptionsPanel/Margin/Column/SfxVolumeRow" unique_id=1644658025]
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-size_flags_horizontal = 3
-max_value = 1.0
-step = 0.05
-value = 1.0
-
-[node name="SfxValue" type="Label" parent="OptionsPanel/Margin/Column/SfxVolumeRow" unique_id=556677891]
-custom_minimum_size = Vector2(48, 0)
-layout_mode = 2
-theme_override_fonts/font = ExtResource("3_font")
-theme_override_font_sizes/font_size = 18
-text = "100%"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="VsyncToggle" type="CheckButton" parent="OptionsPanel/Margin/Column" unique_id=881122335]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("3_font")
-theme_override_font_sizes/font_size = 18
-button_pressed = true
-text = "VSync"
-
-[node name="OptionsCloseButton" type="Button" parent="." unique_id=1349473524]
-visible = false
-layout_mode = 0
-offset_left = 332.0
-offset_top = 142.0
-offset_right = 372.0
-offset_bottom = 182.0
-theme_override_styles/hover = ExtResource("10_ihov")
-theme_override_styles/normal = ExtResource("9_inorm")
-theme_override_styles/pressed = ExtResource("11_iprs")
-icon = ExtResource("12_cross")
-expand_icon = false
+menu_sounds = NodePath("../UISounds")
 
 [node name="UISounds" type="Node" parent="." unique_id=1122334455]
 script = ExtResource("18_sounds")
 
-[node name="Click" type="AudioStreamPlayer" parent="UISounds" unique_id=2233445566]
+[node name="Click" type="AudioStreamPlayer" parent="UISounds" unique_id=-2061521730]
 bus = &"SFX"
 
-[node name="Back" type="AudioStreamPlayer" parent="UISounds" unique_id=3344556677]
+[node name="Back" type="AudioStreamPlayer" parent="UISounds" unique_id=-950410619]
 bus = &"SFX"
 
-[node name="Hover" type="AudioStreamPlayer" parent="UISounds" unique_id=4455667788]
-bus = &"SFX"
+[node name="Hover" type="AudioStreamPlayer" parent="UISounds" unique_id=160700492]
 volume_db = -4.0
-
-[node name="SliderA" type="AudioStreamPlayer" parent="UISounds" unique_id=5566778899]
 bus = &"SFX"
 
-[node name="SliderB" type="AudioStreamPlayer" parent="UISounds" unique_id=6677889900]
+[node name="SliderA" type="AudioStreamPlayer" parent="UISounds" unique_id=1271811603]
 bus = &"SFX"
+
+[node name="SliderB" type="AudioStreamPlayer" parent="UISounds" unique_id=-1912044692]
+bus = &"SFX"
+
+[node name="Intro" parent="." unique_id=595775006 instance=ExtResource("13_001j1")]
+visible = false
+layout_mode = 1
