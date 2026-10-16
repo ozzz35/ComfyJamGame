@@ -15,6 +15,7 @@ var leaves_cleared : int = 0
 
 var _leaving := false
 var _exit_unlocked := false
+var _finale_pulled_back := false
 var _tools: Node
 var _garden_bounds := Rect2()
 var _ui: Control
@@ -27,6 +28,7 @@ const JOB3_EPILOGUE_BLOCK := &"job3_epilogue"
 const JOB3_YARD_START_BLOCK := &"job3_gilbert_yard_start"
 
 func _ready() -> void:
+	_play_yard_music()
 	_garden_bounds = _bounds_from_polygon(garden_area.polygon)
 	starting_leaves = _count_leaves()
 	exit.monitoring = false
@@ -194,6 +196,8 @@ func _on_dialogue_line(line: Dictionary) -> void:
 	var focus_id := str(line.get("focus", ""))
 	if focus_id.is_empty():
 		return
+	if _finale_pulled_back:
+		return
 	var cam := _player.get_node_or_null("Camera") as Camera2D
 	if cam == null:
 		return
@@ -201,6 +205,15 @@ func _on_dialogue_line(line: Dictionary) -> void:
 	if focus_pos == Vector2.ZERO:
 		return
 	cam.set_dialogue_focus(true, focus_pos)
+	_pull_back_for_finale(cam, focus_id)
+
+func _pull_back_for_finale(cam: Camera2D, focus_id: String) -> void:
+	if _finale_pulled_back or focus_id != "gilbert":
+		return
+	if _gilbert_finale == null or not _gilbert_finale.visible or _yard_ghost == null:
+		return
+	_finale_pulled_back = true
+	cam.pull_back_to_include(_yard_ghost.global_position)
 
 func _on_dialogue_action(action: StringName) -> void:
 	match action:
@@ -241,3 +254,12 @@ func _leave_through_exit(body: Node) -> void:
 		_ui.cancel_conversation()
 		_ui.hide_help()
 	GameManager.leave_job.call_deferred()
+
+
+func _play_yard_music() -> void:
+	if GameManager.current_job is JobData:
+		var data := GameManager.current_job as JobData
+		if data.job_number == 3:
+			Audio.play_music("battle")
+			return
+	Audio.start_music_playlist(MusicTracks.YARD_PLAYLIST)

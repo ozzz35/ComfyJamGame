@@ -404,7 +404,7 @@ pile_radius = 87
 [node name="LeafPile5" parent="Leaves" unique_id=1806807184 instance=ExtResource("5_468u5")]
 light_mask = 2
 visibility_layer = 2
-position = Vector2(-776, -280)
+position = Vector2(-776, -276)
 pile_radius = 87
 
 [node name="LeafPile6" parent="Leaves" unique_id=1698285130 instance=ExtResource("5_468u5")]
@@ -499,7 +499,7 @@ edge_wobble = 0.35
 [node name="LeafPile8" parent="Leaves" unique_id=1958503740 instance=ExtResource("5_468u5")]
 light_mask = 2
 visibility_layer = 2
-position = Vector2(-760, -440)
+position = Vector2(-742, -397)
 pile_radius = 87
 density = 0.005
 squish = 1.0
@@ -509,7 +509,7 @@ edge_wobble = 0.35
 [node name="LeafPile9" parent="Leaves" unique_id=1958462712 instance=ExtResource("5_468u5")]
 light_mask = 2
 visibility_layer = 2
-position = Vector2(-488, -256)
+position = Vector2(-488, -278)
 pile_radius = 87
 density = 0.005
 squish = 1.0
@@ -607,12 +607,10 @@ position = Vector2(0, 196)
 shape = SubResource("RectangleShape2D_ur6hh")
 
 [node name="Ghost" parent="." unique_id=1798530520 instance=ExtResource("13_dwkfw")]
-visible = false
 position = Vector2(0, -1176)
 
 [node name="GilbertFinale" type="Marker2D" parent="." unique_id=240720134]
-visible = false
-position = Vector2(-320, -1176)
+position = Vector2(132, -1025)
 
 [connection signal="conversation_finished" from="Ui/UiRoot" to="." method="_on_conversation_finished"]
 [connection signal="body_entered" from="Exit" to="." method="_on_exit_body_entered"]

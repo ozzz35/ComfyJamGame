@@ -13,6 +13,9 @@
 [ext_resource type="Script" uid="uid://dk4n8wtree0fa" path="res://scripts/jobs/fading_tree_tilemap.gd" id="9_34ws2"]
 [ext_resource type="PackedScene" uid="uid://bmcckye3a6atr" path="res://scenes/player/player.tscn" id="10_itkft"]
 [ext_resource type="PackedScene" uid="uid://v82vebanplu1" path="res://scenes/ui/ui.tscn" id="11_p5axf"]
+[ext_resource type="PackedScene" uid="uid://bgh8mrdiff18h" path="res://scenes/jobs/remnants.tscn" id="14_me4c2"]
+[ext_resource type="Texture2D" uid="uid://be72fyp4l77m2" path="res://assets/art/remnants/remnant_cleaver.png" id="15_ow5w2"]
+[ext_resource type="Texture2D" uid="uid://b34syfjgc5ntl" path="res://assets/art/remnants/remnant_boot.png" id="16_4lijb"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0bn0k"]
 texture = ExtResource("2_af45f")
@@ -713,6 +716,14 @@ shape = SubResource("RectangleShape2D_ur6hh")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Borders" unique_id=1366497088]
 position = Vector2(1, 1)
 polygon = PackedVector2Array(-41, 189, -113, 183, -113, -129, -309, -132, -313, 175, -459, 177, -457, -385, 511, -393, 519, 199, 341, 197, 343, -225, 407, -225, 407, -289, 223, -289, 230, 193, 45, 193, 53, 259, 606, 273, 620, -427, -593, -417, -536, 289, -39, 289, -41, 216, 47, 215, 45, 200, -41, 201)
+
+[node name="Remnants" parent="." unique_id=1966091463 instance=ExtResource("14_me4c2")]
+position = Vector2(416, 72)
+remnant_sprite_texture = ExtResource("15_ow5w2")
+
+[node name="Remnants2" parent="." unique_id=1509933367 instance=ExtResource("14_me4c2")]
+position = Vector2(88, -280)
+remnant_sprite_texture = ExtResource("16_4lijb")
 
 [connection signal="body_entered" from="Exit" to="." method="_on_exit_body_entered"]
 

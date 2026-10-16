@@ -13,6 +13,8 @@
 [ext_resource type="Script" uid="uid://dk4n8wtree0fa" path="res://scripts/jobs/fading_tree_tilemap.gd" id="9_treef"]
 [ext_resource type="PackedScene" uid="uid://v82vebanplu1" path="res://scenes/ui/ui.tscn" id="10_48aas"]
 [ext_resource type="Texture2D" uid="uid://3q4spbfqbe2w" path="res://assets/art/props/Fence.png" id="12_fence"]
+[ext_resource type="PackedScene" uid="uid://bgh8mrdiff18h" path="res://scenes/jobs/remnants.tscn" id="14_ik4td"]
+[ext_resource type="Texture2D" uid="uid://d4fcm7yga02p0" path="res://assets/art/remnants/remnant_hat.png" id="15_fkjkc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0bn0k"]
 texture = ExtResource("3_yhiig")
@@ -462,6 +464,10 @@ visible = false
 
 [node name="BordersCollider" type="CollisionPolygon2D" parent="Borders" unique_id=160003433]
 polygon = PackedVector2Array(-167, 162, -258, 162, -258, -56, 1, -53, 0, 161, -91, 161, -90, 192, -90, 233, 59, 192, 64, -90, -330, -96, -319, 192, -167, 233, -90, 233, -90, 192, -168, 194)
+
+[node name="Remnants" parent="." unique_id=1966091463 instance=ExtResource("14_ik4td")]
+position = Vector2(-57, 74)
+remnant_sprite_texture = ExtResource("15_fkjkc")
 
 [connection signal="body_entered" from="Exit" to="." method="_on_exit_body_entered"]
 
