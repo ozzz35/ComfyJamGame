@@ -7,3 +7,4 @@ A cozy top-down autumn game for Comfy Jam Autumn 2026.
 - **Composers:** Psyopic, WrongIsRight
 - **SFX Artists:** [Cocaz](https://www.instagram.com/benjaminloeuil.cinema?xtok=aTFocnN4djlzZnI2) ( Benjamin Loeuil ), Psyopic
 
+Game link: https://akuvent.itch.io/solace
