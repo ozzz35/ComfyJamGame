@@ -144,20 +144,16 @@ func shake(strength: float, duration) -> void:
 	_shake_jitter_speed = clamp(12.0 + strength * 4.0, 12.0, 80.0)
 
 
-func pull_back_to_include(world_point: Vector2, zoom_factor: float = 0.8, delay: float = 0.7, duration: float = 1.1) -> void:
+func pull_back(zoom_factor: float = 0.8, delay: float = 0.7, duration: float = 1.1) -> void:
 	var fit_zoom := zoom.x * zoom_factor
 	if fit_zoom >= zoom.x - 0.05:
 		return
-	var shared_focus := _talk_focus_global.lerp(world_point, 0.5)
 	target_scale = fit_zoom
 	if _zoom_tween and _zoom_tween.is_running():
 		_zoom_tween.kill()
 	_zoom_tween = create_tween()
 	if delay > 0.0:
 		_zoom_tween.tween_interval(delay)
-	_zoom_tween.tween_callback(func() -> void:
-		_talk_focus_global = shared_focus
-	)
 	_zoom_tween.set_trans(Tween.TRANS_SINE)
 	_zoom_tween.set_ease(Tween.EASE_IN_OUT)
 	_zoom_tween.tween_property(self, "zoom", Vector2(fit_zoom, fit_zoom), duration)

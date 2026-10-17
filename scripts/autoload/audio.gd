@@ -19,7 +19,9 @@ var _vanish_phase := 0.0
 
 const SETTINGS_PATH := "user://settings.cfg"
 const DEFAULT_CROSSFADE := 2.0
+const DEFAULT_MUSIC_LINEAR := 0.4
 const VANISH_TARGET_DB := -4.0
+const VANISH_DIALOGUE_DB := -14.0
 
 signal transition_ended
 signal music_ended(music_name: String)
@@ -39,10 +41,12 @@ func _register_music_tracks() -> void:
 func _load_saved_settings() -> void:
 	var cfg := _read_settings_file()
 	if cfg == null:
+		apply_audio_levels(1.0, DEFAULT_MUSIC_LINEAR, 1.0)
+		apply_vsync(true)
 		return
 	apply_audio_levels(
 		float(cfg.get_value("audio", "master", 1.0)),
-		float(cfg.get_value("audio", "music", 1.0)),
+		float(cfg.get_value("audio", "music", DEFAULT_MUSIC_LINEAR)),
 		float(cfg.get_value("audio", "sfx", 1.0)),
 	)
 	apply_vsync(bool(cfg.get_value("display", "vsync", true)))
@@ -58,10 +62,10 @@ func _read_settings_file() -> ConfigFile:
 func read_audio_levels() -> Vector3:
 	var cfg := _read_settings_file()
 	if cfg == null:
-		return Vector3(1.0, 1.0, 1.0)
+		return Vector3(1.0, DEFAULT_MUSIC_LINEAR, 1.0)
 	return Vector3(
 		float(cfg.get_value("audio", "master", 1.0)),
-		float(cfg.get_value("audio", "music", 1.0)),
+		float(cfg.get_value("audio", "music", DEFAULT_MUSIC_LINEAR)),
 		float(cfg.get_value("audio", "sfx", 1.0)),
 	)
 
@@ -159,10 +163,10 @@ func crossfade_music_volume(target_db: float, transition_duration: float = DEFAU
 	_crossfade_tween.tween_property(current_player, "volume_db", target_db, transition_duration)
 
 
-func begin_remnant_vanish_audio() -> void:
+func begin_remnant_vanish_audio(at_db: float = VANISH_TARGET_DB) -> void:
 	_ensure_vanish_player()
 	_vanish_phase = randf() * TAU
-	_vanish_player.volume_db = VANISH_TARGET_DB
+	_vanish_player.volume_db = at_db
 	_vanish_player.play()
 	_vanish_playback = _vanish_player.get_stream_playback() as AudioStreamGeneratorPlayback
 	_vanish_audio_active = true

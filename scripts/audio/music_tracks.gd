@@ -9,8 +9,9 @@ const TRACKS: Dictionary = {
 	"yard_stroll": PACK + "StrollInTheField.ogg",
 	"yard_sunset": PACK + "SunsetNap.ogg",
 	"battle": PACK + "3 Bamboo Battle - Blue Lava.mp3",
+	"finale": "res://assets/audio/music/october_rose.mp3",
 }
 
 const YARD_PLAYLIST: Array[String] = ["yard_stroll", "yard_sunset"]
 
-const LOOP: Array[String] = ["menu", "hub", "battle"]
+const LOOP: Array[String] = ["menu", "hub", "battle", "finale"]

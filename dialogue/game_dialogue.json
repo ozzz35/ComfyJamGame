@@ -1,6 +1,6 @@
 {
   "intro": [
-	{ "text": "In a quiet little village…" },
+	{ "text": "In a quiet little village..." },
 	{ "text": "You're looking for a way to make some extra cash." },
 	{ "text": "Luckily, you find a job: clearing leaves from people's gardens." },
 	{ "text": "Simple work. Easy money." }
@@ -63,7 +63,7 @@
 	"gilbert_after_tutorial": {
 	  "lines": [
 		{ "speaker": "gilbert", "text": "Well, look at you! You've got a knack for this, kid! Keep this up and I'll have to recommend you to a few of my friends, haha!", "focus": "gilbert" },
-		{ "speaker": "gilbert", "text": "Say, you still looking for work? I know a farmer who could use a hand. Her garden's an absolute mess! You'll find her right in the middle of the village. Can't miss her — she's the one wearing the straw hat.", "focus": "gilbert" },
+		{ "speaker": "gilbert", "text": "Say, you still looking for work? I know a farmer who could use a hand. Her garden's an absolute mess! You'll find her right in the middle of the village. Can't miss her - she's the one wearing the straw hat.", "focus": "gilbert" },
 		{ "speaker": "gilbert", "text": "Go on, see what she's got for you!", "focus": "gilbert" }
 	  ]
 	},
@@ -141,7 +141,7 @@
 	},
 	"job3_finale": {
 	  "lines": [
-		{ "speaker": "gilbert", "text": "Hey, kid! What are you doin'—?", "focus": "gilbert", "action": "reveal_gilbert" },
+		{ "speaker": "gilbert", "text": "Hey, kid! What are you doin'-?", "focus": "gilbert", "action": "reveal_gilbert" },
 		{ "speaker": "gilbert", "text": "Wait... What in the world?!", "focus": "gilbert" },
 		{ "speaker": "gilbert", "text": "Is that... a ghost?!", "focus": "gilbert" },
 		{ "speaker": "ghost", "text": "Grandpa...? You can see me...?", "focus": "ghost" },
@@ -168,9 +168,9 @@
 		{ "speaker": "gilbert", "text": "For years, I thought I'd lost everything. I thought the whole village would always see me as a monster...", "focus": "gilbert" },
 		{ "speaker": "gilbert", "text": "But you've given me my life back, kid.", "focus": "gilbert" },
 		{ "speaker": "gilbert", "text": "I can never thank you enough.", "focus": "gilbert" },
-		{ "speaker": "ghost", "text": "Grandpa...", "focus": "ghost", "action": "ghost_fade" },
+		{ "speaker": "ghost", "text": "Grandpa...", "focus": "ghost" },
 		{ "speaker": "ghost", "text": "Thank you for never forgetting me.", "focus": "ghost" },
-		{ "speaker": "ghost", "text": "I love you.", "focus": "ghost" },
+		{ "speaker": "ghost", "text": "I love you.", "focus": "ghost", "action": "ghost_fade" },
 		{ "speaker": "ghost", "text": "Goodbye...", "focus": "ghost" },
 		{ "speaker": "gilbert", "text": "I love you too, Thomas...", "focus": "gilbert" },
 		{ "speaker": "gilbert", "text": "I always will.", "focus": "gilbert" },
@@ -182,7 +182,7 @@
 	  "lines": [
 		{
 		  "speaker": "narrator",
-		  "text": "And it was where they shared their happiest moments, that they were both set free in their own way..",
+		  "text": "And it was where they shared their happiest moments, that they were both set free in their own way...",
 		  "action": "start_credits"
 		}
 	  ]

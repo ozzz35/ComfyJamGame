@@ -58,13 +58,16 @@ position = Vector2(54.715, 0)
 texture = ExtResource("8_qek5x")
 script = ExtResource("14_rake")
 tool_strength = 25.0
+push_lateral_offset = -0.18
+toward_player_weight = 0.35
+sweep_swing_second = 0.38
 
 [node name="ReachArea" type="Area2D" parent="Broom" unique_id=1148355761]
 collision_layer = 0
 collision_mask = 4
 
 [node name="ReachAreaCollider" type="CollisionShape2D" parent="Broom/ReachArea" unique_id=1839254958]
-position = Vector2(3.2849998, 7.5)
+position = Vector2(4.285, 8)
 shape = SubResource("RectangleShape2D_5gtgg")
 
 [node name="SweepSound" type="AudioStreamPlayer2D" parent="Broom" unique_id=1638492011]

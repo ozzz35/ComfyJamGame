@@ -1,6 +1,10 @@
 extends "res://scripts/tools/aimed_tool.gd"
 
 @export var tool_strength: float = 50.0
+@export var push_lateral_offset: float = 0.0
+@export var toward_player_weight: float = 0.5
+@export var sweep_swing_first: float = -0.35
+@export var sweep_swing_second: float = 0.55
 var sweeping := false
 
 
@@ -32,8 +36,8 @@ func sweep() -> void:
 	var facing := hold.normalized()
 	var distance := hold.length()
 	var tween := create_tween()
-	tween.tween_property(self, "_tip", facing.rotated(-0.35) * distance, 0.07)
-	tween.tween_property(self, "_tip", facing.rotated(0.55) * distance, 0.12).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	tween.tween_property(self, "_tip", facing.rotated(sweep_swing_first) * distance, 0.07)
+	tween.tween_property(self, "_tip", facing.rotated(sweep_swing_second) * distance, 0.12).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 	tween.tween_callback(_rake_leaves)
 	tween.tween_property(self, "_tip", hold, 0.08)
 	tween.finished.connect(_end_sweep)
@@ -45,7 +49,8 @@ func _rake_leaves() -> void:
 	var toward_player := player.global_position - tip_global
 	if toward_player == Vector2.ZERO:
 		return
-	var push := (Vector2.from_angle(_aim_angle + PI / 2.0) + toward_player.normalized() * 0.5).normalized()
+	var lateral := Vector2.from_angle(_aim_angle + PI / 2.0 + push_lateral_offset)
+	var push := (lateral + toward_player.normalized() * toward_player_weight).normalized()
 	for area in reach_area.get_overlapping_areas():
 		if area.name != "LeafArea":
 			continue

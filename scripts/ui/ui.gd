@@ -12,6 +12,31 @@ const PORTRAITS := {
 	"ghost": preload("res://assets/art/ui/portraits/ghost_portrait.png"),
 }
 
+const DIALOGUE_BLIPS := {
+	"gilbert": preload("res://assets/audio/sfx/dialogue/gilbert.mp3"),
+	"jane": preload("res://assets/audio/sfx/dialogue/jane.mp3"),
+	"butcher": preload("res://assets/audio/sfx/dialogue/butcher.mp3"),
+	"ghost": preload("res://assets/audio/sfx/dialogue/ghost.mp3"),
+}
+
+const DIALOGUE_BLIP_VOLUME_DB := 0.0
+const CREDITS_TITLE_LINE := "Solace"
+const CREDITS_STUDIO_LOGO_WIDTH := 280.0
+const CREDITS_STUDIO_LOGO_GAP := 64.0
+const CREDITS_SCROLL_END_PADDING := 80.0
+
+const DIALOGUE_BLIP_VOLUME_GILBERT_DB := 14.0
+const DIALOGUE_TYPE_SPEED := 48.0
+const BUTCHER_TYPE_SPEED := 24.0
+const DIALOGUE_BLIP_PITCH_VARIANCE := 0.06
+
+const DIALOGUE_BLIP_PITCH := {
+	"gilbert": 0.92,
+	"jane": 1.08,
+	"butcher": 0.88,
+	"ghost": 1.12,
+}
+
 const SPEAKER_FOCUS_IDS := ["gilbert", "jane", "butcher", "ghost", "player"]
 
 const BUTCHER_MUSIC_FADE := 1.0
@@ -25,7 +50,7 @@ const BUTCHER_DIALOGUE_BLOCKS: Array[StringName] = [
 	&"job2_street_after_done",
 ]
 
-const STOP_MUSIC_DIALOGUE_BLOCKS: Array[StringName] = [
+const JOB3_FINAL_CHAT_BLOCKS: Array[StringName] = [
 	&"job3_finale",
 	&"job3_epilogue",
 ]
@@ -42,12 +67,17 @@ const STOP_MUSIC_DIALOGUE_BLOCKS: Array[StringName] = [
 @onready var job_finished_banner: PanelContainer = $JobCompleteBanner
 @onready var text_box: Control = $DialoguePanel
 @onready var portrait: TextureRect = $DialoguePanel/Portrait
-@onready var dialogue_label: Label = $DialoguePanel/TextMargin/Column/DialogueLabel
+@onready var dialogue_label: RichTextLabel = $DialoguePanel/TextMargin/Column/DialogueLabel
+@onready var dialogue_blip: AudioStreamPlayer = $DialoguePanel/DialogueBlip
 @onready var help_panel: PanelContainer = $HelpPanel
 @onready var help_body: Label = $HelpPanel/Margin/Column/Body
 @onready var help_subtext: Label = $HelpPanel/Margin/Column/Subtext
 @onready var credits_overlay: TextureRect = $CreditsOverlay
-@onready var credits_label: Label = $CreditsOverlay/CreditsMargin/CreditsLabel
+@onready var credits_margin: MarginContainer = $CreditsOverlay/CreditsMargin
+@onready var credits_scroll: Control = $CreditsOverlay/CreditsMargin/CreditsScroll
+@onready var credits_title: TextureRect = $CreditsOverlay/CreditsMargin/CreditsScroll/CreditsTitle
+@onready var credits_label: Label = $CreditsOverlay/CreditsMargin/CreditsScroll/CreditsLabel
+@onready var credits_studio_logo: TextureRect = $CreditsOverlay/CreditsMargin/CreditsScroll/CreditsStudioLogo
 @onready var options_overlay: Control = $OptionsOverlay
 @onready var hub_fade_overlay: ColorRect = $HubFadeOverlay
 @onready var talk_choice_panel: PanelContainer = $TalkChoicePanel
@@ -56,6 +86,7 @@ const STOP_MUSIC_DIALOGUE_BLOCKS: Array[StringName] = [
 
 @export var show_job_progress: bool = false
 @export var hub_fade_in_duration: float = 1.2
+@export var credits_fade_in_duration: float = 1.6
 
 var _hub_fade_in_running := false
 
@@ -68,7 +99,14 @@ var _line_index: int = 0
 var _block_id: StringName = &""
 var _credits_lines: PackedStringArray = PackedStringArray()
 var _credits_scroll := 0.0
+var _credits_scrolling := false
+var _credits_fade_tween: Tween
 var _talk_choice_callback: Callable
+var _type_full := ""
+var _type_visible := 0
+var _type_speaker := ""
+var _type_accum := 0.0
+var _typing := false
 
 func _ready() -> void:
 	GameUI.register_root(self)
@@ -112,11 +150,15 @@ func _on_hub_fade_in_finished() -> void:
 	hub_fade_in_finished.emit()
 
 func _process(delta: float) -> void:
+	_tick_dialogue_typing(delta)
 	if not credits_overlay.visible:
 		return
+	if not _credits_scrolling:
+		credits_scroll.position.y = credits_margin.size.y
+		return
 	_credits_scroll += delta * 42.0
-	credits_label.position.y = credits_overlay.size.y - _credits_scroll
-	if _credits_scroll > credits_label.size.y + credits_overlay.size.y + 80.0:
+	credits_scroll.position.y = credits_margin.size.y - _credits_scroll
+	if _credits_scroll > credits_scroll.size.y + credits_margin.size.y + CREDITS_SCROLL_END_PADDING:
 		get_tree().change_scene_to_file("res://scenes/main/main_menu.tscn")
 
 func _on_tree_exiting() -> void:
@@ -125,6 +167,10 @@ func _on_tree_exiting() -> void:
 	GameUI.unregister_root(self)
 
 func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("debug_credit"):
+		show_credits(PackedStringArray(), true)
+		get_viewport().set_input_as_handled()
+		return
 	if talk_choice_active and event.is_action_pressed("ui_cancel"):
 		_finish_talk_choice(&"")
 		get_viewport().set_input_as_handled()
@@ -158,6 +204,8 @@ func begin_yard(job_data: JobData) -> void:
 	_help_dismissed = false
 	if job_data.show_vacuum_help:
 		call_deferred("show_vacuum_help")
+	elif job_data.is_tutorial:
+		call_deferred("show_tutorial_help")
 	var yard_block := _yard_start_block(job_data)
 	if yard_block != &"":
 		var path := DialogueLibrary.resolve_path(job_data.dialogue_file)
@@ -184,9 +232,19 @@ func set_vacuum_fill(ratio: float) -> void:
 	vacuum_bar.value = ratio * 100.0
 
 func show_vacuum_help() -> void:
+	_show_yard_help(
+		"The vacuum can take leaves in it's storage with left click but once it's full it stops working! You need to spew them out the garden with right click to empty the storage."
+	)
+
+func show_tutorial_help() -> void:
+	_show_yard_help(
+		"To complete a job you need to push leaves out into the forest! Avoid the fences though you can't throw leaves there and try to make piles it's way faster!"
+	)
+
+func _show_yard_help(body: String) -> void:
 	if _help_dismissed:
 		return
-	help_body.text = "The vacuum can take leaves in it's storage with left click but once it's full it stops working! You need to spew them out the garden with right click to empty the storage."
+	help_body.text = body
 	help_subtext.text = "press H to hide this notification"
 	help_panel.visible = true
 	help_panel.move_to_front()
@@ -259,17 +317,74 @@ func start_conversation(path: String, block_id: StringName) -> bool:
 	_show_line(_lines[0])
 	return true
 
-func show_credits(extra_lines: PackedStringArray = PackedStringArray()) -> void:
+func show_credits(extra_lines: PackedStringArray = PackedStringArray(), instant: bool = false) -> void:
 	cancel_conversation()
 	var combined := _credits_lines.duplicate()
 	for line in extra_lines:
 		combined.append(line)
+	credits_title.visible = combined.size() > 0 and combined[0] == CREDITS_TITLE_LINE
+	if credits_title.visible:
+		combined.remove_at(0)
 	credits_label.text = "\n\n".join(combined)
-	credits_label.reset_size()
 	_credits_scroll = 0.0
-	credits_label.position.y = credits_overlay.size.y
+	_credits_scrolling = false
+	call_deferred("_layout_credits_scroll")
 	credits_overlay.visible = true
 	credits_overlay.move_to_front()
+	if _credits_fade_tween and _credits_fade_tween.is_valid():
+		_credits_fade_tween.kill()
+	if instant:
+		credits_overlay.modulate.a = 1.0
+		_credits_scrolling = true
+		return
+	credits_overlay.modulate.a = 0.0
+	_credits_fade_tween = create_tween()
+	_credits_fade_tween.tween_property(credits_overlay, "modulate:a", 1.0, credits_fade_in_duration)
+	_credits_fade_tween.tween_callback(func() -> void:
+		_credits_scrolling = true
+	)
+
+func _layout_credits_scroll() -> void:
+	var width := credits_margin.size.x
+	if width < 1.0:
+		width = credits_overlay.size.x
+	var text_y := _credits_text_start_y()
+	credits_label.reset_size()
+	credits_label.position = Vector2(0.0, text_y)
+	credits_label.size.x = width
+	var content_bottom := text_y + credits_label.size.y
+	var logo_height := CREDITS_STUDIO_LOGO_WIDTH
+	var logo_tex := credits_studio_logo.texture
+	if logo_tex:
+		var tex_size := logo_tex.get_size()
+		if tex_size.x > 0.0:
+			logo_height = CREDITS_STUDIO_LOGO_WIDTH * (tex_size.y / tex_size.x)
+	credits_studio_logo.size = Vector2(CREDITS_STUDIO_LOGO_WIDTH, logo_height)
+	credits_studio_logo.position = Vector2(
+		(width - CREDITS_STUDIO_LOGO_WIDTH) * 0.5,
+		content_bottom + CREDITS_STUDIO_LOGO_GAP
+	)
+	content_bottom = _control_local_bottom(credits_studio_logo)
+	credits_scroll.size = Vector2(width, content_bottom + CREDITS_SCROLL_END_PADDING)
+	credits_scroll.position = Vector2(0.0, credits_margin.size.y)
+
+func _credits_text_start_y() -> float:
+	if not credits_title.visible:
+		return 0.0
+	return _control_local_bottom(credits_title) + 32.0
+
+func _control_local_bottom(control: Control) -> float:
+	var xform := control.get_transform()
+	var corners := [
+		Vector2.ZERO,
+		Vector2(control.size.x, 0.0),
+		Vector2(control.size.x, control.size.y),
+		Vector2(0.0, control.size.y),
+	]
+	var max_y := 0.0
+	for corner in corners:
+		max_y = maxf(max_y, (xform * corner).y)
+	return max_y
 
 func _on_dialogue_gui_input(event: InputEvent) -> void:
 	if not conversation_active:
@@ -279,6 +394,8 @@ func _on_dialogue_gui_input(event: InputEvent) -> void:
 		_advance_line()
 
 func _advance_line() -> void:
+	if _finish_typing_if_active():
+		return
 	_line_index += 1
 	if _line_index >= _lines.size():
 		_close_conversation()
@@ -287,12 +404,80 @@ func _advance_line() -> void:
 
 func _show_line(line: Variant) -> void:
 	var entry := _enrich_line(line if line is Dictionary else {"text": str(line)})
-	dialogue_label.text = str(entry.get("text", ""))
+	_begin_typing(str(entry.get("text", "")), str(entry.get("speaker", "")))
 	_apply_portrait(entry)
 	dialogue_line.emit(entry)
 	var action := str(entry.get("action", ""))
 	if not action.is_empty():
 		dialogue_action.emit(StringName(action))
+
+func _begin_typing(full_text: String, speaker: String) -> void:
+	_type_full = full_text
+	_type_speaker = speaker
+	_type_visible = 0
+	_type_accum = 0.0
+	_typing = not full_text.is_empty()
+	dialogue_blip.stop()
+	_sync_dialogue_label_source()
+	_refresh_typed_text()
+
+func _tick_dialogue_typing(delta: float) -> void:
+	if not _typing:
+		return
+	var type_speed := BUTCHER_TYPE_SPEED if _type_speaker == "butcher" else DIALOGUE_TYPE_SPEED
+	_type_accum += delta * type_speed
+	while _typing and _type_accum >= 1.0:
+		_type_accum -= 1.0
+		if _type_visible >= _type_full.length():
+			_typing = false
+			break
+		_type_visible += 1
+		var ch := _type_full[_type_visible - 1]
+		if ch != " " and DIALOGUE_BLIPS.has(_type_speaker) and not dialogue_blip.playing:
+			_play_dialogue_blip()
+		_refresh_typed_text()
+		if _type_visible >= _type_full.length():
+			_typing = false
+
+func _finish_typing_if_active() -> bool:
+	if not _typing:
+		return false
+	_typing = false
+	_type_visible = _type_full.length()
+	_type_accum = 0.0
+	dialogue_blip.stop()
+	_refresh_typed_text()
+	return true
+
+func _sync_dialogue_label_source() -> void:
+	if _type_speaker == "butcher":
+		dialogue_label.text = "[shake rate=20 level=18 connected=0]" + _type_full + "[/shake]"
+	else:
+		dialogue_label.text = _type_full
+
+func _refresh_typed_text() -> void:
+	if _type_full.is_empty() or (not _typing and _type_visible >= _type_full.length()):
+		dialogue_label.visible_characters = -1
+	else:
+		dialogue_label.visible_characters = _type_visible
+
+func _play_dialogue_blip() -> void:
+	if not DIALOGUE_BLIPS.has(_type_speaker) or dialogue_blip.playing:
+		return
+	var base_pitch: float = DIALOGUE_BLIP_PITCH.get(_type_speaker, 1.0)
+	var wobble := randf_range(-DIALOGUE_BLIP_PITCH_VARIANCE, DIALOGUE_BLIP_PITCH_VARIANCE)
+	dialogue_blip.pitch_scale = base_pitch * (1.0 + wobble)
+	dialogue_blip.volume_db = DIALOGUE_BLIP_VOLUME_GILBERT_DB if _type_speaker == "gilbert" else DIALOGUE_BLIP_VOLUME_DB
+	dialogue_blip.stream = DIALOGUE_BLIPS[_type_speaker]
+	dialogue_blip.play()
+
+func _stop_typing() -> void:
+	_typing = false
+	_type_full = ""
+	_type_visible = 0
+	_type_speaker = ""
+	_type_accum = 0.0
+	dialogue_blip.stop()
 
 func _enrich_line(raw: Dictionary) -> Dictionary:
 	var entry := raw.duplicate()
@@ -312,10 +497,12 @@ func _apply_portrait(line: Dictionary) -> void:
 
 func cancel_conversation() -> void:
 	var ended_block := _block_id
+	_stop_typing()
 	conversation_active = false
 	GameUI.set_movement_locked(false)
 	text_box.visible = false
 	dialogue_label.text = ""
+	dialogue_label.visible_characters = -1
 	portrait.visible = false
 	_lines.clear()
 	_block_id = &""
@@ -328,14 +515,16 @@ func _close_conversation() -> void:
 	conversation_finished.emit(finished_id)
 
 func _apply_dialogue_music(block_id: StringName) -> void:
-	if block_id in STOP_MUSIC_DIALOGUE_BLOCKS:
-		Audio.stop_music(1.5)
+	if block_id in JOB3_FINAL_CHAT_BLOCKS:
+		Audio.set_music_paused(true)
 	elif block_id in BUTCHER_DIALOGUE_BLOCKS:
 		Audio.crossfade_music_volume(-80.0, BUTCHER_MUSIC_FADE)
-		Audio.begin_remnant_vanish_audio()
+		Audio.begin_remnant_vanish_audio(Audio.VANISH_DIALOGUE_DB)
 
 func _release_dialogue_music(block_id: StringName) -> void:
-	if block_id in BUTCHER_DIALOGUE_BLOCKS:
+	if block_id == &"job3_epilogue":
+		Audio.set_music_paused(false)
+	elif block_id in BUTCHER_DIALOGUE_BLOCKS:
 		Audio.end_remnant_vanish_audio()
 		Audio.crossfade_music_volume(0.0, BUTCHER_MUSIC_FADE)
 

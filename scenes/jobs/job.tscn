@@ -146,6 +146,37 @@ texture = ExtResource("5_377pv")
 [sub_resource type="TileSet" id="TileSet_q7bc8"]
 sources/0 = SubResource("TileSetAtlasSource_odegx")
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_np3t2"]
+texture = ExtResource("3_yhiig")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/custom_data_0 = true
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_73kyu"]
+texture = ExtResource("4_odegx")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/custom_data_1 = true
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_og5lj"]
+texture = ExtResource("5_377pv")
+texture_region_size = Vector2i(32, 32)
+0:1/0 = 0
+0:1/0/custom_data_2 = true
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_f2uxh"]
+tile_size = Vector2i(32, 32)
+custom_data_layer_0/name = "dirt"
+custom_data_layer_0/type = 1
+custom_data_layer_1/name = "grass"
+custom_data_layer_1/type = 1
+custom_data_layer_2/name = "road"
+custom_data_layer_2/type = 1
+sources/1 = SubResource("TileSetAtlasSource_np3t2")
+sources/2 = SubResource("TileSetAtlasSource_73kyu")
+sources/3 = SubResource("TileSetAtlasSource_og5lj")
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_48aas"]
 texture = ExtResource("7_377pv")
 texture_region_size = Vector2i(64, 64)
@@ -337,6 +368,11 @@ tile_set = SubResource("TileSet_ik4td")
 tile_map_data = PackedByteArray("AAAAAP7/AgACAAIAAFAAAA0AAgACAAIAAAABAA0AAgACAAIAABA=")
 tile_set = SubResource("TileSet_q7bc8")
 
+[node name="AudioMapLayer" type="TileMapLayer" parent="World/Garden" unique_id=398730188]
+visible = false
+tile_map_data = PackedByteArray("AAD4////AgAAAAAAAAD4/wAAAgAAAAAAAAD4/wEAAgAAAAAAAAD4/wIAAgAAAAAAAAD4/wMAAgAAAAAAAAD4/wQAAgAAAAAAAAD5////AgAAAAAAAAD5/wAAAgAAAAAAAAD5/wEAAgAAAAAAAAD5/wIAAgAAAAAAAAD5/wMAAgAAAAAAAAD5/wQAAgAAAAAAAAD6////AgAAAAAAAAD6/wAAAgAAAAAAAAD6/wEAAgAAAAAAAAD6/wIAAgAAAAAAAAD6/wMAAgAAAAAAAAD6/wQAAgAAAAAAAAD7////AgAAAAAAAAD7/wAAAgAAAAAAAAD7/wEAAgAAAAAAAAD7/wIAAgAAAAAAAAD7/wMAAgAAAAAAAAD7/wQAAgAAAAAAAAD8////AgAAAAAAAAD8/wAAAgAAAAAAAAD8/wEAAgAAAAAAAAD8/wIAAgAAAAAAAAD8/wMAAgAAAAAAAAD8/wQAAgAAAAAAAAD9////AgAAAAAAAAD9/wAAAgAAAAAAAAD9/wEAAgAAAAAAAAD9/wIAAgAAAAAAAAD9/wMAAgAAAAAAAAD9/wQAAgAAAAAAAAD+////AgAAAAAAAAD+/wAAAgAAAAAAAAD+/wEAAgAAAAAAAAD+/wIAAgAAAAAAAAD+/wMAAgAAAAAAAAD+/wQAAgAAAAAAAAD/////AgAAAAAAAAD//wAAAgAAAAAAAAD//wEAAgAAAAAAAAD//wIAAgAAAAAAAAD//wMAAgAAAAAAAAD//wQAAgAAAAAAAAA=")
+tile_set = SubResource("TileSet_f2uxh")
+
 [node name="Leaves" type="Node2D" parent="." unique_id=355254947]
 
 [node name="LeafPile" parent="Leaves" unique_id=507080395 instance=ExtResource("1_4nao2")]
@@ -398,10 +434,10 @@ spin = 0.3141592653589793
 edge_wobble = 0.32
 
 [node name="GardenArea" type="Polygon2D" parent="." unique_id=1877079582]
-position = Vector2(42.174583, -5.2819204)
-scale = Vector2(1.3492063, 1.0265956)
+position = Vector2(41.403797, -5.2819204)
+scale = Vector2(1.327619, 1.0265956)
 color = Color(1, 1, 1, 0)
-polygon = PackedVector2Array(-31.25881, -33.818653, -220.2588, -32.84456, -220.99998, 175.61143, -30.517633, 175.61143)
+polygon = PackedVector2Array(-35.705868, -32.84456, -220.24677, -32.84456, -220.99998, 175.61143, -36.447044, 175.61143)
 
 [node name="TreeBackground" type="TileMapLayer" parent="." unique_id=943943578]
 tile_map_data = PackedByteArray("AAD4//7/AAAAAAAAAAD5//7/AAAAAAAAAAD6//7/AAAAAAAAAAD7//7/AAAAAAAAAAD8//7/AAAAAAAAAAD9//7/AAAAAAAAAAD+//7/AAAAAAAAAAD///7/AAAAAAAAAAD2//7/AAAAAAAAAAD3//7/AAAAAAAAAAACAP7/AAAAAAAAAAADAP7/AAAAAAAAAAAEAP7/AAAAAAAAAAAFAP7/AAAAAAAAAAABAP7/AAAAAAAAAAAAAP7/AAAAAAAAAAD1//7/AAAAAAAAAAAJAP7/AAAAAAAAAAAIAP7/AAAAAAAAAAAHAP7/AAAAAAAAAAAGAP7/AAAAAAAAAAD0//7/AAAAAAAAAADz//7/AAAAAAAAAADy//7/AAAAAAAAAADx//7/AAAAAAAAAADw//7/AAAAAAAAAADv//7/AAAAAAAAAAA=")

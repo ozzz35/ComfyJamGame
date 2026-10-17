@@ -7,10 +7,12 @@
 [ext_resource type="Texture2D" uid="uid://qpkv6pqmbu8x" path="res://assets/art/ui/button3.png" id="4_btn3"]
 [ext_resource type="Texture2D" uid="uid://dwb6ifgw176v4" path="res://assets/art/ui/button1.png" id="5_btn1"]
 [ext_resource type="PackedScene" uid="uid://b4ril0gw2pdbw" path="res://scenes/ui/options_overlay.tscn" id="6_options"]
-[ext_resource type="Texture2D" uid="uid://c0p2lvev6hq26" path="res://assets/art/ui/main_menu_bg.png" id="8_jcn1r"]
 [ext_resource type="StyleBox" path="res://resources/ui/menu_button_normal.tres" id="9_norm"]
 [ext_resource type="StyleBox" path="res://resources/ui/menu_button_hover.tres" id="10_hov"]
+[ext_resource type="Texture2D" uid="uid://cxinc514xu5ej" path="res://assets/art/ui/outro_bg.png" id="11_4kltc"]
 [ext_resource type="StyleBox" path="res://resources/ui/menu_button_pressed.tres" id="11_prs"]
+[ext_resource type="Texture2D" uid="uid://dftguec27al63" path="res://assets/art/ui/solace_title.png" id="12_solace"]
+[ext_resource type="Texture2D" uid="uid://ck8c6sd74cw13" path="res://assets/art/ui/cliffwake_logo.png" id="13_cliffwake"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btn2"]
 content_margin_left = 12.0
@@ -49,6 +51,12 @@ colors = PackedColorArray(0, 0, 0, 0.23529412)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_f1nwj"]
 gradient = SubResource("Gradient_pfayw")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dialogue_pad"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btn1"]
 content_margin_left = 8.0
@@ -285,18 +293,23 @@ theme_override_constants/margin_bottom = 39
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="DialogueLabel" type="Label" parent="DialoguePanel/TextMargin/Column" unique_id=260928242]
+[node name="DialogueLabel" type="RichTextLabel" parent="DialoguePanel/TextMargin/Column" unique_id=260928242]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.55)
+theme_override_constants/shadow_outline_size = 0
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource("2_f5cxw")
-theme_override_font_sizes/font_size = 22
-vertical_alignment = 1
-autowrap_mode = 3
+theme_override_constants/outline_size = 5
+theme_override_fonts/normal_font = ExtResource("2_f5cxw")
+theme_override_font_sizes/normal_font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxEmpty_dialogue_pad")
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
 
 [node name="AdvanceHint" type="Label" parent="DialoguePanel/TextMargin/Column" unique_id=885951521]
 layout_mode = 2
@@ -307,6 +320,9 @@ theme_override_fonts/font = ExtResource("2_f5cxw")
 theme_override_font_sizes/font_size = 14
 text = "E or click to continue"
 horizontal_alignment = 2
+
+[node name="DialogueBlip" type="AudioStreamPlayer" parent="DialoguePanel" unique_id=1800843816]
+bus = &"SFX"
 
 [node name="WorldPrompt" type="Control" parent="." unique_id=1470494714]
 visible = false
@@ -402,10 +418,11 @@ pause_game_when_open = true
 title_text = "Paused"
 
 [node name="CreditsOverlay" type="TextureRect" parent="." unique_id=1620455417]
+visible = false
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-texture = ExtResource("8_jcn1r")
+texture = ExtResource("11_4kltc")
 
 [node name="CreditsMargin" type="MarginContainer" parent="CreditsOverlay" unique_id=1587879362]
 clip_contents = true
@@ -414,12 +431,45 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_right = 30.0
+offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CreditsLabel" type="Label" parent="CreditsOverlay/CreditsMargin" unique_id=135992072]
+[node name="CreditsScroll" type="Control" parent="CreditsOverlay/CreditsMargin" unique_id=1982736401]
 layout_mode = 2
+mouse_filter = 2
+
+[node name="CreditsTitle" type="TextureRect" parent="CreditsOverlay/CreditsMargin/CreditsScroll" unique_id=1982736402]
+layout_mode = 0
+offset_left = 100.0
+offset_top = -77.0
+offset_right = 580.0
+offset_bottom = 17.0
+scale = Vector2(2, 2)
+mouse_filter = 2
+texture = ExtResource("12_solace")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CreditsLabel" type="Label" parent="CreditsOverlay/CreditsMargin/CreditsScroll" unique_id=135992072]
+layout_mode = 0
+offset_top = 120.0
+offset_right = 960.0
+offset_bottom = 400.0
 theme_override_fonts/font = ExtResource("2_f5cxw")
 theme_override_font_sizes/font_size = 28
-text = "Credits"
+text = "Comfy Jam Autumn 2026
+
+Featuring contributors from Cliffwake Studio
+
+Devs
+Ozz, Akuvent (Alexis Rats-Forger)"
 horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="CreditsStudioLogo" type="TextureRect" parent="CreditsOverlay/CreditsMargin/CreditsScroll" unique_id=1982736403]
+layout_mode = 0
+mouse_filter = 2
+texture = ExtResource("13_cliffwake")
+expand_mode = 1
+stretch_mode = 5

@@ -34,7 +34,7 @@ func _ready() -> void:
 	exit.monitoring = false
 	_yard_ghost = get_node_or_null("Ghost") as Node2D
 	_gilbert_finale = get_node_or_null("GilbertFinale") as Node2D
-	if _yard_ghost:
+	if _yard_ghost and _is_job3_yard():
 		_yard_ghost.visible = false
 	if _gilbert_finale:
 		_gilbert_finale.visible = false
@@ -196,8 +196,6 @@ func _on_dialogue_line(line: Dictionary) -> void:
 	var focus_id := str(line.get("focus", ""))
 	if focus_id.is_empty():
 		return
-	if _finale_pulled_back:
-		return
 	var cam := _player.get_node_or_null("Camera") as Camera2D
 	if cam == null:
 		return
@@ -210,10 +208,10 @@ func _on_dialogue_line(line: Dictionary) -> void:
 func _pull_back_for_finale(cam: Camera2D, focus_id: String) -> void:
 	if _finale_pulled_back or focus_id != "gilbert":
 		return
-	if _gilbert_finale == null or not _gilbert_finale.visible or _yard_ghost == null:
+	if _gilbert_finale == null or not _gilbert_finale.visible:
 		return
 	_finale_pulled_back = true
-	cam.pull_back_to_include(_yard_ghost.global_position)
+	cam.pull_back()
 
 func _on_dialogue_action(action: StringName) -> void:
 	match action:
@@ -225,6 +223,7 @@ func _on_dialogue_action(action: StringName) -> void:
 		&"ghost_fade":
 			_tween_ghost_modulate(0.0, 1.2, true)
 		&"start_credits":
+			Audio.play_music("finale", 2.0)
 			if _ui:
 				_ui.show_credits()
 
@@ -254,6 +253,10 @@ func _leave_through_exit(body: Node) -> void:
 		_ui.cancel_conversation()
 		_ui.hide_help()
 	GameManager.leave_job.call_deferred()
+
+
+func _is_job3_yard() -> bool:
+	return GameManager.current_job is JobData and (GameManager.current_job as JobData).job_number == 3
 
 
 func _play_yard_music() -> void:
